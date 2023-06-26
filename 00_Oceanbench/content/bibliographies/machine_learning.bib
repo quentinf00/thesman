@@ -1,0 +1,547 @@
+@article{ML4OCN,
+doi = {10.1088/1748-9326/ac0eb0},
+year = 2021,
+month = {July},
+publisher = {{IOP} Publishing},
+volume = {16},
+number = {7},
+pages = {073008},
+author = {Maike Sonnewald and Redouane Lguensat and Daniel C Jones and Peter D Dueben and Julien Brajard and V Balaji},
+title = {Bridging observations, theory and numerical simulation of the ocean using machine learning},
+journal = {Environmental Research Letters}
+}
+
+
+@article{SSHInterpAttention,
+	abstract = {Understanding of geoscience relies on spatio-temporal continuous fields, such as Sea Surface Height (SSH). Data reconstruction for restoring spatio-temporal continuous and gridded maps from incomplete observations and inaccuracy interpolation products has long been a crucial challenge in the marine geoscience. Despite remarkable progress, most existing learning-based reconstruction methods neglect to fully and discriminatively utilize the inter-layer and intra-layer features. The inter-layer semantics are complementary, and the significance of intra-layer components varies with frequency. To address these issues, we propose a multi-layer Feature Combination Network based on Attention mechanism (FCANet) for SSH data reconstruction. Specifically, a novel trainable Multi-layer Feature Combination Block (MFCB) is developed to enrich the features through inter-layer dependencies. Dual attention mechanism is introduced into the MFCB to enhance saliency of intra-layer features by adaptively rescaling the spatial-wise and channel-wise features. Furthermore, experimental results on SSH variable demonstrate the superiority of our FCANet over state-of-the-art reconstruction methods in the metrics of RMSE and SSIM.},
+	author = {Ke Zhang and Lei Huang and Zhiqiang Wei and Chen An and Xianqing Lv},
+	doi = {https://doi.org/10.1016/j.neucom.2023.126313},
+	issn = {0925-2312},
+	journal = {Neurocomputing},
+	keywords = {Sea surface height, Data reconstruction, Feature combination, Attention mechanism},
+	pages = {126313},
+	title = {Sea surface height data reconstruction via inter and intra layer features based on dual attention},
+	url = {https://www.sciencedirect.com/science/article/pii/S0925231223004368},
+	volume = {545},
+	year = {2023},
+	bdsk-url-1 = {https://www.sciencedirect.com/science/article/pii/S0925231223004368},
+	bdsk-url-2 = {https://doi.org/10.1016/j.neucom.2023.126313}}
+
+
+@article{SSHInterpConvLSTM,
+	abstract = {Abstract Gridded sea surface height (SSH) maps estimated from satellite altimetry are widely used for estimating surface ocean geostrophic currents. Satellite altimeters observe SSH along one-dimensional tracks widely spaced in space and time, making accurately reconstructing the two-dimensional (2D) SSH field challenging. Traditionally, SSH is mapped using optimal interpolation (OI). However, OI artificially smooths the SSH field leading to high mapping errors in regions with rapidly-evolving mesoscale features such as western boundary currents. Motivated by the dynamical relation between SSH and sea surface temperature (SST) and the notion that even the chaotic evolution of mesoscale ocean turbulence may contain repeating patterns, we outline a deep learning (DL) approach where a neural network is trained to reconstruct 2D SSH by synthesizing altimetry and SST observations. In the Gulf Stream Extension region, dominated by mesoscale variability, our DL method substantially improves the SSH reconstruction compared to existing methods. Our SSH map has 17\% lower root-mean-square error and resolves spatial scales 30\% smaller than OI compared against independent altimeter observations. Surface geostrophic currents calculated from our map are closer to surface drifter observations and appear qualitatively more realistic, with stronger currents, a clearer separation between the Gulf Stream and neighboring eddies, and the appearance of smaller coherent eddies missed by other methods. Our map yields significant re-estimations of important dynamical quantities such as eddy kinetic energy, vorticity, and strain rate. Applying our DL method to produce a global SSH product may provide a more accurate and higher resolution product for studying mesoscale ocean turbulence.},
+	author = {Martin, Scott A. and Manucharyan, Georgy E. and Klein, Patrice},
+	doi = {https://doi.org/10.1029/2022MS003589},
+	eprint = {https://agupubs.onlinelibrary.wiley.com/doi/pdf/10.1029/2022MS003589},
+	journal = {Journal of Advances in Modeling Earth Systems},
+	keywords = {ocean dynamics, mesoscale eddies, deep learning, satellite altimetry, sea surface temperature, sea surface height},
+	note = {e2022MS003589 2022MS003589},
+	number = {5},
+	pages = {e2022MS003589},
+	title = {Synthesizing Sea Surface Temperature and Satellite Altimetry Observations Using Deep Learning Improves the Accuracy and Resolution of Gridded Sea Surface Height Anomalies},
+	url = {https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/2022MS003589},
+	volume = {15},
+	year = {2023},
+	bdsk-url-1 = {https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/2022MS003589},
+	bdsk-url-2 = {https://doi.org/10.1029/2022MS003589}}
+
+
+@inproceedings{SSHInterpUNet,
+  TITLE = {{Multimodal Unsupervised Spatio-Temporal Interpolation of satellite ocean altimetry maps}},
+  AUTHOR = {Archambault, Th{\'e}o and Filoche, Arthur and Charantonnis, Anastase and B{\'e}r{\'e}ziat, Dominique},
+  URL = {https://hal.sorbonne-universite.fr/hal-03934647},
+  BOOKTITLE = {{VISAPP}},
+  ADDRESS = {Lisboa, Portugal},
+  YEAR = {2023},
+  MONTH = Feb,
+  KEYWORDS = {Image inverse problems ; Deep neural network ; Spatio Temporal interpolation ; Multimodal observations ; Unsupervised neural network ; Satellite remote sensing},
+  HAL_ID = {hal-03934647},
+  HAL_VERSION = {v1},
+}
+
+
+@article{GraphCast,
+  title={GraphCast: Learning skillful medium-range global weather forecasting},
+  author={R{\'e}mi R. Lam and Alvaro Sanchez-Gonzalez and Matthew Willson and Peter Wirnsberger and Meire Fortunato and Alexander Pritzel and Suman V. Ravuri and Timo Ewalds and Ferran Alet and Zach Eaton-Rosen and Weihua Hu and Alexander Merose and Stephan Hoyer and George Holland and Jacklynn Stott and Oriol Vinyals and Shakir Mohamed and Peter W. Battaglia},
+  journal={ArXiv},
+  year={2022},
+  volume={abs/2212.12794}
+}
+
+@misc{FourCastNet,
+      title={FourCastNet: A Global Data-driven High-resolution Weather Model using Adaptive Fourier Neural Operators}, 
+      author={Jaideep Pathak and Shashank Subramanian and Peter Harrington and Sanjeev Raja and Ashesh Chattopadhyay and Morteza Mardani and Thorsten Kurth and David Hall and Zongyi Li and Kamyar Azizzadenesheli and Pedram Hassanzadeh and Karthik Kashinath and Animashree Anandkumar},
+      year={2022},
+      eprint={2202.11214},
+      archivePrefix={arXiv},
+      primaryClass={physics.ao-ph}
+}
+
+@article{SuperResSurvey,
+  title={Deep Learning for Image Super-Resolution: A Survey},
+  author={Zhihao Wang and Jian Chen and Steven C. H. Hoi},
+  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  year={2019},
+  volume={43},
+  pages={3365-3387}
+}
+
+
+@article{InPaintingSurvey,
+	abstract = {Image inpainting has been widely exploited in the field of computer vision and image processing. The main purpose of image inpainting is to produce visually plausible structure and texture for the missing regions of damaged images. In the past decade, the success of deep learning has brought new opportunities to many vision tasks, which promoted the development of a large number of deep learning-based image inpainting methods. Although these methods have many similarities, they also have their own characteristics due to the differences in data types, application scenarios, computing platforms, etc. It is necessary to classify and summarize these methods to provide a reference for the research community. In this survey, we present a comprehensive overview of recent advances in deep learning-based image inpainting. First, we categorize the deep learning-based techniques from multiple perspectives: inpainting strategies, network structures, and loss functions. Second, we summarize the open source codes and representative public datasets, and introduce the evaluation metrics for quantitative comparisons. Third, we summarize the real-world applications of image inpainting in different scenarios, and give a detailed analysis on the performance of different inpainting algorithms. At last, we conclude the survey and discuss about the future directions.},
+	author = {Hanyu Xiang and Qin Zou and Muhammad Ali Nawaz and Xianfeng Huang and Fan Zhang and Hongkai Yu},
+	doi = {https://doi.org/10.1016/j.patcog.2022.109046},
+	issn = {0031-3203},
+	journal = {Pattern Recognition},
+	keywords = {Image inpainting, Image restoration, Generative adversarial network, Convolutional neural network},
+	pages = {109046},
+	title = {Deep learning for image inpainting: A survey},
+	url = {https://www.sciencedirect.com/science/article/pii/S003132032200526X},
+	volume = {134},
+	year = {2023},
+	bdsk-url-1 = {https://www.sciencedirect.com/science/article/pii/S003132032200526X},
+	bdsk-url-2 = {https://doi.org/10.1016/j.patcog.2022.109046}}
+
+@article{DENOISESURVEY,
+  title={Deep Learning on Image Denoising: An overview},
+  author={Chunwei Tian and Lunke Fei and Wenxian Zheng and Yong Xu and Wangmeng Zuo and Chia-Wen Lin},
+  journal={Neural networks : the official journal of the International Neural Network Society},
+  year={2019},
+  volume={131},
+  pages={
+          251-275
+        }
+}
+
+@article{DENOISESURVEY2,
+  author={Thakur, Rini Smita and Chatterjee, Shubhojeet and Yadav, Ram Narayan and Gupta, Lalita},
+  journal={IEEE Access}, 
+  title={Image De-Noising With Machine Learning: A Review}, 
+  year={2021},
+  volume={9},
+  number={},
+  pages={93338-93363},
+  doi={10.1109/ACCESS.2021.3092425}}
+
+
+@inproceedings{ATTENTION,
+	author = {Vaswani, Ashish and Shazeer, Noam and Parmar, Niki and Uszkoreit, Jakob and Jones, Llion and Gomez, Aidan N and Kaiser, \L ukasz and Polosukhin, Illia},
+	booktitle = {Advances in Neural Information Processing Systems},
+	editor = {I. Guyon and U. Von Luxburg and S. Bengio and H. Wallach and R. Fergus and S. Vishwanathan and R. Garnett},
+	publisher = {Curran Associates, Inc.},
+	title = {Attention is All you Need},
+	url = {https://proceedings.neurips.cc/paper_files/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf},
+	volume = {30},
+	year = {2017},
+	bdsk-url-1 = {https://proceedings.neurips.cc/paper_files/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf}
+ }
+
+
+@inproceedings{DATA4ML,
+author = {Sambasivan, Nithya and Kapania, Shivani and Highfill, Hannah and Akrong, Diana and Paritosh, Praveen and Aroyo, Lora M},
+title = {“Everyone Wants to Do the Model Work, Not the Data Work”: Data Cascades in High-Stakes AI},
+year = {2021},
+isbn = {9781450380966},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3411764.3445518},
+doi = {10.1145/3411764.3445518},
+abstract = {AI models are increasingly applied in high-stakes domains like health and conservation. Data quality carries an elevated significance in high-stakes AI due to its heightened downstream impact, impacting predictions like cancer detection, wildlife poaching, and loan allocations. Paradoxically, data is the most under-valued and de-glamorised aspect of AI. In this paper, we report on data practices in high-stakes AI, from interviews with 53 AI practitioners in India, East and West African countries, and USA. We define, identify, and present empirical evidence on Data Cascades—compounding events causing negative, downstream effects from data issues—triggered by conventional AI/ML practices that undervalue data quality. Data cascades are pervasive (92\% prevalence), invisible, delayed, but often avoidable. We discuss HCI opportunities in designing and incentivizing data excellence as a first-class citizen of AI, resulting in safer and more robust systems for all.},
+booktitle = {Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems},
+articleno = {39},
+numpages = {15},
+keywords = {Kenya, raters, Nigeria, ML, Uganda, data collectors, USA, Data, AI, application-domain experts, data quality, India, high-stakes AI, data politics, Ghana, data cascades, developers},
+location = {Yokohama, Japan},
+series = {CHI '21}
+}
+
+@article{GPsBIGDATA,
+  title={When Gaussian Process Meets Big Data: A Review of Scalable GPs},
+  author={Haitao Liu and Y. Ong and Xiaobo Shen and Jianfei Cai},
+  journal={IEEE Transactions on Neural Networks and Learning Systems},
+  year={2018},
+  volume={31},
+  pages={4405-4423}
+}
+
+@article{NERFSSSH,
+  title={Neural Fields for Fast and Scalable Interpolation of Geophysical Ocean Variables},
+  author={J. Emmanuel Johnson and Redouane Lguensat and Ronan Fablet and Emmanuel Cosme and Julien Le Sommer},
+  journal={ArXiv},
+  year={2022},
+  volume={abs/2211.10444}
+}
+
+@article{PARAMETERIZATIONSTOCHASTIC,
+author = {Guillaumin, Arthur P. and Zanna, Laure},
+title = {Stochastic-Deep Learning Parameterization of Ocean Momentum Forcing},
+journal = {Journal of Advances in Modeling Earth Systems},
+volume = {n/a},
+number = {n/a},
+pages = {e2021MS002534},
+keywords = {parameterization, mesoscale, Deep Learning, turbulence, stochastic, Oceans},
+doi = {https://doi.org/10.1029/2021MS002534},
+eprint = {https://agupubs.onlinelibrary.wiley.com/doi/pdf/10.1029/2021MS002534},
+note = {e2021MS002534 2021MS002534},
+abstract = {AbstractCoupled climate simulations that span several hundred years cannot be run at a high-enough spatial resolution to resolve mesoscale ocean dynamics. Recently, several studies have considered Deep Learning to parameterize subgrid forcing within macroscale ocean equations using data from ocean-only simulations with idealized geometry. We present a stochastic Deep Learning parameterization that is trained on data generated by CM2.6, a high-resolution state-of-the-art coupled climate model. We train a Convolutional Neural Network for the subgrid momentum forcing using macroscale surface velocities from a few selected subdomains with different dynamical regimes. At each location of the coarse grid, rather than predicting a single number for the subgrid momentum forcing, we predict both the mean and standard deviation of a Gaussian probability distribution. This approach requires training our neural network to minimize a negative log-likelihood loss function rather than the Mean Square Error, which has been the standard in applications of Deep Learning to the problem of parameterizations. Each estimate of the conditional mean subgrid forcing is thus associated with an uncertainty estimate – the standard deviation – which will form the basis for a stochastic subgrid parameterization. Offline tests show that our parameterization generalizes well to the global oceans and a climate with increased levels without further training. We then implement our learned stochastic parameterization in an eddy-permitting idealized shallow water model. The implementation is stable and improves some statistics of the flow. Our work demonstrates the potential of combining Deep Learning tools with a probabilistic approach in parameterizing unresolved ocean dynamics.}
+}
+
+
+@article{4DVARNETSWOT,
+  title={4DVarNet-SSH: end-to-end learning of variational interpolation schemes for nadir and wide-swath satellite altimetry},
+  author={Maxime Beauchamp and Quentin Febvre and Hugo Georgentum and Ronan Fablet},
+  journal={Geoscientific Model Development},
+  year={2022}
+}
+
+@article{4DVARNETSST,
+  title={Multimodal 4DVarNets for the Reconstruction of Sea Surface Dynamics From SST-SSH Synergies},
+  author={Ronan Fablet and Quentin Febvre and Bertrand Chapron},
+  journal={IEEE Transactions on Geoscience and Remote Sensing},
+  year={2022},
+  volume={61},
+  pages={1-14}
+}
+
+@article{MLCLOSURE,
+  title={Data-Driven Equation Discovery of Ocean Mesoscale Closures},
+  author={Zanna, Laure and Bolton, Thomas},
+  journal={Geophysical Research Letters},
+  volume={47},
+  number={17},
+  pages={e2020GL088376},
+  year={2020},
+  publisher={Wiley Online Library}
+}
+
+
+@article{DINEOF,
+	abstract = {A method for the reconstruction of missing data based on an EOF decomposition has been applied to a large data set, a test case of Sea Surface Temperature satellite images of the Adriatic Sea. The EOF decomposition is realised with a Lanczos method, which allows optimising computational time for large matrices. The results show that the reconstruction method leads to accurate reconstructions as well as a low cpu time when dealing with realistic cases. The method has been tested with different amounts of missing data, artificially adding clouds ranging from 40\% to 80\% of data loss, and then compared to the same data set with no missing data. A comparison with in situ data has also been made. These validation studies show that results are robust, even when the amount of missing data is very high. The reconstruction of the data from the Adriatic Sea shows realistic features and a reliable temperature distribution. In addition, the method is compared to an Optimal Interpolation reconstruction. The results obtained with both methods are very similar. The main difference is the computational time, which is reduced nearly 30 times with the method presented here. Once the reconstruction has been performed, the EOF decomposition is analysed to show the method's reliability, and a cold event on the Albanian coast is studied. The reconstructed data reflect the effect of wind on the Albanian coast, that led to a cold-water episode in this zone for a 6-day period. (c) 2004 Elsevier Ltd. All rights reserved.},
+	author = {Alvera Azcarate, A{\"\i}da and Barth, Alexander and Rixen, Michel and Beckers, Jean-Marie},
+	doi = {10.1016/j.ocemod.2004.08.001},
+	issn = {1463-5003},
+	journal = {Ocean Modelling},
+	language = {English},
+	number = {4},
+	publisher = {Elsevier Sci Ltd},
+	title = {Reconstruction of incomplete oceanographic data sets using empirical orthogonal functions: application to the Adriatic Sea surface temperature},
+	url = {http://www.sciencedirect.com/science?_ob=ArticleURL&_udi=B6VPS-4DBC5P2-1&_user=532038&_rdoc=1&_fmt=&_orig=search&_sort=d&view=c&_acct=C000026659&_version=1&_urlVersion=0&_userid=532038&md5=5138874279ccd7a8fdfd25b45b496989},
+	volume = {9},
+	year = {2005},
+	bdsk-url-1 = {http://www.sciencedirect.com/science?_ob=ArticleURL&_udi=B6VPS-4DBC5P2-1&_user=532038&_rdoc=1&_fmt=&_orig=search&_sort=d&view=c&_acct=C000026659&_version=1&_urlVersion=0&_userid=532038&md5=5138874279ccd7a8fdfd25b45b496989},
+	bdsk-url-2 = {https://doi.org/10.1016/j.ocemod.2004.08.001}}
+
+
+@article{DINEOF2,
+	abstract = {An empirical orthogonal function--based technique called Data Interpolating Empirical Orthogonal Functions (DINEOF) is used in a multivariate approach to reconstruct missing data. Sea surface temperature (SST), chlorophyll a concentration, and QuikSCAT winds are used to assess the benefit of a multivariate reconstruction. In particular, the combination of SST plus chlorophyll, SST plus lagged SST plus chlorophyll, and SST plus lagged winds have been studied. To assess the quality of the reconstructions, the reconstructed SST and winds have been compared to in situ data. The combination of SST plus chlorophyll, as well as SST plus lagged SST plus chlorophyll, significantly improves the results obtained by the reconstruction of SST alone. All the experiments correctly represent the SST, and an upwelling/downwelling event in the West Florida Shelf reproduced by the reconstructed data is studied.},
+	author = {Alvera Azcarate, A{\"\i}da and Barth, Alexander and Beckers, Jean-Marie and Weisberg, Robert H},
+	doi = {10.1029/2006JC003660},
+	issn = {2169-9275},
+	journal = {Journal of Geophysical Research. Oceans},
+	language = {English},
+	number = {C3},
+	publisher = {American Geophysical Union (AGU)},
+	title = {Multivariate reconstruction of missing data in sea surface temperature, chlorophyll, and wind satellite fields},
+	volume = {112},
+	year = {2007},
+	bdsk-url-1 = {https://doi.org/10.1029/2006JC003660}}
+
+
+
+@article{ANALOGDA,
+	address = {Boston MA, USA},
+	author = {Redouane Lguensat and Pierre Tandeo and Pierre Ailliot and Manuel Pulido and Ronan Fablet},
+	doi = {https://doi.org/10.1175/MWR-D-16-0441.1},
+	journal = {Monthly Weather Review},
+	number = {10},
+	pages = {4093 - 4107},
+	publisher = {American Meteorological Society},
+	title = {The Analog Data Assimilation},
+	url = {https://journals.ametsoc.org/view/journals/mwre/145/10/mwr-d-16-0441.1.xml},
+	volume = {145},
+	year = {2017},
+	bdsk-url-1 = {https://journals.ametsoc.org/view/journals/mwre/145/10/mwr-d-16-0441.1.xml},
+	bdsk-url-2 = {https://doi.org/10.1175/MWR-D-16-0441.1}}
+
+
+
+@inproceedings{ANALOGDA2,
+	abstract = {Nowadays, ocean and atmosphere sciences face a deluge of data from space, in situ monitoring as well as numerical simulations. The availability of these different data sources offers new opportunities, still largely underexploited, to improve the understanding, modeling, and reconstruction of geophysical dynamics. The classical way to reconstruct the space-time variations of a geophysical system from observations relies on data assimilation methods using multiple runs of the known dynamical model. This classical framework may have severe limitations including its computational cost, the lack of adequacy of the model with observed data, and modeling uncertainties. In this paper, we explore an alternative approach and develop a fully data-driven framework, which combines machine learning and statistical sampling to simulate the dynamics of complex system. As a proof concept, we address the assimilation of the chaotic Lorenz-63 model. We demonstrate that a nonparametric sampler from a catalog of historical datasets, namely, a nearest neighbor or analog sampler, combined with a classical stochastic data assimilation scheme, the ensemble Kalman filter and smoother, reaches state-of-the-art performances, without online evaluations of the physical model.},
+	address = {Cham},
+	author = {Tandeo, Pierre and Ailliot, Pierre and Ruiz, Juan and Hannart, Alexis and Chapron, Bertrand and Cuzol, Anne and Monbet, Val{\'e}rie and Easton, Robert and Fablet, Ronan},
+	booktitle = {Machine Learning and Data Mining Approaches to Climate Science},
+	editor = {Lakshmanan, Valliappa and Gilleland, Eric and McGovern, Amy and Tingley, Martin},
+	isbn = {978-3-319-17220-0},
+	pages = {3--12},
+	publisher = {Springer International Publishing},
+	title = {Combining Analog Method and Ensemble Data Assimilation: Application to the Lorenz-63 Chaotic System},
+	year = {2015}}
+
+
+@article{IMAGE2IMAGETRANSLATION,
+  title={Image-to-Image Translation: Methods and Applications},
+  author={Yingxue Pang and Jianxin Lin and Tao Qin and Zhibo Chen},
+  journal={IEEE Transactions on Multimedia},
+  year={2021},
+  volume={24},
+  pages={3859-3881}
+}
+
+
+@article{IMAGE2IMAGETRANSLATION2,
+	abstract = {Supervised image-to-image translation has been proven to generate realistic images with sharp details and to have good quantitative performance. Such methods are trained on a paired dataset, where an image from the source domain already has a corresponding translated image in the target domain. However, this paired dataset requirement imposes a huge practical constraint, requires domain knowledge or is even impossible to obtain in certain cases. Due to these problems, unsupervised image-to-image translation has been proposed, which does not require domain expertise and can take advantage of a large unlabeled dataset. Although such models perform well, they are hard to train due to the major constraints induced in their loss functions, which make training unstable. Since CycleGAN has been released, numerous methods have been proposed which try to address various problems from different perspectives. In this review, we firstly describe the general image-to-image translation framework and discuss the datasets and metrics involved in the topic. Furthermore, we revise the current state-of-the-art with a classification of existing works. This part is followed by a small quantitative evaluation, for which results were taken from papers.},
+	article-number = {8540},
+	author = {Hoyez, Henri and Schockaert, C{\'e}dric and Rambach, Jason and Mirbach, Bruno and Stricker, Didier},
+	doi = {10.3390/s22218540},
+	issn = {1424-8220},
+	journal = {Sensors},
+	number = {21},
+	pubmedid = {36366238},
+	title = {Unsupervised Image-to-Image Translation: A Review},
+	url = {https://www.mdpi.com/1424-8220/22/21/8540},
+	volume = {22},
+	year = {2022},
+	bdsk-url-1 = {https://www.mdpi.com/1424-8220/22/21/8540},
+	bdsk-url-2 = {https://doi.org/10.3390/s22218540}}
+
+
+
+@incollection{DEEPUNFOLDING,
+	abstract = {Model-based methods and learning-based methods have been the two dominant strategies for solving various image restoration problems in low-level vision. Typically, those two kinds of methods have their respective merits and drawbacks, e.g., model-based methods are flexible for handling different image restoration problems but are usually time-consuming with sophisticated priors for the purpose of good performance; meanwhile, learning-based methods are continuously showing superior effectiveness and efficiency over traditional model-based methods, largely due to the end-to-end training, but generally lack the flexibility to handle different image restoration tasks. In this chapter, we attempt to provide a gentle introduction to deep plug-and-play methods and deep unfolding methods, which have shown great promise by leveraging both learning-based methods and model-based methods. The main idea of deep plug-and-play methods is that, with the aid of variable splitting techniques, a learning-based denoiser can implicitly serve as the image prior for model-based image restoration methods, while the main idea of deep unfolding methods is that, by unfolding the model-based methods via variable splitting algorithms, an end-to-end trainable, iterative network can be obtained by replacing the corresponding subproblems with neural modules. As a result, the deep plug-and-play methods and deep unfolding methods can inherit the flexibility of model-based methods, while maintaining the advantages of learning-based methods. Experimental results on two representative image restoration tasks, including deblurring and superresolution, demonstrate the flexibility and effectiveness of deep plug-and-play methods and deep unfolding methods.},
+	author = {Kai Zhang and Radu Timofte},
+	booktitle = {Advanced Methods and Deep Learning in Computer Vision},
+	doi = {https://doi.org/10.1016/B978-0-12-822109-9.00023-0},
+	editor = {E.R. Davies and Matthew A. Turk},
+	isbn = {978-0-12-822109-9},
+	keywords = {Plug-and-play image restoration, Deep unfolding, Image denoising, Image deblurring, Image superresolution, Half quadratic splitting algorithm},
+	pages = {481-509},
+	publisher = {Academic Press},
+	series = {Computer Vision and Pattern Recognition},
+	title = {Chapter 14 - Deep plug-and-play and deep unfolding methods for image restoration},
+	url = {https://www.sciencedirect.com/science/article/pii/B9780128221099000230},
+	year = {2022},
+	bdsk-url-1 = {https://www.sciencedirect.com/science/article/pii/B9780128221099000230},
+	bdsk-url-2 = {https://doi.org/10.1016/B978-0-12-822109-9.00023-0}}
+
+
+@article{KRIGINGREVIEW,
+	abstract = {Despite an ever-increasing number of spaceborne, airborne, and ground-based data acquisition platforms, remote sensing data are still often spatially incomplete or temporally irregular. While deterministic interpolation techniques are often used, they tend to create unrealistic spatial patterns and generally do not provide uncertainty quantification. Geostatistical simulation models are effective in generating an ensemble of realistic and equally probable realizations of an unmeasured phenomenon, allowing data uncertainty to be propagated. These models are commonly used in several fields of earth science, and in recent years, they have been applied widely to remotely sensed data. This study provides the first review of the applications of geostatistical simulation to remote sensing data. We review recent geostatistical simulation models relevant to satellite remote sensing data and discuss the characteristics and advantages of each approach. Finally, the applications of each geostatistical simulation model are categorized in different domains of natural sciences, including soil, vegetation, topography, and atmospheric science.},
+	author = {Fatemeh Zakeri and Gregoire Mariethoz},
+	doi = {https://doi.org/10.1016/j.rse.2021.112381},
+	issn = {0034-4257},
+	journal = {Remote Sensing of Environment},
+	keywords = {Remote sensing, Multiple-point geostatistics, Two-point statistics, Geostatistical simulation models},
+	pages = {112381},
+	title = {A review of geostatistical simulation models applied to satellite remote sensing: Methods and applications},
+	url = {https://www.sciencedirect.com/science/article/pii/S0034425721000997},
+	volume = {259},
+	year = {2021},
+	bdsk-url-1 = {https://www.sciencedirect.com/science/article/pii/S0034425721000997},
+	bdsk-url-2 = {https://doi.org/10.1016/j.rse.2021.112381}}
+
+
+
+
+@InProceedings{METRICSCKA,
+  title = 	 {Similarity of Neural Network Representations Revisited},
+  author =       {Kornblith, Simon and Norouzi, Mohammad and Lee, Honglak and Hinton, Geoffrey},
+  booktitle = 	 {Proceedings of the 36th International Conference on Machine Learning},
+  pages = 	 {3519--3529},
+  year = 	 {2019},
+  editor = 	 {Chaudhuri, Kamalika and Salakhutdinov, Ruslan},
+  volume = 	 {97},
+  series = 	 {Proceedings of Machine Learning Research},
+  month = 	 {09--15 Jun},
+  publisher =    {PMLR},
+  pdf = 	 {http://proceedings.mlr.press/v97/kornblith19a/kornblith19a.pdf},
+  url = 	 {https://proceedings.mlr.press/v97/kornblith19a.html},
+  abstract = 	 {Recent work has sought to understand the behavior of neural networks by comparing representations between layers and between different trained models. We examine methods for comparing neural network representations based on canonical correlation analysis (CCA). We show that CCA belongs to a family of statistics for measuring multivariate similarity, but that neither CCA nor any other statistic that is invariant to invertible linear transformation can measure meaningful similarities between representations of higher dimension than the number of data points. We introduce a similarity index that measures the relationship between representational similarity matrices and does not suffer from this limitation. This similarity index is equivalent to centered kernel alignment (CKA) and is also closely connected to CCA. Unlike CCA, CKA can reliably identify correspondences between representations in networks trained from different initializations.}
+}
+
+@article{METRICSITRBIG,
+  title={Gaussianizing the Earth: Multidimensional information measures for Earth data analysis},
+  author={J. Emmanuel Johnson and Valero Laparra and Mar{\'i}a Piles and Gustau Camps-Valls},
+  journal={IEEE Geoscience and Remote Sensing Magazine},
+  year={2020},
+  volume={9},
+  pages={191-208}
+}
+@article{METRICSITRBIG2,
+  title={Information Theory Measures via Multidimensional Gaussianization},
+  author={Valero Laparra and J. Emmanuel Johnson and Gustau Camps-Valls and Ra{\'u}l Santos-Rodr{\'i}guez and Jes{\'u}s Malo},
+  journal={ArXiv},
+  year={2020},
+  volume={abs/2010.03807}
+}
+
+
+@article{METRICSWAVELET,
+	abstract = {Abstract A wavelet-based method is re-introduced in an oceanographic and spectral context to estimate wavenumber spectrum and spectral flux of kinetic energy and enstrophy. We apply this to a numerical simulation of idealized, doubly periodic quasi-geostrophic flows, that is, the flow is constrained by the Coriolis force and vertical stratification. The double periodicity allows for a straightforward Fourier analysis as the baseline method. Our wavelet spectra agree well with the canonical Fourier approach but with the additional strengths of negating the necessity for the data to be periodic and being able to extract local anisotropies in the flow. Caution is warranted, however, when computing higher-order quantities, such as spectral flux.},
+	author = {Uchida, Takaya and Jamet, Quentin and Poje, Andrew C. and Wienders, Nico and Dewar, William K. and Deremble, Bruno},
+	doi = {https://doi.org/10.1029/2022MS003399},
+	eprint = {https://agupubs.onlinelibrary.wiley.com/doi/pdf/10.1029/2022MS003399},
+	journal = {Journal of Advances in Modeling Earth Systems},
+	keywords = {spectral analysis, wavelets, quasi geostrophy},
+	note = {e2022MS003399 2022MS003399},
+	number = {3},
+	pages = {e2022MS003399},
+	title = {Wavelet-Based Wavenumber Spectral Estimate of Eddy Kinetic Energy: Idealized Quasi-Geostrophic Flow},
+	url = {https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/2022MS003399},
+	volume = {15},
+	year = {2023},
+	bdsk-url-1 = {https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/2022MS003399},
+	bdsk-url-2 = {https://doi.org/10.1029/2022MS003399}}
+
+
+
+@article{DENOISESWOT,
+	abstract = {The SWOT (Surface Water Ocean Topography) mission will provide high-resolution and two-dimensional measurements of sea surface height (SSH). However, despite its unprecedented precision, SWOT&rsquo;s Ka-band Radar Interferometer (KaRIn) still exhibits a substantial amount of random noise. In turn, the random noise limits the ability of SWOT to capture the smallest scales of the ocean&rsquo;s topography and its derivatives. In that context, this paper explores the feasibility, strengths and limits of a noise-reduction algorithm based on a convolutional neural network. The model is based on a U-Net architecture and is trained and tested with simulated data from the North Atlantic. Our results are compared to classical smoothing methods: a median filter, a Lanczos kernel smoother and the SWOT de-noising algorithm developed by Gomez-Navarro et al. Our U-Net model yields better results for all the evaluation metrics: 2 mm root mean square error, sub-millimetric bias, variance reduction by factor of 44 (16 dB) and an accurate power spectral density down to 10&ndash;20 km wavelengths. We also tested various scenarios to infer the robustness and the stability of the U-Net. The U-Net always exhibits good performance and can be further improved with retraining if necessary. This robustness in simulation is very encouraging: our findings show that the U-Net architecture is likely one of the best candidates to reduce the noise of flight data from KaRIn.},
+	article-number = {2183},
+	author = {Tr{\'e}boutte, Ana{\"e}lle and Carli, Elisa and Ballarotta, Maxime and Carpentier, Benjamin and Faug{\`e}re, Yannice and Dibarboure, G{\'e}rald},
+	doi = {10.3390/rs15082183},
+	issn = {2072-4292},
+	journal = {Remote Sensing},
+	number = {8},
+	title = {KaRIn Noise Reduction Using a Convolutional Neural Network for the SWOT Ocean Products},
+	url = {https://www.mdpi.com/2072-4292/15/8/2183},
+	volume = {15},
+	year = {2023},
+	bdsk-url-1 = {https://www.mdpi.com/2072-4292/15/8/2183},
+	bdsk-url-2 = {https://doi.org/10.3390/rs15082183}}
+
+
+@article{DENOISESWOT2,
+  title={Scale-aware neural calibration for wide swath altimetry observations},
+  author={Quentin Febvre and Cl{\'e}ment Ubelmann and Julien Le Sommer and Ronan Fablet},
+  journal={ArXiv},
+  year={2023},
+  volume={abs/2302.04497}
+}
+
+
+
+@article{MLSSC,
+	abstract = {Global surface currents are usually inferred from directly observed quantities like sea-surface height, wind stress by applying diagnostic balance relations (like geostrophy and Ekman flow), which provide a good approximation of the dynamics of slow, large-scale currents at large scales and low Rossby numbers. However, newer generation satellite altimeters (like the upcoming SWOT mission) will capture more of the high wavenumber variability associated with the unbalanced components, but the low temporal sampling can potentially lead to aliasing. Applying these balances directly may lead to an incorrect un-physical estimate of the surface flow. In this study we explore Machine Learning (ML) algorithms as an alternate route to infer surface currents from satellite observable quantities. We train our ML models with SSH, SST, and wind stress from available primitive equation ocean GCM simulation outputs as the inputs and make predictions of surface currents (u,v), which are then compared against the true GCM output. As a baseline example, we demonstrate that a linear regression model is ineffective at predicting velocities accurately beyond localized regions. In comparison, a relatively simple neural network (NN) can predict surface currents accurately over most of the global ocean, with lower mean squared errors than geostrophy + Ekman. Using a local stencil of neighboring grid points as additional input features, we can train the deep learning models to effectively ``learn'' spatial gradients and the physics of surface currents. By passing the stenciled variables through convolutional filters we can help the model learn spatial gradients much faster. Various training strategies are explored using systematic feature hold out and multiple combinations of point and stenciled input data fed through convolutional filters (2D/3D), to understand the effect of each input feature on the NN's ability to accurately represent surface flow. A model sensitivity analysis reveals that besides SSH, geographic information in some form is an essential ingredient required for making accurate predictions of surface currents with deep learning models.},
+	author = {Sinha, Anirban and Abernathey, Ryan},
+	doi = {10.3389/fmars.2021.672477},
+	issn = {2296-7745},
+	journal = {Frontiers in Marine Science},
+	title = {Estimating Ocean Surface Currents With Machine Learning},
+	url = {https://www.frontiersin.org/articles/10.3389/fmars.2021.672477},
+	volume = {8},
+	year = {2021},
+	bdsk-url-1 = {https://www.frontiersin.org/articles/10.3389/fmars.2021.672477},
+	bdsk-url-2 = {https://doi.org/10.3389/fmars.2021.672477}}
+
+@article{4DVarNetSSC,
+  title={Inversion of sea surface currents from satellite-derived SST-SSH synergies with 4DVarNets},
+  author={Ronan Fablet and Bertrand Chapron and Julien Le Sommer and Florian S'evellec},
+  journal={ArXiv},
+  year={2022},
+  volume={abs/2211.13059}
+}
+
+
+@article{SSTFLOWANOMALY,
+	abstract = {Abstract Gridded sea surface height (SSH) maps estimated from satellite altimetry are widely used for estimating surface ocean geostrophic currents. Satellite altimeters observe SSH along one-dimensional tracks widely spaced in space and time, making accurately reconstructing the two-dimensional (2D) SSH field challenging. Traditionally, SSH is mapped using optimal interpolation (OI). However, OI artificially smooths the SSH field leading to high mapping errors in regions with rapidly-evolving mesoscale features such as western boundary currents. Motivated by the dynamical relation between SSH and sea surface temperature (SST) and the notion that even the chaotic evolution of mesoscale ocean turbulence may contain repeating patterns, we outline a deep learning (DL) approach where a neural network is trained to reconstruct 2D SSH by synthesizing altimetry and SST observations. In the Gulf Stream Extension region, dominated by mesoscale variability, our DL method substantially improves the SSH reconstruction compared to existing methods. Our SSH map has 17\% lower root-mean-square error and resolves spatial scales 30\% smaller than OI compared against independent altimeter observations. Surface geostrophic currents calculated from our map are closer to surface drifter observations and appear qualitatively more realistic, with stronger currents, a clearer separation between the Gulf Stream and neighboring eddies, and the appearance of smaller coherent eddies missed by other methods. Our map yields significant re-estimations of important dynamical quantities such as eddy kinetic energy, vorticity, and strain rate. Applying our DL method to produce a global SSH product may provide a more accurate and higher resolution product for studying mesoscale ocean turbulence.},
+	author = {Martin, Scott A. and Manucharyan, Georgy E. and Klein, Patrice},
+	doi = {https://doi.org/10.1029/2022MS003589},
+	eprint = {https://agupubs.onlinelibrary.wiley.com/doi/pdf/10.1029/2022MS003589},
+	journal = {Journal of Advances in Modeling Earth Systems},
+	keywords = {ocean dynamics, mesoscale eddies, deep learning, satellite altimetry, sea surface temperature, sea surface height},
+	note = {e2022MS003589 2022MS003589},
+	number = {5},
+	pages = {e2022MS003589},
+	title = {Synthesizing Sea Surface Temperature and Satellite Altimetry Observations Using Deep Learning Improves the Accuracy and Resolution of Gridded Sea Surface Height Anomalies},
+	url = {https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/2022MS003589},
+	volume = {15},
+	year = {2023},
+	bdsk-url-1 = {https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/2022MS003589},
+	bdsk-url-2 = {https://doi.org/10.1029/2022MS003589}}
+
+
+@article{MLOCNPARAMETERIZATION,
+  title={Applications of Deep Learning to Ocean Data Inference and Sub-Grid Parameterisation},
+  author={Bolton, Thomas and Zanna, Laure},
+  journal={Journal of Advances in Modeling Earth Systems},
+  publisher={Wiley Online Library},
+  doi={10.1029/2018MS001472}
+}
+
+
+@article{MLOCNPARAMETERIZATION3,
+  title={Benchmarking of machine learning ocean subgrid parameterizations in an idealized model},
+  author={Ross, Andrew and Li, Ziwei and Perezhogin, Pavel and Fernandez-Granda, Carlos and Zanna, Laure},
+  journal={Journal of Advances in Modeling Earth Systems},
+  volume={15},
+  number={1},
+  pages={e2022MS003258},
+  year={2023},
+  abstract = {Recently, a growing number of studies have used machine learning (ML) models to parameterize computationally intensive subgrid-scale processes in ocean models. Such studies typically train ML models with filtered and coarse-grained high-resolution data and evaluate their predictive performance offline, before implementing them in a coarse resolution model and assessing their online performance. In this work, we systematically benchmark the online performance of such models, their generalization to domains not encountered during training, and their sensitivity to dataset design choices. We apply this proposed framework to compare a large number of physical and neural network (NN)-based parameterizations. We find that the choice of filtering and coarse-graining operator is particularly critical and this choice should be guided by the application. We also show that all of our physics-constrained NNs are stable and perform well when implemented online, but generalize poorly to new regimes. To improve generalization and also interpretability, we propose a novel equation-discovery approach combining linear regression and genetic programming with spatial derivatives. We find this approach performs on par with neural networks on the training domain but generalizes better beyond it. We release code and data to reproduce our results and provide the research community with easy-to-use resources to develop and evaluate additional parameterizations.}
+}
+
+@article{MLOCNPARAMETERIZATION2,
+author = {Guillaumin, Arthur P. and Zanna, Laure},
+title = {Stochastic-Deep Learning Parameterization of Ocean Momentum Forcing},
+journal = {Journal of Advances in Modeling Earth Systems},
+volume = {n/a},
+number = {n/a},
+pages = {e2021MS002534},
+keywords = {parameterization, mesoscale, Deep Learning, turbulence, stochastic, Oceans},
+doi = {https://doi.org/10.1029/2021MS002534},
+url = {https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/2021MS002534},
+eprint = {https://agupubs.onlinelibrary.wiley.com/doi/pdf/10.1029/2021MS002534},
+note = {e2021MS002534 2021MS002534},
+abstract = {AbstractCoupled climate simulations that span several hundred years cannot be run at a high-enough spatial resolution to resolve mesoscale ocean dynamics. Recently, several studies have considered Deep Learning to parameterize subgrid forcing within macroscale ocean equations using data from ocean-only simulations with idealized geometry. We present a stochastic Deep Learning parameterization that is trained on data generated by CM2.6, a high-resolution state-of-the-art coupled climate model. We train a Convolutional Neural Network for the subgrid momentum forcing using macroscale surface velocities from a few selected subdomains with different dynamical regimes. At each location of the coarse grid, rather than predicting a single number for the subgrid momentum forcing, we predict both the mean and standard deviation of a Gaussian probability distribution. This approach requires training our neural network to minimize a negative log-likelihood loss function rather than the Mean Square Error, which has been the standard in applications of Deep Learning to the problem of parameterizations. Each estimate of the conditional mean subgrid forcing is thus associated with an uncertainty estimate – the standard deviation – which will form the basis for a stochastic subgrid parameterization. Offline tests show that our parameterization generalizes well to the global oceans and a climate with increased levels without further training. We then implement our learned stochastic parameterization in an eddy-permitting idealized shallow water model. The implementation is stable and improves some statistics of the flow. Our work demonstrates the potential of combining Deep Learning tools with a probabilistic approach in parameterizing unresolved ocean dynamics.}
+}
+
+
+@article{MLOCNPARAMETERIZATION4,
+  title={Resolving and parameterising the ocean mesoscale in earth system models},
+  author={Hewitt, Helene T and Roberts, Malcolm and Mathiot, Pierre and Biastoch, Arne and Blockley, Ed and Chassignet, Eric P and Fox-Kemper, Baylor and Hyder, Pat and Marshall, David P and Popova, Ekaterina and others},
+  journal={Current Climate Change Reports},
+  pages={1--16},
+  year={2020},
+  publisher={Springer}
+}
+
+
+@article{METRICSAVERAGE,
+	abstract = {Abstract Building accurate rainfall--runoff models is an integral part of hydrological science and practice. The variety of modeling goals and applications have led to a large suite of evaluation metrics for these models. Yet, hydrologists still put considerable trust into visual judgment, although it is unclear whether such judgment agrees or disagrees with existing quantitative metrics. In this study, we tasked 622 experts to compare and judge more than 14,000 pairs of hydrographs from 13 different models. Our results show that expert opinion broadly agrees with quantitative metrics and results in a clear preference for a Machine Learning model over traditional hydrological models. The expert opinions are, however, subject to significant amounts of inconsistency. Nevertheless, where experts agree, we can predict their opinion purely from quantitative metrics, which indicates that the metrics sufficiently encode human preferences in a small set of numbers. While there remains room for improvement of quantitative metrics, we suggest that the hydrologic community should reinforce their benchmarking efforts and put more trust in these metrics.},
+	author = {Gauch, Martin and Kratzert, Frederik and Gilon, Oren and Gupta, Hoshin and Mai, Juliane and Nearing, Grey and Tolson, Bryan and Hochreiter, Sepp and Klotz, Daniel},
+	doi = {https://doi.org/10.1029/2022WR033918},
+	eprint = {https://agupubs.onlinelibrary.wiley.com/doi/pdf/10.1029/2022WR033918},
+	journal = {Water Resources Research},
+	keywords = {hydrology, metrics, hydrograph, visual inspection, rainfall-runoff, machine learning},
+	note = {e2022WR033918 2022WR033918},
+	number = {6},
+	pages = {e2022WR033918},
+	title = {In Defense of Metrics: Metrics Sufficiently Encode Typical Human Preferences Regarding Hydrological Model Performance},
+	url = {https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/2022WR033918},
+	volume = {59},
+	year = {2023},
+	bdsk-url-1 = {https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/2022WR033918},
+	bdsk-url-2 = {https://doi.org/10.1029/2022WR033918}}
+
+
+
+@article{PINNS,
+title = {Physics-informed machine learning},
+author = {Karniadakis, George Em and Kevrekidis, Ioannis G. and Lu, Lu and Perdikaris, Paris and Wang, Sifan and Yang, Liu},
+abstractNote = {Not provided.},
+doi = {10.1038/s42254-021-00314-5},
+url = {https://www.osti.gov/biblio/1852843}, journal = {Nature Reviews Physics},
+issn = {2522-5820},
+number = 6,
+volume = 3,
+place = {United States},
+year = {2021},
+month = {5}
+}
+
+@inproceedings{FUNCTA,
+  title={From data to functa: Your data point is a function and you can treat it like one},
+  author={Emilien Dupont and Hyunjik Kim and S. M. Ali Eslami and Danilo Jimenez Rezende and Dan Rosenbaum},
+  booktitle={International Conference on Machine Learning},
+  year={2022}
+}

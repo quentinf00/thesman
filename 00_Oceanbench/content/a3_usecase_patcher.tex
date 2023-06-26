@@ -1,0 +1,62 @@
+\section{Use Case III: XRPatcher} \label{sec:xrpatcher}
+
+There are many usecases for the \texttt{XRPatcher}. For example, we can do 1D Time chunking, 2D Spatial-Temporal Patches, or 3D Spatial-Temporal Cubes.
+
+
+\begin{listing}[h!]
+\begin{minted}[frame=lines]{python}
+import xarray as xr
+import torch
+import itertools
+from oceanbench import XRPatcher
+# Easy Integration with PyTorch Datasets (and DataLoaders)
+class XRTorchDataset(torch.utils.data.Dataset):
+    def __init__(self, batcher: XRPatcher, item_postpro=None):
+        self.batcher = batcher
+        self.postpro = item_postpro
+    def __getitem__(self, idx: int) -> torch.Tensor:
+        item = self.batcher[idx].load().values
+        if self.postpro:
+            item = self.postpro(item)
+        return item
+    def reconstruct_from_batches(
+            self, batches: list(torch.Tensor), **rec_kws
+        ) -> xr.Dataset:
+        return self.batcher.reconstruct(
+            [*itertools.chain(*batches)], **rec_kws
+        )
+    def __len__(self) -> int:
+        return len(self.batcher)
+# load demo dataset
+data = xr.tutorial.load_dataset("eraint_uvz")
+# Instantiate the patching logic for training
+patches = dict(longitude=30, latitude=30)
+train_patcher = XRPatcher(
+    da=data,
+    patches=patches,
+    strides=patches,        # No Overlap
+    check_full_scan=True    # check no extra dimensions
+)
+# Instantiate the patching logic for testing
+patches = dict(longitude=30, latitude=30)
+strides = dict(longitude=5, latitude=5)
+test_patcher = XRPatcher(
+    da=data,
+    patches=patches,
+    strides=strides,        # Overlap
+    check_full_scan=True    # check no extra dimensions
+)
+# instantiate PyTorch DataSet
+train_ds = XRTorchDataset(train_patcher, item_postpro=TrainingItem._make)
+test_ds = XRTorchDataset(test_patcher, item_postpro=TrainingItem._make)
+# instantiate PyTorch DataLoader
+train_dl = torch.utils.data.DataLoader(train_ds, batch_size=4, shuffle=False)
+test_dl = torch.utils.data.DataLoader(test_ds, batch_size=4, shuffle=False)
+\end{minted}
+\label{listing:xrpatcher}
+\caption{This is a snippet showcasing how we can easily integrate PyTorch Datasets within the \texttt{XRPatcher} framework without much overhead. Here we define a custom PyTorch Dataset to handle the \texttt{XRPatcher}. We load an arbitrary dataset with \texttt{xarray}, then we instantiate the \texttt{XRPatcher} with some patching logic, then we instantiate the PyTorch dataset and dataloader as per usual.}
+\end{listing}
+
+
+
+

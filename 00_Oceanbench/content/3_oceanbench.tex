@@ -1,0 +1,76 @@
+\section{OceanBench} \label{sec:oceanbench_intro}
+
+\subsection{Why OceanBench?} \label{sec:oceanbench_why}
+
+There is a high barrier to entry in working with ocean observations for researchers in applied machine learning as there are many processing steps for both the observation data and the domain-specific evaluation procedures. 
+\texttt{OceanBench} aims to lower the barrier to entry cost for ML researchers to make meaningful progress in the field. 
+We distribute a standardized, transparent, and flexible procedure for defining data and evaluation pipelines for data-intensive geoscience applications. 
+Proposed examples and case studies provide a plug-and-play framework to benchmark novel ML schemes w.r.t.  state-of-the-art domain-specific and ML baselines. 
+In addition, we adopt a pedagogical abstraction that allows users to customize and extend the pipelines for their specific tasks.
+To our knowledge, no framework embeds processing steps for earth observation data in a manner compatible with MLOps abstractions and standards regarding reproducibility and evaluation procedures. 
+Ultimately, we aim to facilitate the uptake of ML schemes to address ocean observation challenges and to bring new challenges to the ML community to extend additional ML tools and methods for irregularly-sampled and partially-observed high-dimensional space-time dynamics.
+The abstractions proposed here apply beyond ocean sciences and SSH interpolation to other geosciences with similar tasks that intersect with machine learning.
+
+% \begin{itemize}
+%     \item Establish a rigorous ontology of pre-, geo- and ML processing tools.
+%     \item Consistent problems with detailed introductory tutorials
+%     \item aggregate benchmarks with common tools
+%     \item \textit{what i wish I had when i started this problem}
+%     \item \textit{A lot of research gets lots in grad students laptops}
+%     \item provide training, context and awareness to the different packages that exist to solve problems.
+% \end{itemize}
+
+
+
+\subsection{Code Structure} \label{sec:code_structure}
+
+\texttt{OceanBench} is lightweight in terms of the core functionality.
+We keep the code base simple and focus more on how the user can combine each piece.
+We adopt a strict functional style because it is easier to maintain and combine sequential transformations. 
+There are five features we would like to highlight about \texttt{OceanBench}: 1) Data availability and version control, 2) an agnostic suite of geoprocessing tools for \texttt{xarray} datasets that were aggregated from different sources,  3) Hydra integration to pipe sequential transformations, 4) a flexible multi-dimensional array generator from \texttt{xarray} datasets that are compatible with common deep learning (DL) frameworks, and 5) a JupyterBook~\cite{JupyterBook} that offers library tutorials and demonstrates use-cases.
+In the following section, we highlight these components in more detail.
+
+\textbf{Data Availability}. 
+The most important aspect is the public availability of the datasets. 
+We aggregate all pre-curated datasets from other sources, e.g. the \textit{Ocean-Data-Challenge}~\cite{DCOSEGULFSSH,DCOSSEGULFSSH}, and organize them to be publicly available from a single source~\footnote{Available at: \href{https://github.com/quentinf00/oceanbench-data-registry}{oceanbench-data-registry.github.com}}. 
+We also offer a few derived datasets which can be used for demonstrations and evaluation. 
+Data is never static in a pipeline setting, as one can have many derived datasets which stem from numerous preprocessing choices. 
+In fact, in research, we often work with derived datasets that have already been through some preliminary preprocessing methods. 
+To facilitate the ever-changing nature of data, we use the Data Version Control (\texttt{DVC}) tool~\cite{DVC}, which offers a git-like version control of the datasets.
+
+\textbf{Geoprocessing Tools}. 
+The core \texttt{OceanBench} library offers a suite of functions specific to processing geo-centric data. 
+While a few particular functionalities vary from domain to domain, many operations are standard, e.g., data variable selections, filtering/smoothing, regridding, coordinate transformations, and standardization. 
+We almost work exclusively with the \texttt{xarray}~\cite{XARRAY} framework because it is a coordinate-aware, flexible data structure. 
+In addition, the geoscience community has an extensive suite of specialized packages that operate in the \texttt{xarray} framework to accomplish many different tasks. 
+% A non-exhaustive, highlighted list of packages that are compatible with the \texttt{xarray} data structure include: \texttt{xgcm} for non-uniform grid operators, \texttt{pint} for unit-aware operators, \texttt{metpy} for gradient-based calculations, \texttt{pyinterp} and \texttt{xesmf} for advanced regridding methods, \texttt{xrft} and \texttt{xwavelet} for power spectrum analysis, \texttt{gcm-filters} for advanced filtering methods, and the \texttt{dask} suite for scaling everything to multi-core/node HPC environments. 
+Almost all \texttt{OceanBench} toolsets are exclusively within the \texttt{xarray} framework to maintain compatibility with a large suite of tools already available from the community.
+
+
+% As an ML practicioner navigating this sea of libraries can be intimidating as they require different input formats and domain specific parameters. Oceanbench aims at simplifying the use of these libraries by providing the necessary formatting tools and default usage of the different utilities.  
+
+% There are many packages that exist independently which accomplish many of the specific tasks that most geoscientists need. 
+
+\textbf{Hydra Integration}. 
+As discussed above, many specific packages accomplish many different tasks. 
+However, what needs to be added is the flexibility to mix and match these operations as the users see fit. 
+\texttt{Hydra}~\cite{Hydra} provides a configurable way to aggregate and \textit{pipe} many sequential operations together. 
+It also maintains readability, robustness, and flexibility through the use of \texttt{.yaml} files which explicitly highlight the function used, the function parameters chosen, and the sequence of operations performed. 
+In the ML software stack, \texttt{Hydra} is often used to manage the model, optimizer, and loss configurations which helps the user experiment with different options. 
+We apply this same concept in preprocessing, geoprocessing, and evaluation steps, often more important than the model configuration in geoscience-related tasks.  
+
+\texttt{XRPatcher}~\footnote{Available at: \href{https://github.com/jejjohnson/xrpatcher/}{github.com/jejjohnson/xrpatcher}}. 
+Every machine learning pipeline will inevitably require moving data from the geo-specific data structure to a multi-dimensional array easily digestible for ML models. 
+A rather underrated, yet critical, feature of ML frameworks such as \texttt{PyTorch}~\cite{PYTORCH} (\texttt{Lightning}~\cite{LIGHTNING}) and \texttt{TensorFlow}~\cite{TENSORFLOW} (\texttt{Keras}~\cite{KERAS}) is the abstraction of the dataset, dataloader, datamodules, and data pipelines. 
+In applied ML in geosciences, the data pipelines are often more important than the actual model~\cite{DATA4ML}. 
+The user can control the \textit{patch}-size and the \textit{stride}-step, which can generate arbitrary coordinate-aware items directly from the \texttt{xarray} data structure. 
+In addition, \texttt{XRPatcher} provides a way to reconstruct the fields from an arbitrary patch configuration.
+This robust reconstruction step is convenient to extend the ML inference step where one can reconstruct entire fields of arbitrary dimensions beyond the training configuration, e.g., to account for the border effects within the field (see appendix~\ref{sec:xrpatcher}) or to reconstruct quantities in specific regions or globally. 
+
+\textbf{JupyterBook}.
+% ~\footnote{Available at: \href{https://jejjohnson.github.io/oceanbench/content/overview.html}{jejjohnson.github.io/oceanbench}}. 
+Building a set of tools is relatively straightforward; however, ensuring that it sees a broader adoption across a multi-disciplinary community is much more challenging. 
+We invested heavily in showing use cases that appeal to different users with the \texttt{JupyterBook} platform~\cite{JupyterBook}. 
+Code with context is imperative for domain and ML experts as we need to explain and justify each component and give many examples of how they can be used in other situations. 
+% \texttt{Hydra} is an effective tool, but it has a steep learning curve, and the tutorials are very computer science-oriented, and there are many domain scientists (and seasoned ML researchers) who will. 
+Thus, we have paid special attention to providing an extensive suite of tutorials, and we also highlight use cases for how one can effectively use the tools. 

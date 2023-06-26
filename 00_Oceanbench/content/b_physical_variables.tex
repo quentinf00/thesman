@@ -1,0 +1,154 @@
+\section{Physical Variables} \label{sec:physical_variables}
+
+As alluded to in the main body of the paper, we have access to many physical quantities which can be derived from  sea surface height. 
+This gives us a way to analyze how effective and trustworthy are our reconstructions. 
+Many machine learning methods are unconstrained so they may provide solutions that are physically inconsistent and visualizing the field is a very easy eye test to assess the validity. 
+In addition to post analysis, one could include some of these derived quantities maybe useful as additional inputs to the system and/or constraints to the loss function. 
+
+
+
+
+% \begin{table}[h!]
+%   \caption{Table of nomanclature}
+%   \label{sample-table}
+%   \centering
+%   \begin{tabular}{ccl}
+%     \toprule
+%     Symbol & Size & Description  \\
+%     \midrule
+%     $\mathbf{x}_s$ & $\mathbb{R}^{D_s}$ & Spatial Coordinates  \\
+%     $t$ & $\mathbb{R}^{D_t}$ & Temporal Coordinates  \\
+%    $\boldsymbol{f}(\mathbf{x}_s, t)$ & $\mathbb{R}^{D}$ & Spatiotemporal Field  \\
+%    $\boldsymbol{y}_{obs}(\mathbf{x}_s, t)$ & $\mathbb{R}^{D_{obs}}$ & Spatiotemporal Observations  \\
+%    $\eta$ & $\mathbb{R}$ & Sea Surface Height $[m]$ \\
+%    $\bar{\eta}$ & $\mathbb{R}$ & Sea Surface Anomaly $[m]$ \\
+%    $u$ & $\mathbb{R}$ & Zonal Velocity $[ms^{-2}]$ \\
+%    $v$ & $\mathbb{R}$ & Meridional Velocity $[ms^{-2}]$ \\
+%     \bottomrule
+%   \end{tabular}
+%   \label{tb:notation}
+%  \end{table}
+
+
+% \subsection{Coordinates}
+% \textbf{SpatioTemporal Coordiantes}. We define some generic spatiotemporal coordinates.
+% 
+% We are dealing with satellite observations, so we are interested in the domain across the Earth's surface. 
+% Let us define the Earth's domain by some spatial coordinates, $\mathbf{x} = [\text{Longitude},\text{Latitude}]^\top \in\mathbb{R}^{D_s}$, and temporal coordinates, $t=[\text{Time}]\in\mathbb{R}^+$, where $D_s$ is the dimensionality of the coordinate vector.  
+% We can define some spatial (sub-)domain, $\Omega\subseteq\mathbb{R}^{D_s}$, and a temporal (sub-)domain, $\mathcal{T}\subseteq\mathbb{R}^+$. 
+% This domain could be the entire globe for 10 years or a small region within the North Atlantic for 1 year.
+%
+%
+% \begin{align} \label{eq:spatiotemporal_coords}
+%     \text{Spatial Coordinates}: && \mathbf{x} &\in \Omega \subseteq \mathbb{R}^{D_s}\\ 
+%     \text{Temporal Coordinates}: && t &\in \mathcal{T} \subseteq \mathbb{R}^{D_t}.
+% \end{align}
+% %
+%
+% In this case $D_s=2$ because we only have a two coordinates, however we can do some coordinate transformations like spherical to Cartesian. Likewise, we can do some coordinate transformation for the temporal coordinates like cyclic transformations or sinusoidal embeddings~\cite{ATTENTION}. We have two fields of interest from these spatiotemporal coordinates: the state and the observations.
+% %
+% %
+% \begin{align} \label{eq:state_obs}
+%     \text{State}: && \boldsymbol{u}(\mathbf{x},t) &: \Omega\times\mathcal{T}\rightarrow\mathbb{R}^{D_u} \\
+%     \text{Observations}: && \boldsymbol{y}_{obs}(\mathbf{x},t) &: \Omega\times\mathcal{T}\rightarrow\mathbb{R}^{D_{obs}}
+% \end{align}
+% %
+% %
+% The state domain, $u\in\mathcal{U}$, is a scalar or vector-valued field of size $D_u$ which is typically the quantity of interest and the observation domain, $y_{obs}\in\mathcal{Y}_{obs}$, is the observable quantity which is also a scalar or vector-valued field of size $D_{obs}$. Now, we make the assumption that we have an operator $\mathcal{H}$ that transforms the field from the state space, $\boldsymbol{u}$, to the observation space, $\boldsymbol{y}_{obs}$.
+% %
+% %
+% \begin{align} \label{eq:prob_definition}
+%     \boldsymbol{y}_{obs}(\mathbf{x},t) = \mathcal{H}\left(\boldsymbol{u}(\mathbf{x},t), t, \boldsymbol{\varepsilon}, \boldsymbol{\mu}\right) 
+% \end{align}
+% %
+% %
+
+
+% % \subsection{Field}
+
+% \textbf{Field}. We have the generic definition of a scalar or vector-valued field.
+
+% \begin{align} \label{eq:field}
+% \text{Field}:&& f&=\boldsymbol{f}(\mathbf{x},t), && \quad \Omega\times \mathcal{T}\rightarrow\mathbb{R}^{D}
+% \end{align}
+
+
+
+Recall the spatiotemporal coordinates from equation~\ref{eq:spatiotemporal_coords}, 
+we use the same coordinates for the subsequent physical quantities. \textbf{Sea Surface Height} is the deviation of the height of the ocean surface from the geoid of the Earth. We can define it as:
+%
+\begin{align}
+	\text{Sea Surface Height }[m]:&& \quad
+ \eta &= \boldsymbol{\eta}(\mathbf{x},t)&& \quad \Omega\times \mathcal{T}\rightarrow\mathbb{R} \label{eq:ssh}
+\end{align}
+%
+This quantity is the actual value that is given from the satellite altimeters and is presented in the products for SSH maps~\cite{DUACS}. An example can be seen in the first row of figure~\ref{fig:oceanbench_maps_4dvarnet}.
+%
+\textbf{Sea Surface Anomaly} is the anomaly wrt to the spatial mean which is defined by
+%
+\begin{align}
+	\text{Sea Level Anomaly }[m]:&& \quad
+ \bar{\eta} &= \boldsymbol{\eta}(\mathbf{x},t) - \bar{\eta}(t) &&
+ \quad \Omega\times \mathcal{T}\rightarrow\mathbb{R} \label{eq:sla}
+\end{align}
+%
+where $\bar{\eta}(t)$ is the spatial average of the field at each time step.  
+An example can be seen in the first row of figure~\ref{fig:oceanbench_maps}.
+%
+Another important quantity is the \textbf{geostrophic velocities} in the zonal and meridional directions. This is given by
+%
+\begin{align}
+	\text{Zonal Velocity}[ms^{-2}]:&& \quad
+ u &= -\frac{g}{f_0}\frac{\partial \eta}{\partial y} &&
+ \quad \Omega\times \mathcal{T}\rightarrow\mathbb{R} \label{eq:u_vel} \\
+	\text{Meridional Velocity}[ms^{-2}]:&& \quad
+ v &= \frac{g}{f_0}\frac{\partial \eta}{\partial x} &&
+ \quad \Omega\times \mathcal{T}\rightarrow\mathbb{R} \label{eq:v_vel}
+\end{align}
+% 
+where $g$ is the gravitational constant and $f_0$ is the mean Coriolis parameter. These quantities are important as they can be an related to the sea surface current. The geostrophic assumption is a very strong assumption however it can still be an important indicator variable. The \textbf{kinetic energy} is a way to summarize the (geostrophic) velocities as the total energy of the system. This is given by
+%
+\begin{equation} \label{eq:kineticenergy}
+    KE = \frac{1}{2}\left(u^2 + v^2\right)
+\end{equation}
+%
+An example can be seen in the second row of figure~\ref{fig:oceanbench_maps_4dvarnet}.
+%
+%
+Another very important quantity is the \textit{vorticity} which measures the spin and rotation of a fluid. In geophysical fluid dynamics, we use the \textbf{relative vorticity} which is the vorticity observed within at rotating frame.
+This is given by
+%
+\begin{equation} \label{eq:relvorticity}
+    \zeta = \frac{\partial v}{\partial x} - \frac{\partial u}{\partial y}
+\end{equation}
+%
+An example can be seen in the third row of figure~\ref{fig:oceanbench_maps_4dvarnet}.
+%
+% \subsection{Absolute Vorticity}
+
+% \begin{equation} \label{eq:absvorticity}
+%     |\zeta| = \frac{\partial v}{\partial x} + \frac{\partial u}{\partial y}
+% \end{equation}
+%
+We can also use the \textbf{Enstrophy} to summarize the relative voriticty to measure the total contribution which is given by
+%
+\begin{equation} \label{eq:enstrophy}
+    E = \frac{1}{2}\zeta^2
+\end{equation}
+%
+%
+The \textbf{Strain} is a measure of deformation of a fluid flow.
+%
+\begin{equation} \label{eq:strain}
+    \sigma = \sqrt{\sigma_n^2 + \sigma_s^2}
+\end{equation}
+%
+where $\sigma_n$ is the shear strain (aka the shearing deformation) and $\sigma_s$ is the normal strain (aka stretching deformation). An example can be seen in the fourth row of figure~\ref{fig:oceanbench_maps_4dvarnet}.
+%
+The \textbf{Okubo-Weiss Parameter} is high-order quantity which is a linear combination of the strain and the relative vorticity.
+%
+\begin{equation} \label{eq:okuboweiss}
+    \sigma_{ow} = \sigma_n^2 + \sigma_s^2 - \zeta^2
+\end{equation}
+%
+This quantity is often used as a threshold for determining the location of Eddies in sea surface height and sea surface current fields~\cite{OKUBO, WEISS, OKUBOWEISS}.

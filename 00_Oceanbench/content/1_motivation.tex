@@ -1,0 +1,89 @@
+\section{Motivation}
+
+The ocean is vital to the Earth's system~\cite{OCEANWARMING}. 
+It plays a significant role in climate regulation regarding carbon~\cite{OCEANCARBONCYCLE} and heat uptake~\cite{OCEANHEATUPTAKE}. It is also a primary driver of human activities (e.g., maritime traffic and world trade, marine resources and services)~\cite{SSHOPERATIONAL, ML4OCN}. 
+However, monitoring the ocean is a critical challenge: the ocean state can only partially be determined because most of the ocean consists of subsurface quantities that we cannot directly observe. 
+Thus, to quantify even a fraction of the ocean state, we must often rely only on surface quantities that we can monitor from space, drifting buoys, or autonomous devices.
+Satellite remote sensing, in particular, is one of the most effective ways of measuring essential sea surface quantities~\cite{Altimetry} such as sea surface height (SSH)~\cite{DUACS}, sea surface temperature (SST)~\cite{OCEANSATELLITESST}, and ocean color (OC)~\cite{OCEANSATELLITEOC}. 
+While these variables characterize only a tiny portion of the ocean ecosystem, they present a gateway to many other derived physical quantities~\cite{ML4OCN}.
+
+
+% satellite-derived SSH data allow us to monitor the sea level rise as well as critical physical and biogeochemical ocean processes,
+Although we can access observable sea surface quantities, they are generally irregularly and extremely sparsely sampled. 
+For instance, satellite-derived SSH data has less than 5\% coverage of the globe daily~\cite{DUACS}. 
+These sampling gaps make the characterization of ocean processes highly challenging for operational products and downstream tasks that depend on relevant gap-free variables. This has motivated a rich literature in geoscience over the last decades, mainly using geostatistical kriging methods \cite{DUACS, MIOST} and model-driven data assimilation schemes~\cite{BFNQG, GLORYS12}. Despite significant progress, these schemes often need to improve their ability to leverage available observation datasets' potential fully. 
+This has naturally advocated for exploring data-driven approaches like shallow ML schemes~\cite{DINEOF, DINEOF2, ANALOGDA2, ANALOGDA}. Very recently, deep learning schemes \cite{SSHInterpAttention, SSHInterpConvLSTM, SSHInterpUNet} have become appealing solutions to benefit from existing large-scale observation and simulation datasets and reach significant breakthroughs in the monitoring of upper ocean dynamics from scarcely and irregularly sampled observations. However, the heterogeneity and characteristics of the observation data present major challenges for effectively applying these methods beyond idealized case studies. 
+A data source could have different variables, geometries, and noise levels, resulting in many domain-specific preprocessing procedures that can vastly change the solution outcome.
+Furthermore, the evaluation procedure of the methods and their effectiveness can be regionally-dependent as the physical phenomena vary in space and time, which adds another layer of complexity in convincing domain scientists of their trustworthiness.
+So the entire ML pipeline now requires a unified framework for dealing with heterogeneous data sources, different pre- and post-processing methodologies, and regionally-dependent evaluation procedures.
+
+ %So the nature of the observations presents a key challenge for operational products and downstream tasks that depend on relevant gap-free variables.
+%In addition, this sparsity 
+%Although methods like smoothers~\tocite{OI, MIOST}, data assimilation~\tocite{BFN} and machine learning (ML)~\tocite{NerFs,recent-stuff, Ronan} have produced viable solutions to filling the gaps in ocean satellite, the heterogeneity and characteristics of the observation data present major challenges for effectively applying these methods. 
+% No model nor observation systems captures all scales and processes.
+% Operational methods like optimal interpolation and data assimilation ...
+% Thus, there is a need for better model/data integration schemes that fully benefit from HR models and ever-increasing observation datasets.
+
+% \textbf{Opportunity}.
+%An end-to-end framework for piping data from its raw form to an ML-ready state and from model outputs to interpretable quantities is challenging. Designing an effective system that does this is the basis for many MLOPs tools and research~\tocite{MLOPs Research}.
+To address these challenges, we introduce \textbf{OceanBench}, a framework for co-designing machine-learning-driven high-level experiments from ocean observations. 
+It consists of an end-to-end framework for piping data from its raw form to an ML-ready state and from model outputs to interpretable quantities. 
+We regard \texttt{OceanBench} as a key facilitator for the uptake of MLOPs tools and research~\cite{MLOPS1,MLOPS2} for ocean-related datasets and case studies. This first edition provides datasets and ML-ready benchmarking pipelines for SSH interpolation problems, an essential topic for the space oceanography community, related to ML communities dealing with issues like in-painting~\cite{InPaintingSurvey}, denoising~\cite{DENOISESURVEY,DENOISESURVEY2}, and super-resolution~\cite{SuperResSurvey}. 
+We expect \texttt{OceanBench} to facilitate new challenges to the applied machine learning community and contribute to meaningful ocean-relevant breakthroughs.
+%
+The remainder of the paper is organized as follows: in \S2, we outline some related work that was inspirational for this work; in \S3, we formally outline \texttt{OceanBench} by highlighting the target audience and code structure; in \S4, we outline the problem formulation of SSH interpolation and provide some insight into different tasks related to SSH interpolation where \texttt{OceanBench} could provide some helpful utility; and in \S5 we give some concluding remarks while also informally inviting other researchers to help fill in the gaps.
+
+% \textbf{How We Measure SSH + Gap Problem}. 
+
+
+
+
+% % \textbf{Data Deluge, Gaps, \& ML Integration}. 
+% Like most geosciences, the ocean sciences also suffer from the data deluge that persists due to the large amounts of observed quantities being collected daily~\tocite{Gus}. 
+% The increased availability and quantity of observations are beneficial because it offers the community more insight into the physical processes at a finer resolution.
+% % Consequently, this can help oceanographers revolve a central question of observing and predicting the ocean state at different spatial and timescales. 
+% The trade-off is that processing this data is very expensive.
+% Furthermore, it is impossible to accurately measure the entire globe concurrently, resulting in data with many gaps.
+% Many operational systems have historically used ad-hoc coordinate-based schemes to gap-fill the data based on covariance assumptions. 
+% However, with the abundance of new data~\tocite{SWOT}, these covariance-based schemes are reaching their limit due to the computational and signal complexity.
+% Machine learning (ML) has been recently introduced as a viable alternative to filling the gaps in data where many classes of methods have found success, including coordinate-based methods~\tocite{OI,MIOST,NerFs}, direct surrogate/hybrid methods~\tocite{BFN, recent-stuff}, and end-to-end learning schemes~\tocite{Ronan}. 
+% Nevertheless, most of these methods have only been applied to regions, and more needs to be applied at a large scale that comes close to the operational settings.
+
+
+% % \textbf{Logistics Problem}.
+% % \textbf{The Problem with Observation Data}.
+% % The community is quickly facing a logistics problem.
+% Dealing with complex problems such as SSH interpolation requires dealing directly with the observation data, often involving aggregating observations from satellites, buoys, or autonomous devices.
+% In all cases, we can only observe a tiny portion of the Earth at any given time, resulting in highly sparse data (often <5\% coverage).
+% This problem is even more difficult because the data sources are often heterogeneous, with different variables, geometries, and noise levels.
+% Furthermore, the evaluation procedure can be regionally dependent as the physical phenomena vary globally. 
+% So the entire ML pipeline now requires a unified framework for dealing with heterogeneous data sources, different pre- and post-processing methodologies, and regional dependent evaluation procedures.
+
+% To solve a difficult problem such as SSH interpolation requires a lot of interdisciplinary expertise including scientific, numerical and machine learning.
+% To do effective ML research in this area, one needs a consistent \textit{pipeline} to funnel the data from its raw form through the transformations and to its evaluation state. 
+% In standard ML research, we have copious amounts of \textit{datamodules} which encapsulate many underlying transformations procedures for many staple datasets, e.g. MNIST, CIFAR10, CELEB, etc.
+% Even some weather and climate benchmark datasets have \cite{weatherbench,ClimateBench} access to gap-free, non-heterogenous reanalysis data.
+% Despite the focus on the ML model in the current state of affairs, we have often found that the variables chosen and how they were preprocessed has the greatest effect on the final result.
+% In previous benchmark settings~\citep{CHAOSBENCH,PDEBench,ClimateBench,weatherbench,ENS10Bench}, little attention was paid to the internals of the data preprocessing and this process was kept static.
+% In geosciences, because we often deal with sparse, heterogeneous observations, we often need to decide and implement many crucial preprocessing transformations before we get to the modeling aspects.
+% % including selecting regions, filtering, and calculating derived variables.
+% As such, we should include the chosen variables and how they are preprocessed as hyperparameters to be optimized within the full ML pipeline.
+% However, this complicates the entire pipeline because we have effectively compounded the complexity due to the many ways one can preprocess and modify the data in conjunction with decisions from the ML side like the architecture, the optimizer and the loss function.
+% In addition, we may even have a large series of post-processing transformations which determine how we evaluate our models. Those transformations contain implementation details that may change between studies which make comparing and reproducing some results challenging.
+% This results in a software engineering (SWE) roadblock which needs to be addressed should we wish to do effective research in applied ML research and this obstacle is especially prevalent in the geosciences.
+
+
+
+% , through the transformations, into the model, and through the 
+% Due to many of the many components needed to solve the problem it requires a pipeline. 
+% For domain scientists, there is a lack of organization and ontology of previous ideas. 
+% For machine learning researchers, ... 
+% For downstream users, there is a lack of ontology of the current state of research which makes it difficult to readily apply these techniques for their problems.
+
+% Nonetheless, most of this research has been done in parallel across disjoint sub-fields of research and to the best of our knowledge little to no work has been done on homogenising and integrating these distinct methods in a common framework
+
+
+
+% In this paper, we wish to establish a well-defined software abstraction for dealing SSH interpolation using ML.
+% Using ocean data is the primary goal which is a data assimilation problem. 
+% However, there are many subsequent steps we need to improve. 1) We need gap-free data from the satellite observations, 2) we need surrogate or hybrid models to replace the expensive ocean models, and 3) we need end-to-end learning schemes to perform domain-specific tasks that incorporate good priors and the observations.

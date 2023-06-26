@@ -1,0 +1,104 @@
+\section{Machine Learning Method Ontology} \label{sec:ml_ontology}
+
+Although this paper does not focus on the explicit methods used for SSH interpolation, we would like to give a readers a brief overview of some of the most popular methods in the literature.
+
+\subsection{Coordinate-Based methods}
+
+These methods learn a direct mapping between the coordinate vectors to the scalar or vector values. 
+%
+\begin{align}
+    \boldsymbol{y}_{obs} &= \boldsymbol{f}(\mathbf{x},t;\boldsymbol{\theta})+\boldsymbol{\epsilon}(\mathbf{x},t)
+\end{align}
+%
+This is better known as \textit{functa}~\cite{FUNCTA} which parameterizes the field directly as a model.
+
+\textbf{Functional}. Optimal Interpolation (OI) is the most common method used for many of the operational methods~\cite{DUACS}. It is a non-parametric, functional method which is built upon covariance and precision matrices. In the machine learning community, these methods are known as Gaussian Process~\cite{GPsBIGDATA} and in the geostatistics community, this is known as Kriging~\cite{KRIGINGREVIEW}.
+
+\textbf{Basis Function}. This is an easy simplification to the functional by introducing parametric basis functions. In particular, the MIOST~\cite{MIOST} algorithm will be adopted in the new operational products for SSH interpolation. It is a custom basis function based on Wavelet analysis which is scale-aware and scalable.
+
+\textbf{Neural Fields}. Neural fields (NerFs) are a very popular set of methods that use neural networks to effectively learn the basis function through a composition of weights, biases and activations~\cite{NERFSSSH}.
+Furthermore, one can add physics-informed constraints to the loss function which mirror that of a PDE~\cite{PINNS}.
+In many cases, especially with many auxillary inputs, we don't have access the PDE so one fit a NN directly to the observations with a fully connected neural network~\cite{SOCAT}.
+
+
+\subsection{Grid-Based Methods}
+
+In practice, we often consider the field at a specific discretized setting like a uniform grid or mesh. 
+This is because we typically operate on and store these fields as multi-dimensional arrays which are only defined on a subspace of the entire continuous domain. 
+We denote a discretized spatial representation as $\boldsymbol{\Omega}_g\subset\mathbb{R}^{N_s}$. 
+We can simplify this notation by including the domain within the operator. So equation~\ref{eq:interp_problem} like so:
+\begin{equation}\label{eq:interp_problem_discretized}
+    \boldsymbol{\eta}(\boldsymbol{\Omega}_{obs},t ) = \mathcal{H}\left(\boldsymbol{\eta}(\boldsymbol{\Omega}_g,t), t, \boldsymbol{\mu},  \boldsymbol{\varepsilon} \right) 
+    % + \boldsymbol{\varepsilon}(\boldsymbol{\Omega}_g, t)
+\end{equation} 
+%
+In this equation, $\mathcal{H}$ is the observation operator that transforms the field from the full discretized domain, $\boldsymbol{\Omega}_g$, to the observation domain, $\boldsymbol{\Omega}_{obs}\subset\mathbb{R}^{N_{obs}}$.
+
+\textbf{Direct Methods}. 
+These methods take the noisy, incomplete observations and directly feed it to a model that returns the full reconstructed field.
+They typically involve training a convolutional neural network or recurrent neural network on pairs of corrupted observations to learn the reconstruction~\cite{SuperResSurvey,IMAGE2IMAGETRANSLATION, IMAGE2IMAGETRANSLATION2}.
+This has seem some sucess in applications related to SSH interpolation~\cite{SSHInterpUNet,SSHInterpConvLSTM, SSHInterpAttention}.
+
+\textbf{Traditional Data Assimilation.}
+There are many traditional methods that are rooted in data assimilation~\cite{DAGEOSCIENCE}.
+For example, the GLORYS~\cite{GLORYS12} method propagates the physical model forwards in time and then \textit{updates} the state based on observations periodically.
+A simpler approach is to use a nudging scheme coupled with a simpler physical model~\cite{BFNQG}.
+
+
+\textbf{End-to-End Learning}. These methods try to solve the problem by learning and end-to-end scheme to solve the model inversion problem.
+This is very similar to implicit methods that define a cost function to minimize instead of a minimizing the parameters of a prior model.
+Plug-in-Play priors are a popular class of methods that pre-train priors on auxillary observations and then use the prior in the inversion scheme~\cite{DEEPUNFOLDING}.
+This has seen a lot of success in SSH interpolation~\cite{4DVARNETSWOT,4DVARNETSST,4DVarNetSSC}.
+
+
+
+% \newpage
+% In practice, we only consider the field at a specific discretized setting like a uniform grid or mesh. 
+% This is because we typically operate on and store these fields as multi-dimensional arrays which are only defined on a subspace of the entire continuous domain. We denote this discretized spatial representation as $\boldsymbol{\Omega}_g\subset\mathbb{R}^{N_s}$. We can simplify this notation by including the domain within the operator, like so:
+% %
+% \begin{equation} \label{eq:ssh_field_discretized}
+%     \eta =\boldsymbol{\eta}(\boldsymbol{\Omega}_g,t),
+% \end{equation}
+% %
+% This is more reflective of how we use operators in practice as we typically insert the field as a grid or multi-dimensional spatial array through a series of mathematical operations.
+% We can further discretized this field through the time domain whereby we have a finite set of observations in time, $D_t$. Let's say that we have $N_t$ ordered samples in time between a defined interval of $[0,T]$, i.e. $\mathcal{T}=\left\{ t_t \in [0,T]\right\}_i^{N_{t}}$. In some settings, this could be a uniform observation that is hourly for the period of 1 day, i.e. $N_t=24$, or daily over the period of 10 years, i.e. $N_t=3650$. In more realistic settings, this could be an irregular pattern.
+% Equation~\eqref{eq:ssh_field_discretized} assumes the full field is observed. In practice, we observe a corrupted, incomplete version of this SSH field s.t.
+% %
+% \begin{equation}\label{eq:obs_operator_discretized}
+%     \boldsymbol{\eta}(\boldsymbol{\Omega}_{obs},t ) = \mathcal{H}\left(\boldsymbol{\eta}(\boldsymbol{\Omega}_g,t), t, \boldsymbol{\mu},  \boldsymbol{\varepsilon} \right) 
+%     % + \boldsymbol{\varepsilon}(\boldsymbol{\Omega}_g, t)
+% \end{equation} 
+
+% In this equation, $\mathcal{H}$ is the observation operator that transforms the field from the full discretized domain, $\boldsymbol{\Omega}_g$, to the observation domain, $\boldsymbol{\Omega}_{obs}\subset\mathbb{R}^{N_{obs}}$. 
+% The observation domain, $\boldsymbol{\Omega}_{obs}$, are the spatial coordinates, $\mathbf{x}$, where the SSH has been observed which is a proper subset of the full domain, i.e. $\boldsymbol{\Omega}_{obs}\subseteq\boldsymbol{\Omega}_g$.
+
+% \begin{align} \label{eq:interp_problem}
+%     \mathcal{M}_{\boldsymbol{\theta}} &: \boldsymbol{\eta}_{obs}(\mathbf{x}, t, \boldsymbol{\mu}) \rightarrow \boldsymbol{\eta}(\mathbf{x},t) \hspace{10mm}
+%      \boldsymbol{\Omega}_{obs} \in \mathbb{R}^{N_{obs}} \hspace{5mm} 
+%     \boldsymbol{\Omega}_g \in \mathbb{R}^{N_s} \hspace{5mm} 
+%     t \in \mathcal{T}.
+% \end{align}
+
+
+% \subsubsection{Hybrid Schemes} \label{sec:bfn}
+
+% This includes Backwards-Forwards Nudging with a simpler model like the Quasi-Geostrophic equations.
+
+% \subsubsection{Direct Methods}
+
+% These feature methods that directly take in the sparse SSH fields with \tocite{Recent Papers}
+
+% \subsubsection{Data Assimilation}
+
+% \begin{align}
+%     \boldsymbol{\theta}^* &= \underset{\boldsymbol{\theta}}{\text{argmin}} \hspace{2mm} \mathcal{L}(\mathbf{x}_{gt}, \mathbf{x}(\boldsymbol{\theta})) \\
+%     \mathbf{x}^*(\boldsymbol{\theta}) &= \underset{ \mathbf{x}^*}{\text{argmin}}  \hspace{2mm} \mathcal{U}\left(\mathbf{x}(\boldsymbol{\theta}) \right)
+% \end{align}
+
+% where $\mathcal{L}$ is some loss function to find the best parameters and $\mathcal{U}$ is some energy function to minimize the state.
+
+% \subsubsection{End-to-End 4DVariational Methods} \label{sec:4dvarnet}
+
+% These methods take a variational approach whereby we directly define the cost function we wish to solve \tocite{Ronan}. To speed up the convergence of these methods, a meta-learning based method was introduced to learn the gradient descent\tocite{Ronan}. In addition, this has been improved with the addition of sea surface temperature as an additional term in the cost function. 
+
+

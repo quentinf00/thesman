@@ -1,0 +1,75 @@
+\section{Additional Tasks}\label{sec:other_tasks}
+
+In the main paper, we thoroughly outlined the interpolation task to showcase how \texttt{OceanBench} can be used to create automated pipelines for processing and evaluation procedures.
+However, there are many other additional tasks that can make use of the \texttt{OceanBench} features. 
+
+\textbf{Denoising}. A simpler problem for interpolation tasks is the denoising problem~\cite{DENOISESURVEY,DENOISESURVEY2}.
+The SSH and SST measurements we obtain have inherent noise from the sensors.
+A key problem is to calibrate the observations by separating the known noise patterns and the true signal.
+There has already been a lot of work from the ML side ranging from amortized predictions~\cite{DENOISESWOT} to end-to-end learning schemes~\cite{DENOISESWOT2}.
+Much of this work has been facilitated by the \textit{Ocean-Data-Challenge} group which have a few data challenges related to the denoising problem.
+Just like \texttt{OceanBench} was able to create reproducible pipelines from the SSH interpolation challenge listed in section~\ref{sec:data_challenges}, we also believe that one could extend the denoising challenge in the same manner.
+
+\textbf{Forecasting}. This is a special form of extrapolation whereby the temporal domain of the state variable is sufficiently outside of the domain of the observation domain. 
+Many previous benchmarking suites already look at forecasting for weather~\cite{weatherbench} and climate~\cite{ClimateBench}.
+However, in oceanography, it is also advantageous to do forecasting for problems involving currents~\cite{MLSSC,4DVarNetSSC} and eddies~\cite{OCEANEddyTracking,OKUBO,OKUBOWEISS}.
+The \texttt{xrpatcher} will work out of the box for forecasting problems and contributions can be made to \texttt{OceanBench} to include some specific metrics for forecasting as were outlined in~\cite{weatherbench,ClimateBench,ENS10Bench}.
+
+\textbf{Proxy Variables}. There are many other control variables that one could use to improve the interpolation or extrapolation task.
+We mentioned SST in section~\ref{sec:data_challenges} because it is the most abundant observations available.
+However, there are other important observed variables which could be useful, e.g. Ocean colour, Bigeochemical parameters, and atmospheric variables.
+In many other downstream applications, the oceanography community often uses SSH and SST as proxy variables to predict important quantities related to the carbon uptake, e.g. SOCAT~\cite{SOCAT}.
+It would be straightforward to include a specific variable (and the associated preprocessing operations) into \texttt{OceanBench}.
+
+\textbf{Dimension Reduction}. We often have very resolution spatiotemporal fields.
+which poses a very big challenge for learning due to the high correlations exhibited by spatiotemporal data and high dimensionality.
+A workaround for this is to learn a latent representation which retains as much relevant information as possible for the given task.
+In the ocean sciences, this is known as \textit{Reduced Order Modeling} (ROM) or more generally dimensionality reduction which has been frequently used for adaptive meshes for physical models~\cite{NEMOEOF}.
+This could be used for pretraining fields to latent embeddings which could be useful for downstream tasks like anomaly detection~\cite{SSTFLOWANOMALY}.
+% In modern diffusion models, most of the operations are within the latent domain without any loss of quality in the generative results.
+
+
+\textbf{Surrogate Modeling}. 
+Physical model simulations are very expensive and ML has played a role in learning surrogate models to descrease the computational intensity~\cite{ML4OCN,MLCLOSURE}.
+We have a decently long spatiotemporal field over a region of interest which could be used to learn a surrogate model to mimic the dynamics of that region.
+This is also very useful for hybrid schemes whereby we have parameterizations to account for processes that are missing from low resolution simulations.~\cite{MLOCNPARAMETERIZATION,MLOCNPARAMETERIZATION2, MLOCNPARAMETERIZATION3, MLOCNPARAMETERIZATION4}.
+
+
+
+% \subsection{Main Tasks}
+
+% \subsubsection{Interpolation/Extrapolation}
+
+% The two main tasks we can define from this problem setup are: 1) interpolation/extrapolation and 2) forecasting (which can be seen as extrapolation in Time). 
+% Both interpolation and extrapolation are when the domain for the $\mathcal{T}$ always falls between the past and the present, i.e., $\mathcal{T}\in[0, T]$ where $T$ is the current Time. 
+% We define interpolation as the case where the observations along the boundary of the domain are equal to the boundary of the desired reconstruction domain, i.e., $\partial\boldsymbol{\Omega}_{obs} = \partial\boldsymbol{\Omega}_g$, and extrapolation as the case where the boundary of the observation domain lies entirely inside of the boundary of the reconstructed domain, i.e., $\partial\boldsymbol{\Omega}_{obs} \subset \partial\boldsymbol{\Omega}_g$. 
+% Forecasting refers to the problem when the temporal domain $\mathcal{T}$ lies outside of the present, i.e., $T+\tau$ where $\tau$ is some step within the future that is outside of the temporal observation domain, $\mathcal{T}\in[0, T]$. 
+% Note that this is irrespective of the spatial domain or its boundaries. 
+% In the rest of this paper, we will look exclusively at the interpolation problem, but we refer to the reader to section~\ref{sec:other_tasks} in the appendix for a more detailed look at the other tasks.
+
+% \begin{equation}
+%     \mathbf{y} = \mathcal{H}(\mathbf{x})
+% \end{equation}
+
+
+% where $\mathbf{y}\in\boldsymbol{\Omega_p}$ is the incomplete observation within some subdomain and $\mathbf{x}\in\boldsymbol{\Omega}$  is the true observation over the full domain.
+
+
+
+% \subsubsection{Forecasting}
+
+% \begin{equation}
+%     \boldsymbol{u}_{t+\delta t} = \mathcal{M}(\boldsymbol{u}(\mathbf{x}, t+\delta t), \delta t; \boldsymbol{\theta})
+% \end{equation}
+
+% \subsection{SubTasks}
+
+% \subsubsection{Surrogate/Hybrid/Parameterizations}
+
+% \begin{equation}
+%     \frac{\partial u}{\partial t} = \mathcal{M}(\boldsymbol{u}(\mathbf{x},t), \mathbf{x}, t; \theta)
+% \end{equation}
+
+
+
+

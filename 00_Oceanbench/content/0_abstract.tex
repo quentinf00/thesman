@@ -1,0 +1,100 @@
+% \begin{abstract}
+% The ocean is a key component of the climate system, profoundly influencing human activities. Consequently, a central question for oceanographers revolves around its observation and prediction at different timescales. Similar to various research fields, oceanography has recently witnessed the emergence of machine learning-based methods as an alternative to more domain-specific approaches. But, surprisingly, the adoption of machine learning methods in this field has been arguably slower compared to others. This can be attributed to the complexity of pre-processing tasks in the domain of geospatial data and to the specialized nature of evaluation metrics relevant to ocean science problems. In this context, we introduce \texttt{OceanBench}, a framework designed to lower the barrier to entry for ML researchers by standardizing and automating this process that comply with domain-expert standards.
+% It seeks to maintains readability, robustness, and flexibility by providing a standardized framework to explicitly highlight the preprocessing step used, the parameters chosen and the sequence of operations performed. 
+% It takes a step towards incorporate these domain-driven decisions to integrate well with existing ML pipelines.
+% We demonstrate the usefulness of \texttt{OceanBench} on a series of SSH interpolation tasks with consistent dataflow pipelines, physically-inspired metrics, and interpretable visualizations.
+
+% \end{abstract}
+
+  % The abstract paragraph should be indented \nicefrac{1}{2}~inch (3~picas) on
+  % both the left- and right-hand margins. Use 10~point type, with a vertical
+  % spacing (leading) of 11~points.  The word \textbf{Abstract} must be centered,
+  % bold, and in point size 12. Two line spaces precede the abstract. The abstract
+  % must be limited to one paragraph.
+
+\begin{abstract}
+
+The ocean is a crucial component of the Earth's system. 
+It profoundly influences human activities and plays a critical role in climate regulation. 
+Our understanding has significantly improved over the last decades with the advent of satellite remote sensing data, allowing us to capture essential sea surface quantities over the globe, e.g., sea surface height (SSH). 
+Despite their ever-increasing abundance, ocean satellite data presents challenges for information extraction due to their sparsity and irregular sampling, signal complexity, and noise. 
+Machine learning (ML) techniques have demonstrated their capabilities in dealing with large-scale, complex signals. 
+Therefore we see an opportunity for these ML models to harness the full extent of the information contained in ocean satellite data. 
+However, data representation and relevant evaluation metrics can be \textit{the} defining factors when determining the success of applied ML. 
+The processing steps from the raw observation data to a ML-ready state and from model outputs to interpretable quantities require domain expertise, which can be a significant barrier to entry for ML researchers. 
+In addition, imposing fixed processing steps, like committing to specific variables, regions, and geometries, will narrow the scope of ML models and their potential impact on real-world applications. 
+\textbf{OceanBench} is a unifying framework that provides standardized processing steps that comply with domain-expert standards. 
+It is designed with a flexible and pedagogical abstraction: it a) provides plug-and-play data and pre-configured pipelines for ML researchers to benchmark their models w.r.t. ML and domain-related baselines and b) provides a transparent and configurable framework for researchers to customize and extend the pipeline for their tasks. 
+In this work, we demonstrate the \texttt{OceanBench} framework through a first edition dedicated to SSH interpolation challenges. 
+We provide datasets and ML-ready benchmarking pipelines for the long-standing problem of interpolating observations from simulated ocean satellite data, multi-modal and multi-sensor fusion issues, and transfer-learning to real ocean satellite observations. 
+The \texttt{OceanBench} framework is available at~\href{https://github.com/jejjohnson/oceanbench}{github.com/jejjohnson/oceanbench} and the dataset registry is available at~\href{https://github.com/quentinf00/oceanbench-data-registry}{github.com/quentinf00/oceanbench-data-registry}.
+
+\end{abstract}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% - We demonstrate how \texttt{OceanBench} can be used as an underlying framework with a series of SSH interpolation tasks which combines different variables, regions and geometries. 
+
+
+% Q - make use of everything we mentioned above!
+% E/Q - we want to showcase that OceanBench can be used for SSH interpolation 
+% - we want to demonstrate how we can design different experiments/modifications with minimal code changes
+% Q - simple tasks SSH -> SSH; extend it a) add domain, b) include other variables, c) switching to real data
+% - enrich a simple experimental setups with additional variations
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% - There is some work to be done to get the observation data to a ML-ready state.
+% - Deciding the appropriate transformations requires domain-expertise which can be a large barrier to entry for ML researchers.
+
+% - ML methods cannot be applied out of the box on raw observation data because .. blah blah
+
+% - Despite the potential of machine learning to solve the issues that plague geosciences, the barrier to entry for machine learning (ML) researchers in ocean sciences is often hindered by the vastly different schemes for preprocessing techniques required to get the geo-centric data to a ML-ready state.
+% \texttt{OceanBench} is a framework for co-designing machine learning-driven high level data products from ocean observations. 
+%%%%%%%%%
+% Why dont we just provide the processed data and call it a day...?
+% Q - 1) non-standardized preprocessing steps; 2) regional differences
+% 1 - multiple ways to take advantage of the Obs data (covariates, coordinate-based, gridded)
+% Keeping the flexibilities allow for extensibility and multiple 
+%%%%%%%%%%%%$
+% 1 - OceanBench is a unifying framework that provides standardized processing steps that comply with domain-expert standards.
+% 2 - It is designed for - flexible, padagological, abstract, :
+% a - getting ML researchers quickly involved (data + preconfigured pipelines -> ML ready setups and test their models)
+% - provides data and preconfigured pipelines for ML researchers to quickly experiment with different setups,
+% - transparent and configurable for researchers to customize and extend the pipeline for their own objectives
+% b - pedagological, unified setup to create and modified tasks (extensible)
+% - flexibility
+% 3 - We demonstrate ho
+% %
+% \texttt{OceanBench} is a framework that standardizing ... these processing steps that comply with domain-expert standards.
+% %
+% It is designed to lower the barrier to entry for ML researchers by providing preconfigured pipelines, ... "one-stop-shop for it all", and providing illustrative examples for different audiences.
+% * 
+% * provide a common interface for the processing steps
+% * create a few ML tasks from raw data to ML ready using the above steps
+% * showcase how one can orchestrate preconfigured pipelines to create a variety of ML tasks
+% * preconfigured pipelines to illustrate example applications
+
+% 1 - getting ML researchers quickly involved (data + preconfigured pipelines -> ML ready setups and test their models)
+% 2 - pedagological, unified setup to create and modified tasks
+
+% %%%%%
+% \texttt{OceanBench} is a framework 
+% - lower the barrier to entry
+% - accessibility
+% - one place to look to get all the stuff you want to do
+% - preconfigured pipelines
+% - jbooks with illustrated examples.
+% - standardized preprocessing steps.
+%
+% It seeks to maintains readability, robustness, and flexibility by providing a standardized framework to explicitly highlight the preprocessing step used, the parameters chosen and the sequence of operations performed. 
+%
+% It takes a step towards incorporate these domain-driven decisions to integrate well with existing ML pipelines.
+%
+% We demonstrate the usefulness of \texttt{OceanBench} on a series of SSH interpolation tasks with 
+% consistent dataflow pipelines, physically-inspired metrics, and interpretable visualizations.

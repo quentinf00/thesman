@@ -1,0 +1,66 @@
+% if you need to pass options to natbib, use, e.g.:
+%     \PassOptionsToPackage{numbers, compress}{natbib}
+% before loading neurips_data_2023
+
+% ready for submission
+% \usepackage{neurips_data_2023}
+\usepackage[preprint]{neurips_data_2023}
+
+% to compile a preprint version, add the [preprint] option, e.g.:
+%     \usepackage[preprint]{neurips_data_2023}
+% This will indicate that the work is currently under review.
+
+% to compile a camera-ready version, add the [final] option, e.g.:
+%     \usepackage[final]{neurips_data_2023}
+
+% to avoid loading the natbib package, add option nonatbib:
+%    \usepackage[nonatbib]{neurips_data_2023}
+
+% Submissions to the datasets and benchmarks are typically non anonymous,
+% but anonymous submissions are allowed. If you feel that you must submit 
+% anonymously, you can compile an anonymous version by adding the [anonymous] 
+% option, e.g.:
+%     \usepackage[anonymous]{neurips_data_2023}
+% This will hide all author names.
+
+\usepackage{color}
+\usepackage{soul}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[normalem]{ulem}
+\newcommand{\todo}[1]{\textcolor{BrickRed}{[\textbf{TODO}]} }
+\newcommand{\tocite}[1]{\textcolor{Plum}{[\textbf{CITE}: #1]}}
+\newcommand{\hlc}[2][yellow]{{%
+    \colorlet{foo}{#1}%
+    \sethlcolor{foo}\hl{#2}}%
+}
+\newcommand{\tofix}[1]{\hlc[red!20]{#1}}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{xcolor}         % colors
+\usepackage{multirow}
+\usepackage{graphicx}
+
+%% MATH PACKAGES
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{amsmath}
+\usepackage{nicefrac} 
+
+
+\usepackage{listings}
+% \usepackage{minted}
+% \usepackage[cachedir=.]{minted}
+% \usepackage{frozencache}
+% \usepackage[frozencache=true,cachedir=minted]{minted} 
+\usepackage[finalizecache=true,cachedir=minted-cache]{minted}
+% \usepackage[cachedir=.]{minted}
+
+% \usepackage{appendix}
+
+% here is a macro expanding to the name of the language
+% (handy if you decide to change it further down the road)

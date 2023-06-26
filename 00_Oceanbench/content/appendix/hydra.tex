@@ -1,0 +1,92 @@
+\section{Use Case II: Hydra Recipes} \label{sec:hydra_recipes}
+
+This framework has drastically reduced the overhead for the ML researcher while also enhancing the reprducibility and replicability of the preprocessing steps. In this section we showcase a few examples for how one can use oceanbench in conjunction with hydra to provide recipes for some standard processes.
+
+\subsection{GeoProcessing Recipe}
+
+In this example, we showcase how one can pipe a sequential transformation through the hydra framework. In this example, we open the dataset, validate the coordinates to comply to our standards, select the region of interest, subset the data, regrid the alongtrack data to a uniform grid, and save the data to a netcdf file. See the listing~\ref{hydraconfig:geoprocess} for more information.
+
+
+\begin{listing}[ht!]
+\begin{minted}[frame=lines]{yaml}
+# Target Function to initialize
+_target_: "oceanbench._src.dataset.pipe"
+# netcdf file to be loaded
+inp: "${data_directory}/nadir_tracks.nc"
+# sequential transformations to be applied
+fns:
+    # Load Dataset
+    - {_target_: "xarray.open_dataset", _partial_: True}
+    # Validate LatLonTime Coordinates
+    - {_target_: "oceanbench.validate_latlon", _partial_: True}
+    - {_target_: "oceanbench.validate_time", _partial_: True}
+    # Select Specific Region (Spatial | Temporal)
+    - {_target_: "xarray.Dataset.sel", args: ${domain}, _partial_: True}
+    # Take Subset of Data
+    - {_target_: "oceanbench.subset", num_samples: 1500, _partial_: True}
+    # Regridding (AlongTrack -> Uniform Grid)
+    - {
+        _target_: "oceanbench.regrid", 
+        target_grid: ${grid.high_res}, 
+        _partial_: True
+      }
+    # Save Dataset
+    - {
+        _target_: "xarray.Dataset.to_netcdf", 
+        save_name: "demo.nc", 
+        _partial_: True
+      }
+\end{minted}
+\label{hydraconfig:geoprocess}
+\caption{This is a \texttt{.yaml} which showcases how we can communicate with \texttt{Hydra} framework to list a predefined set of transformations to be \textit{piped} through sequentiall. In this example, we showcase some standard pre-processing strategies to be saved to another netcdf file.}
+\end{listing}
+
+
+
+
+\newpage
+\subsection{Evaluation Recipe - OSSE}
+
+In this example, we showcase how one can use hydra to do the evaluation procedure. This is the same evaluation procedure that is used to evaluate the effectiveness of the OSSE NADIR experiment. From code snippet~\ref{hydraconfig:geoprocess}, we see that we choose which target function to initialize and we choose the data directory where the \texttt{.netcdf} file is located. Then, we pipe some transformations for the \texttt{.netcdf} file: 1) validate the spatiotemporal coordinates, 2) we select the evaluation region, 3) we regrid it to the target get, 4) we fill in the nans with a Gauss-Seidel procedure, 5) we rescale the coordinates to be in meters and days, and 6) we perform the isotropic power spectrum transformation to get the effective resolution outlined in section~\ref{sec:metrics}.
+
+\begin{listing}[ht!]
+\begin{minted}[frame=lines]{yaml}
+# Target Function to initialize
+_target_: "oceanbench._src.dataset.pipe"
+# netcdf file to be loaded
+inp: "${data_directory}/ml_result.nc"
+# sequential transformations to be applied
+fns:
+    # Load Dataset
+    - {_target_: "xarray.open_dataset", _partial_: True}
+    # Validate LatLonTime Coordinates
+    - {_target_: "oceanbench.validate_latlon", _partial_: True}
+    - {_target_: "oceanbench.validate_time", _partial_: True}
+    # Select Specific Region (Spatial | Temporal)
+    - {_target_: "xarray.Dataset.sel", args: ${domain}, _partial_: True}
+    # Regridding (Uniform Grid -> Uniform Grid)
+    - {_target_: "oceanbench.regrid", 
+       target_grid: ${grid.reference}, _partial_: True}
+    # Fill NANS (around the corners)
+    - {_target_: "oceanbench.fill_nans", 
+       method: "gauss_seidel", _partial_: True}
+    # Coordinate Change (degree -> meters, ns -> days)
+    - {_target_: "oceanbench.latlon_deg2m", _partial_: True}
+    - {_target_: "oceanbench.time_rescale", 
+       freq: 1, unit: "days", _partial_: True}
+    # Calculate Isotropic Power Spectrum
+    - {_target_: "oceanbench.power_spectrum_isotropic", 
+       reference: ${grid.reference}, _partial_: True}
+    # Calculate Resolved Spatial Scale
+    - {_target_: "oceanbench.resolved_scale", _partial_: True}
+    # Save Dataset
+    - {_target_: "xarray.Dataset.to_netcdf", 
+       save_name: "ml_result_psd.nc", _partial_: True}
+\end{minted}
+\label{hydraconfig:evaluation}
+\caption{This is a \texttt{.yaml} which showcases how we can communicate with \texttt{Hydra} framework to list a predefined set of transformations to be \textit{piped} through sequentiall. In this example, we showcase some standard pre-processing strategies to be saved to another netcdf file.}
+\end{listing}
+
+
+
+

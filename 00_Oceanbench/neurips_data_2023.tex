@@ -1,0 +1,105 @@
+\documentclass{article}
+
+
+
+\input{content/preamble.tex}
+\input{content/custom}
+
+
+\title{\textsc{OceanBench}: \\ The Sea Surface Height Edition}
+
+\input{content/authors.tex}
+
+\begin{document}
+
+
+
+
+\maketitle
+\def\thefootnote{*}\footnotetext{These authors contributed equally to this work}\def\thefootnote{\arabic{footnote}}
+
+%##################################
+% KEYWORDS
+% - Sea Surface Height
+% - Interpolation
+% - Inverse Problem
+% - 
+% Scientific Machine Learning
+% Benchmark, Partial Differential Equations, PINN, FNO, U-Net, Inverse problem
+
+\input{content/0_abstract}
+\input{content/1_motivation}
+\input{content/2_related_work}
+\input{content/3_oceanbench}
+\input{content/4_tasks}
+\input{content/5_conclusions}
+
+%% ACKNOWLEDGEMENTS
+\newpage
+\input{content/acknowledgements}
+\input{content/checklist}
+
+\bibliographystyle{plain}
+% \nocite{*}
+
+\bibliography{
+content/biblio.bib, 
+content/bibliographies/software, 
+content/bibliographies/machine_learning, 
+content/bibliographies/sea_surface_height,
+content/bibliographies/ocean,
+content/bibliographies/data
+}
+
+% \section*{References}
+
+% References follow the acknowledgments. Use unnumbered first-level heading for
+% the references. Any choice of citation style is acceptable as long as you are
+% consistent. It is permissible to reduce the font size to \verb+small+ (9 point)
+% when listing the references.
+% Note that the Reference section does not count towards the page limit.
+% \medskip
+
+% {
+% \small
+
+% [1] Alexander, J.A.\ \& Mozer, M.C.\ (1995) Template-based algorithms for
+% connectionist rule extraction. In G.\ Tesauro, D.S.\ Touretzky and T.K.\ Leen
+% (eds.), {\it Advances in Neural Information Processing Systems 7},
+% pp.\ 609--616. Cambridge, MA: MIT Press.
+
+% [2] Bower, J.M.\ \& Beeman, D.\ (1995) {\it The Book of GENESIS: Exploring
+%   Realistic Neural Models with the GEneral NEural SImulation System.}  New York:
+% TELOS/Springer--Verlag.
+
+% [3] Hasselmo, M.E., Schnell, E.\ \& Barkai, E.\ (1995) Dynamics of learning and
+% recall at excitatory recurrent synapses and cholinergic modulation in rat
+% hippocampal region CA3. {\it Journal of Neuroscience} {\bf 15}(7):5249-5262.
+% }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\appendix
+\section*{\textsc{OceanBench}: The Sea Surface Height Edition - Supplementary Material}
+% \newpage
+\input{content/appendix/data_challenges}
+\newpage
+\input{content/b_physical_variables}
+\newpage
+\input{content/c_metrics}
+\newpage
+\input{content/appendix/hydra}
+\newpage
+\input{content/a3_usecase_patcher}
+\newpage
+\input{content/e_other_tasks}
+\newpage
+\input{content/f_ml_methods}
+% \newpage
+% \input{content/g_userstories}
+\newpage
+\input{content/h_limitations}
+
+
+
+\end{document}

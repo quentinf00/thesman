@@ -1,0 +1,38 @@
+\section{Limitations} \label{sec:appendix_limitations}
+
+While we have advertised \texttt{OceanBench} as a unifying framework that provides standardized processing steps that comply with domain-expert standards, we also highlight some potential limitations that could hinder its adoption for the wider community.
+
+\textbf{Data Serving}. We provide a few datasets but we omit some of the original simulations. We found that the original simulations are terabytes/petabytes of data which becomes infeasible for most modest users (even with adequate CPU resources). In addition, there are many people that will not be able to do a lot of heavy duty research which indirectly favours institutions with adequate resources and marginalizing others.
+
+\textbf{Framework Dependent}. The user has to "buy-into" the \texttt{hydra} framework to really take advantage of \texttt{OceanBench}. This adds a layer of abstraction and a new tool to learn. 
+However, we designed the project so that high level usage does not require in-depth knowledge of the framework. 
+In addition, we hope that, despite the complexity of project, users will appreciate the flexibility and extensibility of this framework.
+
+\textbf{Efficacy of OSSE Experiments}. We alluded to the idea that the OSSE experiments may not reflect the overarching goal of the user yet we provide more OSSE experiments than OSE experiments.
+We acknowledged that it often does not coincide exactly with the OSE experiments which may give users a false sense of accomplishment and immediate transferability. 
+However, we try to provide a framework where one could thoroughly experiment with the learning problem on OSSE configurations which can facilitate transfer learning to other domain-specific tasks.
+We also anticipate that new \textit{real} SWOT data~\cite{SWOT} will start to become more available which will allow us to design better, realistic OSE experiments.
+
+\textbf{Lack of Metrics}. We do not provide the most exhaustive list of metrics available with the ocean community. In fact, we also believe that many of these metrics are often poor and do not effectively assess the goodness of our reconstructions. 
+However, we do provide a platform that will hopefully be useful and easy to implement new and improved metrics.
+Furthermore, having a wide range of metrics that are trusted across communities may help to improve the overall assessment of the different model performances~\cite{METRICSAVERAGE}.
+
+\textbf{Limited ML Scope}. The framework does not support nor promote any machine learning methods and we lack any indication of comparing ML training and inference performance. However, we argue that this is a necessary preliminary step which offers users more flexibility in the long-run.
+
+\textbf{Transparency}. We use a lot of different \texttt{xarray}-specific packages which have different design principles, assumptions and implementations. This may give the users an illusion of simplicity and transparency to real-world use. However, there are many underlying assumptions within each of the packages that may occlude a lot of design decisions.
+Despite this limitation, we believe that being transparent about the processing steps and being consistent with the evaluation procedure will be beneficial for the ML research community.
+
+\textbf{Scalability}. Scaling this to many terabytes or petabytes of data is easily the biggest limitation of the framework. In addition, we have only showcased demonstrations for 2D+T fields which are much less expensive than 3D+T fields.
+
+\textbf{Deployability}. MLOPs has many wheels and it is not easy to integrate into existing systems. We offer no solutions to this. 
+However, we believe that this is a necessary step further down once the community has established good baselines and there is academic and industrial momentum (see the evolution of \texttt{WeatherBench} and \texttt{ClimateBench}).
+
+
+% \textbf{Limitations}. The scope of this is very specific to researchers who are interested in ML. It only serves as a baseline design. If one would like to scale, it would require much more engineering work to get everything to connect. This is already seen if we are to load datasets of PBs. In addition, this requires researchers to have access to considerably large machines to be able to run their own preprocessing schemes. We do our best to provide toy datasets of a modest size however, inevitably, one will probably need to work with larger and large datasets.
+
+% \subsection*{Broader Impact}
+% \label{sec:impact}
+
+% The theme of interpolation is present in many applied communities with different names, e.g. kriging in ecology/hydrology, Optimal interpolation in oceanography, and Gaussian processes in statistics. We hope that this work bridges this gap between the communities and we invite other works to try to highlight concrete ways that machine learning and classic physics have commonalities.
+
+% In the oceanography community in particular, we especially hope to see more adoption of machine learning methods for interpolation. DUACS is ultimately a closed-system so the wider scientific community does not have access to the algorithm. Our OI baseline hopefully unveils some of the finer details of the method. However, in general, the standard OI methods used in the applied community cannot keep up with the massive influxes of observations we receive. So this work is a first step in demonstrating that neural networks (in particular NerFs) are a viable, simpler, and scalable alternative.
