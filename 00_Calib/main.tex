@@ -1,34 +1,38 @@
-\documentclass[lettersize,journal]{IEEEtran}
-\usepackage{amsmath,amsfonts}
-\usepackage{algorithmic}
-\usepackage{array}
-\usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
-\usepackage{textcomp}
-\usepackage{stfloats}
-\usepackage{url}
-\usepackage{verbatim}
-\usepackage{graphicx}
-\usepackage{booktabs}
+% \documentclass[lettersize,journal]{IEEEtran}
+% \usepackage{amsmath,amsfonts}
+% \usepackage{algorithmic}
+% \usepackage{array}
+% \usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+% \usepackage{textcomp}
+% \usepackage{stfloats}
+% \usepackage{url}
+% \usepackage{verbatim}
+% \usepackage{graphicx}
+% \usepackage{booktabs}
 % \usepackage{pgfplots}
 % \usepgfplotslibrary{external} 
 % \usepackage{layouts}
-\hyphenation{op-tical net-works semi-conduc-tor IEEE-Xplore}
-\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
-    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
-\usepackage{balance}
-\begin{document}
-\title{Scale-aware neural calibration for wide swath altimetry observations}
-%
-\author{Quentin Febvre, ~\IEEEmembership{Student,~IEEE,} Clément Ubelmann, Julien Le Sommer, Ronan Fablet%
-\thanks{Quentin Febvre and Ronan Fablet are with IMT Atlantique and UMR CNRS Lab-STICC, INRIA team Odyssey, Brest, France. Email: quentin.febvre@imt-atlantique.fr, ronan.fablet@imt-atlantique.fr}%
-\thanks{Clément Ubelmann is with Datlas, Greno, France. Email: clement.ubelmann@datlas.fr}
-\thanks{Julien Le Sommer is with MEOM group at Université Grenoble-Alpes, CNRS, IRD, Grenoble, France. Email: julien.lesommer@univ-grenoble-alpes.fr}}
+% \hyphenation{op-tical net-works semi-conduc-tor IEEE-Xplore}
+% \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+%     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+% \usepackage{balance}
+% \begin{document}
+% \title{Scale-aware neural calibration for wide swath altimetry observations}
 
-\markboth{Transactions on geoscience and remote sensing}%
-{Scale aware deep learning for wide-swath altimetry calibration}
+% \author{Quentin Febvre, ~\IEEEmembership{Student,~IEEE,} Clément Ubelmann, Julien Le Sommer, Ronan Fablet%
+% \thanks{Quentin Febvre and Ronan Fablet are with IMT Atlantique and UMR CNRS Lab-STICC, INRIA team Odyssey, Brest, France. Email: quentin.febvre@imt-atlantique.fr, ronan.fablet@imt-atlantique.fr}%
+% \thanks{Clément Ubelmann is with Datlas, Greno, France. Email: clement.ubelmann@datlas.fr}
+% \thanks{Julien Le Sommer is with MEOM group at Université Grenoble-Alpes, CNRS, IRD, Grenoble, France. Email: julien.lesommer@univ-grenoble-alpes.fr}}
+
+% \markboth{Transactions on geoscience and remote sensing}%
+% {Scale aware deep learning for wide-swath altimetry calibration}
 
 
-\maketitle
+% \maketitle
+\begin{bibunit}[IEEEtran.bst]
+
+\clearemptydoublepage
+\chapter{Scale-aware neural calibration for wide swath altimetry observations}
 
 \begin{abstract}
 	Sea surface height (SSH) is a key geophysical parameter for monitoring and studying meso-scale surface ocean dynamics. For several decades, the mapping of SSH products at regional and global scales has relied on nadir satellite altimeters, which provide one-dimensional-only along-track satellite observations of the SSH.  
@@ -36,9 +40,9 @@
 	In a supervised setting, our method reaches the state-of-the-art residual error of $\approx$ 1.4cm while proposing a correction on the entire spectral from 10km to 1000km and using weaker constraints on the modeled error signal.
 \end{abstract}
 
-\begin{IEEEkeywords}
-Deep Learning, Altimetry, Calibration, SWOT.
-\end{IEEEkeywords}
+% \begin{IEEEkeywords}
+% Deep Learning, Altimetry, Calibration, SWOT.
+% \end{IEEEkeywords}
 
 
 
@@ -52,7 +56,7 @@ The recently launched SWOT mission, with its Ka-band radar interferometer (KaRIn
 
 \begin{figure}[!t]
     \begin{center}
-        \includegraphics[width=\linewidth]{gridded_sensors.png}
+        \includegraphics[width=\linewidth]{00_Calib/gridded_sensors.png}
     \end{center}
     \caption{\textbf{Observing System Simulation Experiment Cross-Calibration data:} \textit{Top left:} Sea surface height (SSH) on October 26th 2012 from NATL60 simulation dataset. \textit{Top right:} Calibrated NADIR pseudo-observations sampled using realistic orbits from the SSH, they are used to compute the gridded product for the cross-calibration.\textit{Bottom-left:} NADIR + noise-free-KaRIn pseudo-observations, the  2{\sc d} sampled SSH is the target of the cross-calibration.\textit{Bottom-right:} NADIR + noisy-KaRIn pseudo-observations, simulated errors added to the swath SSH constitute the uncalibrated input of the cross-calibration problem}
 \label{fig:gridded}
@@ -78,8 +82,8 @@ Section \ref{sec:conclusion} discusses further our main contributions.
 \noindent
 \begin{figure*}[!t]%
    \centering
-    \subfloat[$f$]{{\includegraphics[width=.49\textwidth]{swath_err_details} }}%
-    \subfloat[$\mathcal{G}_{200km}(f) - \mathcal{G}_{10km}(f)$]{{\includegraphics[width=.49\textwidth]{swath_err_f10_200_details} }}%
+    \subfloat[$f$]{{\includegraphics[width=.49\textwidth]{00_Calib/swath_err_details} }}%
+    \subfloat[$\mathcal{G}_{200km}(f) - \mathcal{G}_{10km}(f)$]{{\includegraphics[width=.49\textwidth]{00_Calib/swath_err_f10_200_details} }}%
     \caption{\textbf{1000km segment of KaRIn observation components in swath geometry:}\textit{(a)} Looking at the three signals we see that the large scale instrument errors (middle) are predominant compared to the SSH (top) and geophysical error (bottom). \textit{(b)} Looking at the along-track scales between 10km and 200km, we note that the SSH is dominant w.r.t the error signals.}%
     \label{fig:filtered_swath_uncal_comp}%
 \end{figure*}
@@ -181,7 +185,7 @@ We first present an overview of the proposed neural architectures (Section \ref{
 \noindent
 \begin{figure*}
     \begin{center}
-	    \includegraphics[width=\textwidth]{CalDiag2.png}
+	    \includegraphics[width=\textwidth]{00_Calib/CalDiag2.png}
     \end{center}
     \caption{\textbf{Overview of the proposed architecture:} From left to right: The first step interpolates the nadir-based gridded product onto the swath segment. Afterwards, both the nadir-based gridded product and KaRIn observation undergo the scale-space decomposition scheme outlined in \ref{subsec:scale_decomp}. The scale components are stacked as channels and processed through the neural network. The blue color of the "Split Conv" indicates that each side of the swath is processed independently by the convolution layer whereas the orange coloring of the "Swath Mix" layer tells that the whole data is processed jointly (more details in \ref{subsec:mixing}). The final convolution computes a correction to be added to the gridded product for computing the calibrated KaRIn data}
     \label{fig:arch}	
@@ -210,7 +214,7 @@ One may regard the proposed scale-scale decomposition as a convolutional block. 
 realistic, or a deeper architecture with pooling layers that would require very efficient optimization given the quantity of data available. 
 \begin{figure}[!t]% 
     \centering
-    {\includegraphics[width=\linewidth]{var_rescale_obs} }%
+    {\includegraphics[width=\linewidth]{00_Calib/var_rescale_obs} }%
     \caption{\textbf{Explained variance of scale components before and after re-scaling:} Each bar indicates how much each scale component of the uncalibrated KaRIn contributes to the total variance of the signal, we can see that before re-scaling (blue) there is four orders of magnitude between largest scale and the others. The learnt re-scaling allows for scale component to be spread within a single order of magnitude (orange), which is more suited to the downstream neural architecture.}%
     \label{fig:var_in_out}%
 \end{figure}
@@ -246,7 +250,7 @@ The calibration model is trained for 250 epochs with a annealing triangular cycl
 
 \begin{table}[t]
 \begin{center}
-\input{res_main}
+\input{00_Calib/res_main}
 \end{center}
 \caption{Residual error of the benchmarked calibration frameworks}
 \label{table:main}
@@ -268,7 +272,7 @@ Between 10-100km, our method successfully exploits the lower observation errors 
 \begin{figure}[!t]
     \centering
     \includegraphics[width=\linewidth]
-    {norm_cumsum_highpass_errors_1.png}%
+    {00_Calib/norm_cumsum_highpass_errors_1.png}%
     \caption{{\bf Observation and reconstruction error for the SSH at different spatial scales:}  The figure shows the relative error w.r.t to the SSH at different along-track scales for the inputs (Uncalibrated KaRIn in orange and nadir based interpolation in blue) and output (calibrated KaRIn in green) of our method. The x axis indicates the standard deviation of the Gaussian blur that was used to remove the high scale components of the different signals. We can see the expected trend of the interpolation error that is concentratedat fine scales. The uncalibrated KaRIn  error on the other hand is lower than the interpolation only in the 10km-100km range. We see the calibrated output of our method achieves lower error across all scales.}
     \label{fig:err_scales}%
 \end{figure}
@@ -280,7 +284,7 @@ Between 10-100km, our method successfully exploits the lower observation errors 
 
 \begin{table}[t]
 \begin{center}
-\input{res_ablation.tex}
+\input{00_Calib/res_ablation.tex}
 \end{center}
 \label{table:ablation}
 \caption{Ablation results}
@@ -301,7 +305,7 @@ In Table \ref{table:size}, we show the sensitivity to the size of the network fo
 Overall, these results support the robustness of the proposed learning-based approaches and the conclusions we raise in section \ref{subsec:main_res} are not very sensitive to the hyper-parameters of our network architecture.
 \begin{table}[t]
 \begin{center}
-\input{res_size}
+\input{00_Calib/res_size}
 \end{center}
 \caption{Impact of network size}
 \label{table:size}
@@ -322,7 +326,7 @@ Overall this shows interesting relations between the redundant information in th
 \begin{figure}
     \begin{center}
         % \input{gridded_impact.pgf}
-        \includegraphics{gridded_impact.png}
+        \includegraphics{00_Calib/gridded_impact.png}
     \end{center}
     \caption{{\bf Impact of the nadir-based gridded product on the CalCNN output:} The figure shows the RMSE and the RMSE of the $|| \nabla_{ssh} ||$ of the calibrated observation (stars) and their associated nadir-based gridded products (squares). The improvement brought by the CalCNN is illustrated by the arrows. This improvement can be interpreted as the relevant information extracted from the uncalibrated KaRIn by the CalCNN. Note that the biggest relative improvement concerns the DUACS gridded product (blue) which doesn't uses the SWOT's nadir altimeter.}
     \label{fig:gridded_impact}
@@ -337,7 +341,7 @@ However we still achieve less than 1.6cm residual error for any of the considere
 
 \begin{table}[!t]
 \begin{center}
-	\input{res_scale_decomp}
+	\input{00_Calib/res_scale_decomp}
 \end{center}
 \caption{Calibration metrics in function of the scale decomposition}
 \label{table:scale_dec}
@@ -350,6 +354,7 @@ We have proposed in this work a neural calibration approach which combines a sca
 residual error below 1.5cm which can be compared with the 2cm residual error of the expected operational approaches performance although demonstrated globally using a different ocean simulation \cite{Dibarboure_Ubelmann_Flamant_Briol_Peral_Bracher_Vergara_Faugere_Soulat_Picot_2022}. While we can reach a satisfactory calibration performance using the operational nadir altimetry mapping product, our experiments highlight the potential benefit of ongoing effort on neural SSH interpolation schemes to further improve the retrieval of finer-scale features from KaRIn observations.
 This naturally advocates for future work exploring jointly calibration and mapping problems for nadir and wide-swath altimeters, possibly combining our deep learning approach and variational mapping formulations introduced in \cite{Febvre_Fablet_Sommer_Ubelmann_2022}.
 The generalization to real signals of our calibration operator trained on simulated data is obviously a key challenge to be investigated.
+\addcontentsline{toc}{section}{Bibliography}
 
 % \begin{thebibliography}{biblio}
 % \bibliographystyle{IEEEbib}
@@ -550,17 +555,20 @@ Q.~Febvre, et~al.,
 \newblock in {\em IEEE ICASSP 2022 - 2022}, May 2022, p. 1536–1540.
 
 \end{thebibliography}
+
+
+\end{bibunit}
 %\begin{IEEEbiographynophoto}{Quentin Febvre}
 %Quentin Febvre is a 2nd year PhD student at IMT Atlantique Brest
 %\end{IEEEbiographynophoto}
 
-\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{photo_qfebvre.jpg}}]{Quentin Febvre}
-recived the graduate degree from the École Supérieure d'électricité, France and  Master of Science degree in Computer Science from Tsinghua University, China in 2015. He then worked as a data scientist for an international advertising company in 2016 before joining Theodo Group in Paris where he worked on web development, data engineering and computer vision applications using data driven approaches. In 2020, he started as a PhD student in the Mathematical and Electrical engineering department at IMT Atlantique Bretagne-Pays de la Loire. His research focuses on the benefits deep learning approaches can bring to ocean observation systems, and more specifically on altimetry data analysis.
-%\begin{IEEEbiographynophoto}{Ronan Fablet}
+% \begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{photo_qfebvre.jpg}}]{Quentin Febvre}
+% recived the graduate degree from the École Supérieure d'électricité, France and  Master of Science degree in Computer Science from Tsinghua University, China in 2015. He then worked as a data scientist for an international advertising company in 2016 before joining Theodo Group in Paris where he worked on web development, data engineering and computer vision applications using data driven approaches. In 2020, he started as a PhD student in the Mathematical and Electrical engineering department at IMT Atlantique Bretagne-Pays de la Loire. His research focuses on the benefits deep learning approaches can bring to ocean observation systems, and more specifically on altimetry data analysis.
+% %\begin{IEEEbiographynophoto}{Ronan Fablet}
 
-\end{IEEEbiography}
+% \end{IEEEbiography}
 
-\end{document}
+% \end{document}
 
 
 
