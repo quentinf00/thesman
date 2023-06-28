@@ -3,10 +3,180 @@
 \clearemptydoublepage
 \chapter{Problem Formulation and Ontology of Approaches}
 \label{chap:1}
+\section{The Thermometer Calibration Example}
+In order to further elucidate the proposed ontology, let's delve into the process of calibrating a thermometer. This example was selected due to its relevance to our study and because it is easier to reason about the underlying physical processes and quantities than in the case of earth observation. The problem of thermometer calibration can be stated as: given an ungraduated thermometer, how can we interpret the level of the liquid as a temperature?
+
+The ultimate goal of this calibration is to place the thermometer in a specific location, observe the height of the liquid, and infer the temperature at the point of measurement.
+
+The first step involves accumulating theories and assumptions to construct a model linking the observed level and the actual temperature. For instance, based on our knowledge of fluid dilation in response to temperature, assuming the diameter of the tube is constant with height, we can posit that the level is linearly correlated with the temperature. This model introduces two parameters: the slope and offset of our linear model that need to be ascertained.
+
+The second step involves calibrating these parameters. For this purpose, we require at least two data points of levels with corresponding temperatures. This is traditionally obtained by immersing the thermometer in icy and boiling water to acquire the levels corresponding to 0°C and 100°C. A simple linear system can then be used to solve for the parameters.
+
+We can then add graduations and use the thermometer level as a proxy for the temperature without further thought!
+
+A few notes on this example:
+\begin{itemize}
+\item The first and second steps are intrinsically interconnected and rely on our conceptual knowledge and the available data;
+\item If the data had included the volume of the liquid, the tube's diameter, and the dilation rate of the liquid, we might have needed theoretical knowledge about the volume of a tube to construct a relationship between the level and the temperature;
+\item If only the diameter were unknown in a similar situation, a single data point would have been sufficient to calibrate the model;
+\item If we loosen the assumption about the tube's constant diameter, we would need to incorporate a parameterization of the tube diameter into the model, adding more parameters and necessitating more data points for calibration;
+\item If we had a thousand regularly distributed data points of levels with corresponding temperatures, we could limit our system assumptions to stationarity (a level that corresponded to a temperature in the past implies the same level corresponds to the same temperature) and smoothness (levels that are close to each other correspond to temperatures that are close to each other), and our temperature estimate could simply be the nearest observation from the data points;
+\item Errors in the calibrated thermometer originate from three sources: model errors through inaccurate assumptions, optimization errors if the calibrated parameters are not optimal and data error.
+  \end{itemize}
+
+\section{Digging deeper on optimization}
+The above section detailed how to find a function that maps an observation of the level of the thermometer to the temperature.
+We saw how this function is the result of an procedure that uses some assumptions about the problem and takes as input a set of data points.
+
+We propose here a parallel between the calibration problem as stated above and the optimization problem of infering optimal parameters from data-points.
+
+The first step 
+
+
+
+\begin{itemize}
+  \item The optimization procedure also relies on some assumptions and parameters
+  \item We can then think of the tuning of hyper-parameters as an a higher order problem
+  \item The solution of this problem takes in a set of data points and produces a mapping between levels and temperatures.
+  \item Such solution could be applied to a range of different thermometer given that the set of available data points meets the requirements
+  \item The accuracy of a calibrated thermometer would depend on the validity of the assumptions made
+  \item In order to tune the hyper-parameters, the data-points needed would include calibrated thermometers the same way datapoints to calibrate the parameters include temperature
+\end{itemize}
+
+
+  Therefore, $f_0 \in \cal{F}_0 = { h \to \alpha h + \beta , (\alpha, \beta) \in |R^2 }$.
+
+  More generally, $f_0 \in \cal{F}_0 = \{ f: y; z \to f(y; z), z \in |R^{N_0} \}$ with f the modelisation of the first order problem parameterizes by $z$.
+
+\section{Problem Formulation Bis}
+\label{sec:chap1_problem_formbis}
+
+  The end objective (zero order) of the class of problem we're interested in is to find a function $f_0=\hat{u}$  that approximates a quantity of interest $u(t, x)$ conditioned on a set of observations $\cal{D}_0$.
+   $u$ is defined on a domain $\Gamma_u$ with values in $\mathbb{R}^d_u$.
+  We note $\cal{F}_0$  the set of candidate $f_0$ and $\theta_0 \in \mathbb{R}^p_0$ the parameters of $f_0$
+  In geoscience we can generally consider $\Gamma$ to be spatio-temporal, and define the spatial and temporal domains  as {\Omega = {x, (t,x) \in \Gamma} and {\Tau = {t, (t,x) \in \Gamma}
+  A set of observation is in the form $\cal{D}_0 = \{(p_0, y(p_0)), ..., (p_{N_y}, y(p_{N_y})) \}$ with  $p_i \in \Gamma_y$ and $y(p_i) \in \mathbb{R}^d_y$.
+
+
+  The first order objective is therefore to formulates $f_1$ that outputs $f_0$ from $\cal{D}_0$
+  We note $\cal{F}_1$  the set of candidate $f_1$ and $\theta_1 \in \mathbb{R}^p_1$ the parameters of $f_1$
+
+  We can similarly introduce a second order objective which is to find $f_2$ that outputs $f_1$ from  $\cal{D}_1$ which groups multiple observation sets 
+  We note $\cal{F}_1$  the set of candidate $f_1$ and $\theta_1 \in \mathbb{R}^p_1$ the parameters of $f_1$
+
+All along this section we will illustrate our ontology of problems and methods using an example of thermometer calibration. We chose this use case due to its relevance to our work given that it's about sensor calibration and because the underlying physical processes are much simpler that the ones involved in the earth system wich makes for a comprehensive and useful usecase.
+
+In the case of our thermometer the quantity of interest is the temperature  $T$ which is a scalar field and $\Omega_u$ is the thermometer location  $x_t$ at time $t_t$. 
+  We want to estimate it given a single observation of the level of the thermometer $h_t$ at the same point: $\cal{D}_0 = \{((x_t, t_t), h_t$.
+
+  In the case of our thermometer, $f_1: \{(t_t, x_t, h_t)\} -> \{f_0(t_t, x_t)\}$ can be reduced  to finding the relationship between the level $h_t$ and the temperature $T_t$ of the thermometer.
+
+
+  In order to solve the first order problem, the first step involves compiling our theoretical knowledge and making assumption to come up with a model. For example, given our understanding of fluid dilation in response to temperature, under the assumption that the diameter of the tube is constant with height, can assume that level is linearly correlated with the temperature. Therefore, $f_1 \in \cal{F}_1 = { h \to \alpha h + \beta , (\alpha, \beta)=\theta_1 \in |R^2 }$.
+    A second necessary step is to determine the values of $\alpha$ and $\beta$. To this end we require a set of data points $\cal{D}_1 = \{\cal{D}_0^1=(h^1, T^1), ..., \cal{D}_0^{N_1}=(h^{N_1}, T^{N_1})\}$ to calibrate our model, traditionally obtained by placing the thermometer in icy and boiling water to get the levels corresponding to 0°C and 100°C. We can then solve for the parameters with a simple linear system.
+
+
+
+
+  The second order objective is then to formulates $f_2$ that outputs $f_1$ from  $\cal{D}_1$
+
+
+  We can now formulate the second order problem associated with 
+  The 
+   To solve this 
+  The end objective of the class of problem we're interested in is to find a function $f_0$  that approximates a quantity of interest $u(t, x)$ on a domain $\Gamma_u$ with values in $\mathbb{R}^d_u$.
+  In order to estimate find $f_0$, we have observation data $\cal{D}_0 = \{(p_0, y(p_0)), ..., (p_{N_y}, y(p_{N_y})) \}$ with  $p_i \in \Gamma_y$ and $y(p_i) \in \mathbb{R}^d_y$.
+  In geoscience we can generally consider $\Gamma$ to be spatio-temporal, and define the spatial and temporal domains  as {\Omega = {x, (t,x) \in \Gamma} and {\Tau = {t, (t,x) \in \Gamma}
+  
 
 \section{Problem Formulation}
 \label{sec:chap1_problem_form}
-We are interested in a broad class of problems that involve finding the optimal function $f$ which maps the available inputs $y$ to the desired outputs $u$.
+
+
+
+The broadest formulation the problems we're interested in is finding a function $f$ which maps the available inputs $y$ to the desired outputs $u$.
+
+
+
+
+
+All along this section we will illustrate our ontology of problems and methods using an example of thermometer calibration. We chose this use case due to its relevance to our work given that it's about sensor calibration and because the underlying physical processes are much simpler that the ones involved in the earth system.
+
+This formulation encompasses different order of problem that we detail below.
+
+\subsection{First order: Calibrating the thermometer}
+  \label{ssec:firstorder}
+The first order of problem would be to find the mapping $f_0$ between a given level $h$ of the thermometer and the associated temperature $T$ of the liquid within.
+
+A first step would involve compiling our theoretical knowledge and making assumption to come up with a model. For example, given our understanding of fluid dilation in response to temperature, under the assumption that the diameter of the tube is constant with height, if we don't know the volume of liquid and the dilation rate we can model an affine  that the level is linearly correlated with the temperature. Therefore, $f_0 \in \cal{F}_0 = { h \to \alpha h + \beta , (\alpha, \beta) \in |R^2 }$.
+
+  More generally, $f_0 \in \cal{F}_0 = \{ f: y; z \to f(y; z), z \in |R^{N_0} \}$ with f the modelisation of the first order problem parameterizes by $z$.
+
+  A second necessary step is to determine the values of $\alpha$ and $\beta$. To this end we require a set of data points $\cal{D}_0 = \{(h^1, T^1), ..., (h^{d_0}, T^{d_0})\}$ to calibrate our model, traditionally obtained by placing the thermometer in icy and boiling water to get the levels corresponding to 0°C and 100°C. We can then solve for the parameters with a simple linear system.
+
+
+  The first and second step are coupled. Indeed, the more parameters $f_0$ depends on, the more data points will be needed in $\cal{D}_0$
+  For example if some assumptions are considered too restrictive like "the diameter of the thermometer is constant with height", they can be relaxed.
+  However this expands the class of functions $F_0$, by requiring the incorporation of a model of the diameter in function of height, which will introduce new parameters. Let's assume that the diameter is linear per part for every $K$mm section, and the corresponding parameters to find would be the $N_k$ value of the diameter every $K$mm: $(d_1, ... d_{N_k}) \in |R^{N_k}$ 
+
+  In this new formulation, note that chosing $d_i$ values determi
+  In order to find adequate $d_i$ values, more data points would be needed in $\cal{D}_0$
+
+\subsection{Second order: Finding a thermometer calibration procedure}
+  The resolution of a first order problem can be stated as the following: How to find the mapping $f_1$ between a set of data points $\cal{D}_0$ and $f_0$.
+  We refer to this formulation as a second order problem.
+
+  The second order solution $f_1$, is a procedure that outputs the best first order solution given a set of data points $\cal{D}_0$
+  This procedure is an algorithm chosen in regard of some assumptions on the level of noise in the input $\cal{D}_0$ and the landscape of the search space $F_0$. These assumptions define the classes of functions $\cal{F}_1 = \{f: \cal{D}_0; \theta \to f_0, \theta \in |R^{N_1}\}$ conditionned on $\theta$ which are the constant parameters across first order instances.
+  In the above example $f_1$ could be the resolution of a simple linear system without any parameters, but could also be a gradient descent procedure relying on a definition of an objective function and with parameters such as the step size. 
+  More generally, when focusing on iterative optimization procedure such as gradient descent based algorithms, the parameters \theta can be characterize initialization schemes, the step computation or regularization parameters that reduce the search space $F_0$.
+
+
+  % Note that regularization can be loosely defined as assumptions used to reduce the search space $\cal{F}_0$ across all tasks such that $f_0 \in \cal{F}_0 = \{ f: y; z \to f(y; z), z \in \cal{Z}(\theta) \subset |R^{N_0} \}$.
+  % An example of regularization assumption could be a smoothness a priori on the diameter of the thermometer conditionned on a parameter $\lambda$ such that the parameters $(d_1, ... d_{N_k}) \in |R^{N_k}$ are constrained by  $\forall i \in [|1, N_k-1|], d_i - d_{i+1} < \lambda$ effectively reducing the search space.
+
+  The parameters $\theta$ are then tuned using a dataset $\cal{D}_1 = \{\cal{D}_0^1, ..., \cal{D}_0^{d_1}\}$ comprised of multiple instances of first order problems.
+
+ For example one can use the different examples in  $\cal{D}_1$ 
+
+%   We when modeling The function $f_1$ also depends on parameters that are 
+%   Additionally, for second order problems, the solution $f_1$ performs the search for the parameters of $f_0$ i.e. an optimization procedure. This procedure also depends on assumptions such as the level of noise in the input $\cal{D}_0$, and the landscape of the search space $F_0$. This will define parameters to find for $f_1$. Such parameters are tuned using a dataset $\cal{D}_1 = \{\cal{D}_0^1, ..., \cal{D}_0^{d_1}\}$ comprised of multiple first order problems.
+%
+%
+% Finally some parameters of the modelisation of first order problem can be unknown but common across problems and therefore are parameters of 
+  
+
+\subsection{Second order ++: Finding a generic procedure to solve a class of problem}
+
+In the above second order problem, note that the class of function $F_0$ considered needs now to apply to every thermometers we want to calibrate using $f_1$.
+
+  This can motivate the elaboration of more generic modelisation $f_0$ with higher dimensional $cal{\F}_0$.
+  However this requires more data.
+  The two sources of data $\cal{D}_0$ and $\cal{D}_1$ are complimentary to this end.
+  More data in $\cal{D}_1$ allow for more tuning more parameters generic across and therefore reducing the search space of $cal{\F}_0$ during the second order resolution.
+  whereas a larger $\cal{D}_0$ can be used to search higher dimensional $cal{\F}_0$ during the first order resolution.
+
+  In the thermometer example above assuming the determination of the diameter every $K$mm requires too much datapoints compare to what we expect to have in $\cal{D}_0$, but that we have a many examples of thermometers in $\cal{D}_1$.
+  We can learn the distribution 
+  We could then introduce regularization parameters to be fitted across different first order instances and that would couple the $d_i$ together such as reducing the search space of $F_0$.
+  For example coupling the 
+  degrees of freedom that can be solved for each $\cal{D}_0$
+
+
+In the previous example, we saw an example of broadening the space of possible first order solution by relaxing some assumptions and then searching this larger space relying on more data.
+Going even further we could aim at finding a generic approach for finding calibration operator of differnt kind of sensors or even generic 
+
+
+
+
+  The model of the thermometer made for the first order problem needs to be questioned and 
+  When solving a second order problem, the assumptions made to 
+  $f_1$ then incorporate the search for $f_0$'s parameters.
+
+
+
+Given a non graduated thermometer we want to find 
+
 
 In geoscience, $u$ and $y$ can generally be defined as $D_u$ and $D_y$ dimensional vector fields defined on spatio-temporal domains $\Omega_u$ and $\Omega_y$. Here, we consider scalar fields and discrete fields as particular cases of this generic formulation. The different problems can be characterized by the types of quantities $u$ and $y$ and the spatio-temporal domains $\Omega_u$ and $\Omega_y$ on which they are defined. Figure \ref{fig:planet_drawings} illustrates how our two use cases of sensor calibration and SSH mapping easily fit into such formulation. Additionally, Figure \ref{fig:task_ontology} shows how tasks such as calibration, mapping, and forecasting can differ through the domain of definition of $u$ and $y$.
 
@@ -37,9 +207,15 @@ And finally forecast can considered as wanting to estimate a quantity on an unob
 \section{Method Ontology}
 We aim to characterize and organize the various methods used to tackle the class of problem introduced in \ref{sec:chap1_problem_form}. We propose that all methods can be decomposed into the following two steps:
 \begin{itemize}
-\item Step 1: Define the set $\cal{F}$ of possible $f$ using theoretical knowledge (conceptual models)
-\item Step 2: Search $\cal{F}$ for an optimal $f$ using factual knowledge (data)
+\item Step 1: Define the set $\cal{F}$ of possible $f$ using theoretical knowledge and making assumptions about the problem (conceptual models)
+\item Step 2: Search $\cal{F}$ for an optimal $f$ using factual knowledge (data) and making assumptions about the data
 \end{itemize}
+
+  To illustrate our point let's consider the simple problem of thermometer calibration.
+
+
+
+
 
 To illustrate our point, consider a simple example of building a thermometer by placing a liquid in a tube and wanting to interpret the level of the liquid as a temperature. According to our previous notations, $y$ is the level of the liquid and $u$ is the temperature of the liquid inside, and we seek to find the mapping $f$ between the two.
 
@@ -50,6 +226,7 @@ In Step 2, to find $\alpha$ and $\beta$, we require two data points to calibrate
 However, if we clearly see that the diameter of our thermometer is not constant, the model needs to incorporate that the evolution of the temperature depends on the diameter at each height. This expands the class of functions, necessitating the incorporation of a model of the evolution of the diameter in function of the height, which will introduce new parameters. We could assume that the diameter is linear for every 5mm section, and the corresponding parameters to search would be the value of the diameter every 5mm.
 
 To estimate these new parameters, we need more data which could be direct measures of the diameter or measures of temperature every 5mm. We could directly model $f$ as linear per part, thereby reducing the number of parameters to estimate (no more $\alpha$ and $\beta$). If we have measurements of the temperature, this also alleviates the need to explicitly model the relationship between diameter and temperature.
+
 
 
 
