@@ -153,6 +153,30 @@ And the conceptual blocks introduce above apply in a similar manner.
 
 
 \subsection{In a nutshell}
+
+A necessary step before developing a solution to a problem is to be able to evaluate it, this requires informed knowledge and assumptions on the intended use of the solution as well as a choice of metric computation and the associated data.
+
+Then to actually develop the solution, three components are needed: a model of the relationship between input and output of the solution as well algorithm to chose the model configuration given some data.
+
+
+To solve the calibration problem we need to come up with a calibration procedure that will take level-temperature observations to produce the calibrated thermometer.
+
+To evaluate the calibration procedure we evaluate the calibrated thermometers over a range of representative tasks.
+To evaluate a calibrated thermometer, we compare the temperatures given by the thermometer over a range of representative situations.
+
+To develop the calibration procedure we need three components:
+The data: an ensemble of calibration task that we can evaluate (of calibrated thermometers)
+The algorithm that choses the best calibration procedures 
+The model that is the set of candidates calibration procedures that differ by one or more component:
+  The model which is the set of candidate of level-temperature mapping
+  The algorithm that choses the best mapping given some level-temperature observations
+
+
+
+
+
+
+
 Solving an observation problem can be structured in two levels:
 - Finding the best estimate of the temperature when looking at a thermometer
 - Finding the best way to convert observations 

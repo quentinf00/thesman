@@ -4,27 +4,228 @@
 \addcontentsline{toc}{chapter}{Introduction}
 \chaptermark{Introduction}
 
+%   \section{Summary}
+% Understanding and anticipating the ramifications of climate change represents a pressing challenge of our era. Enhancing our knowledge of Earth's systems is a key factor in confronting this challenge.
+%   Given that the primary source of factual information about the Earth system is observational data, improving our ability to exploit this data could lead to better monitoring and understanding of our planet.
+%   Concurrently, recent advancements in deep learning provide robust tools that continually push performance boundaries across a myriad of tasks. 
+%   This situation raises an intriguing question: Can deep learning assist in extracting meaningful insights from Earth observations?
+%
+% Observing ocean surface dynamics through satellite altimetry offers a compelling case study.
+%   Currently, operational products do not resolve processes below 150 km, which are essential for climate monitoring.
+%   This situation underscores a significant gap in our observational capabilities.
+%   The recent deployment of a novel sensor during the SWOT satellite mission provides numerous opportunities to address this gap.
+%   This new sensor introduces unprecedented calibration challenges due to previously unseen errors, but it also promises to enhance the reconstruction of Sea Surface Height (SSH) maps.
+%
+% Despite the significant potential of deep learning as a generic tool, two critical factors seem to determine progress of its application to a specific domain. The first factor is quality and availability of data, indeed the creation of large, curated datasets, like ImageNet in computer vision or ThePile in natural language processing have shown to dramatically expedite the development of novel approaches. The second factor is the design of informed architectural patterns that are particularly suited to the given problem, leading to performance breakthroughs. Examples of these include convolution techniques in computer vision, attention mechanisms in natural language processing, and U-Net architectures for hierarchical data. These two facets — comprehensive, well-curated datasets and efficient architectural patterns — can greatly advance the field, propelling research and application development in exciting directions.
+%
+% The transdisciplinary nature of this work also introduces unique challenges. The intricacies of ocean observation data and the criteria for precisely evaluating the estimation of geophysical quantities can represent a considerable barrier for ML scientists. Similarly, the logistical aspects and accumulated best practices required to successfully train and utilize a neural network can deter domain experts from leveraging the latest advancements.
+%
+% The first chapter of this thesis will present a generic problem formulation that aligns domain expert methods and deep learning approaches within a unified ontology. This will lay a solid foundation for understanding how these two domains provide complementary perspectives on a problem and can potentially be integrated. Additionally, this chapter will serve as a review of the state-of-the-art in this research area.
+%
+% The next two chapters of this dissertation consider two use cases of altimetry data analysis while shedding light on various deep learning challenges.
+%
+% The second chapter delves into the calibration of the SWOT KaRIn data, examining how to separate the SSH from error signals. From a learning standpoint, this chapter showcases a method for integrating the a priori knowledge we have about error signals into the architectural design of a neural-based method.
+%
+% The third chapter emphasizes the challenges of training neural mapping schemes on observational data due to the lack of knowledge about the true state of the ocean. It focuses on the task of interpolating SSH fields with a high rate of missing data. The chapter further demonstrates that current numerical simulations of the ocean permit the training of a neural data assimilation scheme that generalizes effectively to real data.
+%
+% The subsequent two chapters document our efforts to facilitate the collaboration between the ML and ocean observation communities. Chapter four introduces a comprehensive toolbox for designing and evaluating ML problems related to altimetry mapping. Chapter 5 presents a didactic and modular implementation of the 4DVarNet deep learning algorithm, which has seen use in a variety of publications related to ocean observation data.
 
-\section*{Motivation}
-\addcontentsline{toc}{section}{Motivation}
+  \section{Intro}
+When interested in knowing the temperature, we observe the level of a thermometer.
+As such observations are the proxy by which we know about the quantities that are of interest to us. 
 
-Understanding and anticipating the ramifications of climate change represents a pressing challenge of our era. Enhancing our knowledge of Earth's systems is a key factor in confronting this challenge. Given that the primary source of factual information about the Earth system is observational data, improving our ability to exploit this data could lead to better monitoring and understanding of our planet. Concurrently, recent advancements in deep learning provide robust tools that continually push performance boundaries across a myriad of tasks. This situation raises an intriguing question: Can deep learning assist in extracting meaningful insights from Earth observations?
+  The development of methods to exploit observations to know about geophysical quantities of interest (QoI) is the core subject of this manuscript. 
+  In order to introduce the necessary concepts to contextualize this manuscript, we'll walk through the development of a thermometer calibration procedure. The first step will be to explicit the process of mapping the level of the thermometer to the temperature. Then we'll look at the challenges met when evaluating a calibrated thermometer. We'll consider the different sources of errors before finally formalizing the necessary components for developing a thermometer calibration procedure.
 
-Observing ocean surface dynamics through satellite altimetry offers a compelling case study. Currently, operational products do not resolve processes below 150 km, which are essential for climate monitoring. This situation underscores a significant gap in our observational capabilities. The recent deployment of a novel sensor during the SWOT satellite mission provides numerous opportunities to address this gap. This new sensor introduces unprecedented calibration challenges due to previously unseen errors, but it also promises to enhance the reconstruction of Sea Surface Height (SSH) maps.
+  This will introduce the challenges brought by observation problems as well as the different approaches to facing them.
 
-Despite the significant potential of deep learning as a generic tool, two critical factors seem to determine progress of its application to a specific domain. The first factor is quality and availability of data, indeed the creation of large, curated datasets, like ImageNet in computer vision or ThePile in natural language processing have shown to dramatically expedite the development of novel approaches. The second factor is the design of architectural patterns that are particularly suited to given problem, leading to performance breakthroughs. Examples of these include convolution techniques in computer vision, attention mechanisms in natural language processing, and U-Net architectures for hierarchical data. These two facets — comprehensive, well-curated datasets and efficient architectural patterns — can greatly advance the field, propelling research and application development in exciting directions.
+  We will then present the specific usecases addressed in this document detail how our contributions address the challenges.
 
-The transdisciplinary nature of this work also introduces unique challenges. The intricacies of ocean observation data and the criteria for precisely evaluating the estimation of geophysical quantities can represent a considerable barrier for ML scientists. Similarly, the logistical aspects and accumulated best practices required to successfully train and utilize a neural network can deter domain experts from leveraging the latest advancements.
 
-The first chapter of this thesis will present a generic problem formulation that aligns domain expert methods and deep learning approaches within a unified ontology. This will lay a solid foundation for understanding how these two domains provide complementary perspectives on a problem and can potentially be integrated. Additionally, this chapter will serve as a review of the state-of-the-art in this research area.
+\subsection{Mapping observations to quantity of interest}
 
-The next two chapters of this dissertation consider two use cases of altimetry data analysis while shedding light on various deep learning challenges.
+The overarching goal of this calibration is to be able to know the temperature at some place by putting the thermometer in a specific location, observe the height of the liquid, and infer the temperature at the point of measurement.
 
-The second chapter delves into the calibration of the SWOT KaRIn data, examining how to separate the SSH from error signals. From a learning standpoint, this chapter showcases a method for integrating the a priori knowledge we have about error signals into the architectural design of a neural-based method.
+A first problem we therefore need to solve is to map the level of the thermometer to the temperature.
+  This process can be decomposed in two steps.
 
-The third chapter emphasizes the challenges of training neural mapping schemes on observational data due to the lack of knowledge about the true state of the ocean. It focuses on the task of interpolating SSH fields with a high rate of missing data. The chapter further demonstrates that current numerical simulations of the ocean permit the training of a neural data assimilation scheme that generalizes effectively to real data.
+The first step involves accumulating theories and assumptions to construct a model linking the observed level and the actual temperature. For instance, based on our knowledge of fluid dilation in response to temperature, assuming the diameter of the tube is constant with height, we can posit that the level is linearly correlated with the temperature. This model introduces two parameters: the slope and offset of our linear model that need to be ascertained.
 
-The subsequent two chapters document our efforts to facilitate the collaboration between the ML and ocean observation communities. Chapter four introduces a comprehensive toolbox for designing and evaluating ML problems related to altimetry mapping. Chapter 5 presents a didactic and modular implementation of the 4DVarNet deep learning algorithm, which has seen use in a variety of publications related to ocean observation data.
+The second step involves determining these parameters. This step will require some calibration data as inputs. They are traditionally obtained by immersing the thermometer in icing and boiling water to acquire the levels corresponding to 0°C and 100°C.
+  Using those data points, a linear system can then be used to solve for the parameters. Which finally gives use our level-to-temperature mapping
+
+
+
+A few notes on this example:
+\begin{itemize}
+\item The calibration procedure consisted in two steps that respectively rely on conceptual knowledge and data;
+\item Given some data two components will determine the solution: the model define the candidate mappings, and the search algorithm (linear system inversion) will chose the best candidate w.r.t. the data.
+\item Fewer assumptions requires more data: If we loosen the assumption about the tube's constant diameter, we need to incorporate a parameterization of the tube diameter into the model, adding more parameters and necessitating additional data for calibration;
+\item More data requires fewer assumptions:If we have a well calibrated thermometer that provides us as many data as we want, we could make very little assumptions and just mark each graduation using data from the calibrated thermometer.
+\item More assumptions requires less data: By adding the knowledge that the thermometer is in boiling water, our mapping is reduced to a constant function returning 100°C by convention.
+  \end{itemize}
+
+We now have graduations on our thermometer and can use the level as a proxy for the temperature without further thought!... Although how do we know if our calibrated thermometer is any good ? 
+
+
+\subsection{Evaluation}
+
+We define "evaluation" as quantifying quality through metrics.
+
+In our case the most intuitive metric for characterizing our thermometer's quality would be the precision of the temperature it gives.
+However some situations may put greater importance on the speed of the thermometer or the range at which it's functional.
+  Furthermore, in order to properly evaluate our calibrated instrument, we need to test it in conditions corresponding to its intended use, (indeed for a domestic thermometer, testing it it on Mars or 5000 meter underwater would not provide helpful information).
+
+ In order to clarify its intended use, we need to explicit some silent assumptions made on what we would consider a good thermometer.
+  For example that it needs to "be accurate to the half of degree", "have response time under 10 minutes", "work between -30°C and 200°C" "work at a reasonnable athmospheric pressure" etc...
+
+Then, using a trustworthy reference like a third-party well-calibrated thermometer, we could compare the measurements of the reference with the one given by our solution.
+  An example evaluation procedure could be to confront the measurements of the two instruments at different temperatures such as: in a freezer, in a fridge, at ambiant room temperature and in an oven.
+
+Using the procedure above, we can now compute our metrics and assess if the quality of our calibrated thermometer.
+
+
+Some remarks about the evaluation:
+\begin{itemize}
+\item Evaluation rely on two components, a choice of metrics and data
+\item If the metrics' choice are not suited to the intended use of the instrument, the evaluation will be flawed.
+\item If the evaluation data are not representative of the intended use of the instrument, the evaluation will be flawed.
+\item Defining relevant metrics requires intimate knowledge of the intended goal of the instrument.
+\item If the reference thermometer is biased (not well calibrated) a good metric will not define a thermometer of quality
+\item The thermometer needs to give a temperature even for levels it were not calibrated on.
+\item Evaluation data should be different than calibration data: If the evaluation only measured the precision at 0°C and 100°C, fitting the calibration data would get the highest metric even if all other graduations were non-sense.
+\item Different metric can produce different rankings, therefore the evaluation is relative to the metric's choice
+\item An evaluation can use multiple metrics, therefore no ranking between two methods is guaranteed
+\item Both the single accuracy in the oven and the mean or standard deviations of the different measured accuracies can be considered as metrics
+\end{itemize}
+
+ \subsection{Sources of errors}
+
+Given an evaluation procedure, the errors are the gap to the reference and can be attributed to three sources.
+ The model is a source of error if the assumptions made were inacurate. For example if the diameter of the tube is not constant with height the linear correlation between level and temperature is not exact and will induce errors when interpreting the level.
+ Even with perfect assumptions, noisy data can introduce errors in the calibration. If we interpreted our 0°C and 100°C in icing and boiling water at the top of a montain with lower athmospheric pressure, we will have calibrated our parameters with erroneous measurements and the subsequent graduation of our thermometer will be inaccurate.
+ Finally even with perfect assumption and perfect data, the algorithm used to find the solution's parameters can be a source of errors if it fails to find the optimal parameters. For example if we solve for the parameters using a gradient descent method, using a step size too big will prevent finding the exact parameters which will also generate errors in the subsequent measurements.
+
+
+In order to develop a calibration procedure, we need to take those sources of error into account. The calibration procedure we chose will not only depend on the level-temperature relationship but on the whole relationship between calibration data to the final calibrated thermometer. We therefore need to incroporate in our reasoning the how the calibration data was aquired, what is the best model to map the level to the temperature, and what is the best algorithm to determine the optimal parameters of the model.
+
+We now have laid the necessary foundation to address the following problem: "How to find the best thermometer calibration procedure?"
+
+\subsection{Finding the best thermometer calibration procedure}
+
+In this section, we propose a parallel between the two problems of "Finding the level-temperature mapping" and  "Finding the calibration procedure". We respectively call first order and second order what refers to the former and latter.
+
+To solve and evaluate the second order problem, we can describe the 5 different components that are needed.
+To evaluate the calibration procedure, we need to chose a metric and have access to evaluation data.
+Evaluation metric. The metric should reflect the intended use of the calibration procedure. A straight forward metric is to consider that we want the thermometer calibrated by our procedure to be precise. We can then use the evaluate scheme of the first order problem.
+Evaluation data. The evaluation data should be representative of the intended use, we therefore should ideally have multiple calibration tasks on various thermometers with realistic calibration data and a calibrated thermometer to evaluate the results.
+
+To determine the calibration procedure, three components are needed:
+The "second order" model will compile different assumptions to determine the set of candidate calibration procedures and will be composed of different candidates of "first order" models and methods to determine the parameters.
+The "second order" algorithm that is used to chose the best calibration procedure. 
+
+The algorithm requires "second order" calibration data that we will call training data for clarity. The training data can be composed of reference calibration tasks that will be used to assess which is the best calibration procedure.
+
+
+Using those five components, we can select the best calibration procedure with respect to the training data, quantify its quality using the evaluation data and use it to calibrate thermometers that are represented by the evaluation procedure.
+Those five components pinpoints the areas of divergence between learning based tools and traditional domain expert methods.
+
+
+
+Some remarks about the second order problem
+\begin{itemize}
+\item metrics can relate to second order aspects of the problem, for example the robustness to noise or the computational complexity.
+\item A second order solution is a function that takes as inputs first order data and outputs first order solution
+\item the evaluation data should still differ from training data for the same reason
+\item Second order parameters can be discrete choices like different first order assumptions "considering the diameter is constant or not"
+\item Second order parameters can be discrete choices between two different optimization procedure
+\item Second order parameters can be constants in the level-temperature mappings
+\item Second order parameters can be parameters of an optimization procedure like step size
+\end{itemize}
+
+\subsection{Introducing time}
+The above calibration infer the temperature of the liquid within the thermometer from its level. One generally uses the thermometer to estimate the temperature of the location where the thermometer is placed.
+The response time of the thermometer is the duration before the temperature indicated by the level reflects the temperature of the location it's in. 
+If we aimed at knowing the instantaneous temperature of the location of the thermometer, one would need to take into account the temperature change of the liquid. In order to do so multiple observations of the level would be needed.
+
+This observation problem introduce the more generic case of infering the quantity of interest from a set of observations contrary to the single "thermometer level" used above.
+
+This new problem have repercussions different components of the method/
+The evaluation should be carefully designed to measure the dynamical characteristics of the calibration w.r.t the intended use of the thermometer.
+The model of this calibration would include additional assumptions and a parameterization of the diffusion process to link the observations to the temperature. This would impact the second order model.
+The training data should as well be realigned with the evaluation which would impact the algorithm used to chose the best solution to the problem.
+
+Note that this could be treated as an end to calibration problem if we consider the levels as the thermometer as observations, or as a subsequent problem to the above calibration if we consider the thermometer already graduated and recent observed temperatures as observations. This would impact the different hypothesis made on the model and the noise in the data.
+
+
+\subsection{Introducing space}
+  The objective of the two problems described above is to know the temperature at a single place and time given by the location of the thermometer. 
+  This is a particular case of the classes of problem we're interested in.
+  The more generic class of problems would be knowing the temperature field over a spatio-temporal domain.
+
+We could then update the associated hierarchy of problems as:
+  - First order problem: Find the field of temperature in a room during a period, given observations of thermometers (potentially at different places and times)
+  - Second order: Determine a procedure that can map a set of observations to the temperature field
+
+And the conceptual blocks introduce above apply in a similar manner.
+
+\subsection{Switching to altimetry}
+  The thermometer provided a good stepping stone to introduce the necessary concepts.
+  However the actual problem we're interested in is to estimate the sea surface height (SSH) on the surface of the ocean given satellite data.
+
+  Satellite altimetry which gives us information on the sea surface height (SSH) offers a compelling case study.
+  The SSH is related to surface dynamics and current operational products do not resolve processes below 150 km, which are essential for climate monitoring.
+  This situation underscores a significant gap in our observational capabilities.
+  The recent deployment of a novel sensor during the SWOT satellite mission provides numerous opportunities to address this gap.
+  This new sensor introduces unprecedented calibration challenges due to previously unseen errors, but it also promises to enhance the reconstruction of SSH maps.
+  As such the contributions of this manuscript explore the application of deep learning to these two observations problems: estimating the SSH from the noisy SWOT observations and estimating the complete SSH field from partial measurements.
+  This allows us to formulate the two problems that will be addressed in the manuscript.
+  "Given scarce calibrated altimetry observations and uncalibrated SWOT observations, estimate the SSH on the domain observed by SWOT".
+  "Given scarce SSH observations, estimate the SSH on the whole domain considered".
+
+
+\subsection{Model driven, Data driven}
+Looking back at remarks of the problem of level-to-thermometer mapping. We saw the feedback loop between model and data.
+We designate model driven, approaches that first frame the problem as a modelling task and then use the data that fits the assumptions they make of the system.
+Under the assumptions that the diameter is constant model of the thermometer, we need two datapoints, If I relax the assumption about the constant diameter and fetch additional data to calibration the new parameters.
+On the other hand data driven approaches first frame the problem as an interpolation task and will chose the assumptions that fit the data available.
+Given two data points, a reasonnable set of candidates to search is the set of linear functions. Given a thousand data points, I can model the mapping with a nearest interpolator effectively reducing my assumptions to stationarity (the same level will give the same temperature) and smoothness (the temperature will be close between two levels close by)
+
+Model driven: The strongest assumptions we have the less data we need. The weakest assumptions we have the more data we need.
+Data driven: The best data we have, the less assumptions we need. The worst data we have, the more assumptions we need.
+
+
+\subsection{Deep learning for observations}
+Given a problem stated as above, deep learning brings to the table its set of tools for defining candidate solutions to a problem as well as optimization procedures for searching this set for the optimal candidate.
+Deep learning models generally make few assumptions on the structure underlying the data and rely on large dataset to chose an parameterization from a high dimensional space. As such deep learning models are data-driven approaches.
+
+Deep learning research keeps demonstrating its potential in exploiting complex structures from data outperforming model driven approaches.
+This has been blatant in computer vision over the last decades and in natural language processing over the last years.
+Although the progress of deep learning as a generic tool is indeniable when looking at the ever wider range of tasks its applied to.
+We would like to stress two factors that seem of great importance when looking at the contributions of deep learning in specific fields.
+  The first factor is quality and availability of data, indeed the creation of large, curated datasets, like ImageNet in computer vision or ThePile in natural language processing have shown to dramatically expedite the development of novel approaches. The second factor is the design of informed architectural patterns that are particularly suited to the domain, leading to performance breakthroughs. Examples of these include convolution techniques and U-Net architectures in computer vision, attention mechanisms in natural language processing.
+This manuscript will speficically address these two facets — comprehensive, well-curated datasets and efficient architectural patterns — of deep learning when applied to observation exploitation.
+
+Computer vision and NLP are probably fertile ground for deep learning due to the difficulty of defining models that capture the complex nature of natural language or natural images and that large datasets were accumulated in those fields. 
+When applying to earth observations, the challenge is sensibly different because we have quite extensive theoritical knowledge of the underlying dynamics that gives structure to the data. Concerning the data in itself, we have large quantity of observation data and numerical simulation outputs, however we never have access to the ground truth quantity we want to estimate. (The best we can do is consider a calibrated instrument as ground truth).
+
+
+This constitutes an interesting setup for synergizing physical priors and deep learning models.
+
+Given the 
+
+
+
+\subsection{contributions}
+More precisely we'll ask wether deep learning can help better exploit satellite observations for improving our knowledge of sea surface dynamics.
+
+
+Deep learning and earth observation are two well established fields with accumulated knowledge, conventions, and best practices. 
+This introduce challenges when developing transdisciplinary approaches that aim to combine expertise from the two fields.
+Interfaces need to be proposed to this end which will serve as bridge for domain experts to explore the other side.
+Evaluation and data from ocean scientists to ML practicioners. 
+Didactic, Generic purpose, and modular implementation of a neural data assimation algorithm for addressing a range of observation problems from ML to ocean
+
 
 
 \end{bibunit}
