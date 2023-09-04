@@ -4,18 +4,17 @@
 \addcontentsline{toc}{chapter}{Introduction}
 \chaptermark{Introduction}
 
-
-
-Understanding and anticipating the ramifications of climate change represents a pressing challenge of our era. Enhancing our knowledge of Earth's systems is a key factor in confronting this challenge.
-  Given that the primary source of factual information about the Earth system is observational data, improving our ability to exploit this data could lead to better monitoring and understanding of our planet.
+Understanding and anticipating the ramifications of climate change represents a pressing challenge of our era.
+Enhancing our knowledge of Earth's systems is a key factor in confronting this challenge.
+  Given that the primary source of factual information about the Earth system is observational data, improving our ability to exploit these data could lead to better monitoring and understanding of our planet.
   This thesis focus on the development of methods to exploit satellite observations for improving our knowledge of ocean surface dynamics. 
   More specifically we're asking how advances in deep learning research can be beneficial to ocean observation analysis.
   
-  In order to introduce the potentials deep learning for tackling observation problems, we'll introduce the necessary methodological components involved when addressing an observation problem by walking through the development of a thermometer calibration procedure. This simplified problem will help illustrate and contextualize the complementary roles of data and domain knowledge when addressing this class of problem and naturally invite deep learning components in certain aspects of the resolution. 
+  In order to introduce the potentials of deep learning for tackling observation problems, we'll introduce the necessary methodological components involved when addressing an observation problem by walking through the development of a thermometer calibration procedure. This simplified problem will help illustrate and contextualize the complementary roles of data and domain knowledge when addressing this class of problem and naturally invite deep learning components in certain aspects of the resolution. 
   
   This will first consist in decomposing the process of mapping the level of the thermometer to the temperature. Then we'll look at the challenges met when evaluating a calibrated thermometer. We'll consider the different sources of errors before finally formalizing the necessary components for developing a thermometer calibration procedure.
 
-  We'll then present how tools brought by deep learning research can contribute to this resolution process and the challenges specific to observation tasks that we can anticipate.
+  Once the necessary concepts have been introduced, we'll present how tools brought by deep learning research can contribute to this resolution process and the challenges specific to observation tasks that we can anticipate.
 
   Finally we'll describe our contributions with the specific observation use-case and the learning-related challenge addressed. 
   
@@ -30,13 +29,14 @@ Understanding and anticipating the ramifications of climate change represents a 
 
 
 When interested in knowing the temperature, we observe the level of a thermometer.
-In order to do so, someone had to graduate the thermometer by defining how to map the liquid levels to temperature which can be decomposed in two steps. 
+In order to do so, someone had to graduate the thermometer. 
+This seemingly simple action is rooted in a two-step process, which involves the construction of a theoretical model and its calibration using real-world data.
 
 The first step involves accumulating theories and assumptions to construct a model linking the observed level and the actual temperature.
 For instance, based on our knowledge of fluid dilation in response to temperature, assuming the diameter of the tube is constant with height, we can posit that the level is linearly correlated with the temperature.
 This model introduces two parameters: the slope and offset of our linear model that need to be ascertained.
 
-The second step involves determining these parameters. This step will require some calibration data as inputs. They are traditionally obtained by immersing the thermometer in icing and boiling water to acquire the levels corresponding to 0°C and 100°C.
+The second step involves determining these parameters. This step requires some calibration data as inputs. They are traditionally obtained by immersing the thermometer in icing and boiling water to acquire the levels corresponding to 0°C and 100°C.
   Using those data points, a linear system can then be used to solve for the parameters. Which finally gives use our level-to-temperature mapping
 
 
@@ -46,7 +46,7 @@ Interestingly, the model's complexity can often be inversely proportional to the
 
 Conversely, having access to more data can allow us to work with fewer assumptions. Suppose we possess a well-calibrated thermometer that can provide unlimited data points. In that case, we could reduce our assumptions to a minimum and rely heavily on empirical evidence, marking each thermometer graduation using data directly from our well-calibrated thermometer.
 
-Lastly, stronger assumptions demand less data. If we introduce the knowledge that the thermometer is immersed in boiling water, our mapping simplifies to a constant function, returning 100°C by convention. This scenario underscores how the incorporation of strong assumptions can drastically reduce the necessity for data.
+Lastly, stronger assumptions demand less data. If we introduce the knowledge that the thermometer is immersed in boiling water, our mapping simplifies to a constant function, returning 100°C by convention and removing completely the need for data
 
 With these carefully calibrated graduations now etched onto our thermometer, we can use the liquid level as a convenient stand-in for the temperature. However, an important question remains: How can we verify the accuracy of our newly calibrated thermometer?
 % A few notes on this example:
@@ -74,7 +74,8 @@ With these carefully calibrated graduations now etched onto our thermometer, we 
 
 \subsection{Evaluation}
 
-We define "evaluation" as quantifying quality through metrics.
+Without evaluation the use of our calibrated instrument would solely rely in the faith given to our mapping above.
+Being novice calibrators we need to quantify the thermometers quality through metrics.
 
 In our case the most intuitive metric for characterizing our thermometer's quality would be the precision of the temperature it gives.
 Note that some situations may put importance on other characteristic such at the range at which it's functional.
@@ -138,81 +139,73 @@ In order to develop a calibration procedure, we need to take those sources of er
 This leads us to the following problem "How to find the best thermometer calibration procedure?"
 
 \subsection{Finding the best thermometer calibration procedure}
+In the process of finding a solution to the level-temperature mapping problem, we need to define a model, an algorithm, and have access to calibration data. Additionally, to evaluate our solution, we need to define a metric and have access to evaluation data. Interestingly, these components can be specified at a higher level for solving and evaluating the calibration procedure itself, essentially creating a meta-level or "second order" problem.
 
-We saw previously that to find a solution to the level-temperature mapping problems we have to define a model and an algorithm and have access to calibration data.
-Additionally, to evaluate our solution we have to define a metric and have access to evaluation data.
+The \textbf{Model}, in this second order scenario, combines different assumptions to determine the set of potential calibration procedures. This model defines the space in which the calibration procedures exist and interact based on a set of assumptions about what makes a good calibration procedure.
 
-And we detail here how these components can also be specified at a higher level for solving and evaluating the the calibration procedure.
+The \textbf{Algorithm} is used to select the best calibration procedure. This could be as straightforward as testing different combinations and choosing the most effective one, or it could involve complex numerical optimization procedures to determine higher-level parameters.
 
+The \textbf{Calibration Data}, at the second order, consists of calibration tasks with a method to assess the performance of candidate procedures. This allows the algorithm to select the best solution.
 
-The \textbf{Model} compiles different assumptions to determine the set of candidate calibration procedures.
+The \textbf{Evaluation Metric} should reflect the intended use of the calibration procedure, including the range of thermometer calibrations we plan to use this procedure for. A useful metric might be the precision of all the thermometers we aim to calibrate using the proposed solution.
 
-The \textbf{Algorithm} that is used to chose the best calibration procedure. It can be as trivial as trying out different combination and choosing the best one, or using numerical optimization procedures to determine some higher level parameters. 
+The \textbf{Evaluation Data} should be representative of the variety of intended uses. This means it should contain calibration tasks for a range of thermometers of interest. Additionally, we need a reference for these tasks to measure the precision of our solution.
 
-The  \textbf{Calibration Data} now needs to be made of calibration tasks with a way to assess the performance of the candidate procedures in order our algorithm to chose the solution.
+By leveraging these five components, we can select the best calibration procedure, quantify its quality using the evaluation data, and use it to calibrate new thermometers with confidence in the resulting calibrated instrument. This parallels the problems of "Finding the level-temperature mapping" (which we refer to as the first order problem) and "Finding the calibration procedure" (the second order problem) and offers insights for further research in this field.
 
-The \textbf{Evaluation metric} should reflect the intended use of the calibration procedure which includes the range on thermometer on which we would like to use this procedure. An example metric is to use the precision of all the thermometers that we aim to calibrate with the solution.
+Note that second order metrics can extend beyond the scope of the first order problem. These metrics could encompass aspects such as robustness to noise or the computational complexity of the calibration procedure. This means our evaluation of a calibration procedure not only includes how well it measures temperature, but also how well it handles uncertainties or computational burdens.
 
-The \textbf{Evaluation Data} now needs to be representative of the different of the intended use.
-Therefore if needs to contain calibration tasks for the variety of thermometers of interest
-Furthermore, we need a reference on those tasks to measure the precision on our solution. 
+A second order solution can be conceptualized as a function. This function would accept first order calibration data as inputs, which contain the properties and measures of a specific thermometer and their corresponding responses. The output of this function would then be a first order solution - a tailored calibration procedure for the thermometer represented in the data.
 
-
-
-Using those five components, we can select the best calibration procedure, quantify its quality using the evaluation data and use it to calibrate new thermometers and be confident of the resulting calibrated instrument.
-We find the parallel between the problems "Finding the level-temperature mapping" and  "Finding the calibration procedure" to be relevant for better understanding further development of this research. We respectively call first order and second order what refers to the former and latter. 
+The second order problem also involves making decisions on parameters to select the best solution, which can take various forms. For instance, these parameters can be discrete choices between different assumptions, like whether to consider the thermometer's tube diameter as constant or not. These decisions shape the model at a high level and can fundamentally alter the characteristics of the calibration procedure. The parameters can also denote choices between different first order algorithms like choosing a direct linear system inversion or a iterative optimization procedure. Lastly, these second order parameters can be constants in the level-temperature mappings or parameters of an optimization procedure, like step size. This shows that the parameters in the second order problem have a broad range of applicability, affecting both the details of the calibration procedure and how the procedure is chosen.
 
 
-
-
-Some remarks about the second order problem
-\begin{itemize}
-\item A second order solution is a function that takes as inputs first order calibration data and outputs first order solution
-\item the evaluation data should still differ from training data for the same reason 
-\item Second order parameters can be discrete choices like different first order assumptions "considering the diameter is constant or not"
-\item Second order parameters can be discrete choices between two different optimization procedure
-\item Second order parameters can be constants in the level-temperature mappings
-\item Second order parameters can be parameters of an optimization procedure like step size
-\end{itemize}
+Finally, a critical note is that the data used to evaluate a solution at the second order level should still be separate from the training data. This principle holds true for the same reasons it applies to the first order problem - using distinct data sets helps to ensure that our solutions generalize well beyond the specific scenarios they were trained on.
 
 \section{From thermometer calibration to generic observation problems}
 \subsection{Introducing time}
-The above calibration infer the temperature of the liquid within the thermometer from its level. One generally uses the thermometer to estimate the temperature of the location where the thermometer is placed.
-The response time of the thermometer is the duration before the temperature indicated by the level reflects the temperature of the location it's in. 
-If we aimed at knowing the instantaneous temperature of the location of the thermometer, one would need to take into account the temperature change of the liquid. In order to do so multiple observations of the level would be needed.
+Our previous example focused on the static calibration of a thermometer. However, in the real world, temperature measurement is often a dynamic process. The response time of the thermometer —the duration required for the indicated level to reflect the accurate temperature of its location — becomes a critical factor.
 
-This observation problem introduce the more generic case of inferring the quantity of interest from a set of observations contrary to the single "thermometer level" used above.
+This dynamic scenario introduces a more complex case where we infer the temperature, our quantity of interest, from a series of observations over time. This shift has implications for the components of our method.
 
-This new problem have repercussions different components of the method/
-The evaluation should be carefully designed to measure the dynamical characteristics of the calibration w.r.t the intended use of the thermometer.
-The model of this calibration would include additional assumptions and a parameterization of the diffusion process to link the observations to the temperature. This would impact the second order model.
-The training data should as well be realigned with the evaluation which would impact the algorithm used to chose the best solution to the problem.
+For instance, the evaluation metrics must now consider the dynamical characteristics of the thermometer calibration. The model must account for additional factors, including assumptions about how temperature diffuses over time. Similarly, the algorithm used to select the best solution must adapt to these changes.
 
-Note that this could be treated as an end to calibration problem if we consider the levels as the thermometer as observations, or as a subsequent problem to the above calibration if we consider the thermometer already graduated and recent observed temperatures as observations. This would impact the different hypothesis made on the model and the noise in the data.
-
+In this dynamic context, we have the choice of considering the dynamic aspect as a separate or join problem to the calibration. We could treat the thermometer's level readings as direct observations or infer the dynamic temperature from the already calibrated thermometer's recent observations. These choices impact our assumptions about the model and the noise in the data.
 
 \subsection{Introducing space}
-  The objective of the two problems described above is to know the temperature at a single place and time given by the location of the thermometer. 
-  This is a particular case of the classes of problem we're interested in.
-  The more generic class of problems would be knowing the temperature field over a spatio-temporal domain.
+Until now, we have focused on measuring temperature at a single location. However, in many cases, we may need to understand the temperature field across a spatio-temporal domain—a much more complex problem.
 
-We could then update the associated hierarchy of problems as:
+We can formulate this problem hierarchy as follows:
+
 \begin{itemize}
-    \item First order problem: Find the field of temperature in a room during a period, given observations of thermometers (potentially at different places and times)
-    \item Second order: Determine a procedure that can map a set of observations to the temperature field
+    \item First-order problem: Determine the temperature field in a room over a specific period, given observations from thermometers located at different places and times.
+    \item Second-order problem: Develop a procedure that maps a set of observations to the temperature field.
 \end{itemize}
+    
+    
 
-And the conceptual blocks introduce above apply in a similar manner.
+Just as we did in the static and dynamic cases, we apply our conceptual blocks—evaluation metrics, modeling, algorithm selection, and data consideration—in this spatio-temporal context. This approach allows us to handle the added complexity while remaining grounded in our fundamental methodological framework.
 
 \subsection{The case of satellite altimetry}
   The thermometer provided a good stepping stone to introduce the necessary concepts.
   However the actual problem we're interested in is to estimate the sea surface height (SSH) on the surface of the ocean given satellite data.
+The process of calibrating a thermometer, as previously illustrated, shares a fundamental conceptual parallel with the task of estimating sea surface height (SSH) using satellite data. Just as we use a thermometer to measure temperature by observing the liquid level, satellite altimetry allows us to estimate the SSH by interpreting specific signals and measurements from a much larger and more complex system.
 
-  Satellite altimetry which gives us information on the sea surface height (SSH) offers a compelling case study.
+In both cases, we observe certain behaviors or conditions—be it the level of liquid in a thermometer or the satellite observations of the ocean surface—and use these to infer something about the underlying state of the system we are interested in. Both rely on the creation of a model based on existing knowledge and assumptions, and then fine-tuning that model using calibration data to map observed behavior to the desired quantity.
+
+The temporal aspect is also shared. Much like the response time of a thermometer, which determines how quickly it can accurately measure the temperature of its environment, satellite data gives us a series of snapshots over time from which we can reconstruct the dynamic behavior of the sea surface.
+
+When considering the spatial dimension, estimating SSH is like placing thermometers across a room to understand the distribution of temperature in that space. The same principle is applied to satellite altimetry, but on a much larger scale, mapping the Earth's oceans.
+
+In essence, both cases involve observing a system, interpreting those observations through a theoretical model, and refining that model with real-world data to give us the most accurate understanding possible. The application and scale are vastly different, but the underlying principles of observation, modeling, calibration, and evaluation are consistent.
+
+  Furthermore satellite altimetry which gives us information on the sea surface height (SSH) offers a compelling case study.
   The SSH is related to surface dynamics and current operational products do not resolve processes below 150 km, which are essential for climate monitoring.
   This situation underscores a significant gap in our observational capabilities.
   The recent deployment of a novel sensor during the SWOT satellite mission provides numerous opportunities to address this gap.
   This new sensor introduces unprecedented calibration challenges due to previously unseen errors, but it also promises to enhance the reconstruction of SSH maps.
+This manuscript, therefore, aims to explore the application of deep learning to two key observation problems related to these issues. The first is estimating SSH from noisy SWOT observations, and the second is inferring the complete SSH field from partial measurements.
+  
   As such the contributions of this manuscript explore the application of deep learning to these two observations problems: estimating the SSH from the noisy SWOT observations and estimating the complete SSH field from partial measurements.
   This allows us to formulate the two problems that will be addressed in the manuscript.
   \begin{itemize}
@@ -221,7 +214,6 @@ And the conceptual blocks introduce above apply in a similar manner.
   \end{itemize}
   \begin{figure}
       \centering
-
           \begin{tabular}{c|c}
             \hspace{-0.2\linewidth}\includegraphics[width=0.7\linewidth]{Introduction/pics/calib_task.png}   & 
             \includegraphics[width=0.7\linewidth]{Introduction/pics/mapping_task.png}\\
@@ -243,12 +235,10 @@ Model driven: The strongest assumptions we have the less data we need. The weake
 Data driven: The best data we have, the less assumptions we need. The worst data we have, the more assumptions we need.
 
 \subsection{Deep learning for computer vision and natural language}
+Deep learning brings forth models, such as neural networks, that are predicated on very weak assumptions. Their strength lies in the fact that, given their sufficient width, they can approximate any function. This leads to deep learning models defining vast sets of potential candidates, consequently requiring substantial datasets and sophisticated algorithms to find the best fit.
 
-Deep learning introduces models with very weak assumptions: neural networks. These models are proven to be able to approximate any function if wide enough. 
-A direct consequence is that deep learning models define large sets of possible candidates, requiring consequent datasets and adequate algorithms to find a good solution.
- Many innovation in model architectures such has the ResNet, batchnorms and in optimization procedures with SGD, adam, learning rate schedules kept allowing for searching bigger candidate space and therefore bigger neural networks.
-However, the fact that deep learning models can in theory approximate any function introduces a peculiar consideration which is that fitting exactly the calibration data gives you no guarantee on how the model will behave on unseen data. This has standardized the practice of splitting the calibration data in two sets: training and validation. The training set is used  by the optimization procedure to search for the parameters whereas the validation set is used to assess the quality of each candidate. 
-The gap of performance between "seen" and "unseen" data is called the generalization gap.
+Innovations in model architectures such as ResNet, batch normalization, and in optimization procedures like Stochastic Gradient Descent (SGD), Adam, and various learning rate schedules have consistently improved the search of larger spaces for candidate solutions, therefore  enabling the use of larger neural networks. 
+However, the fact that deep learning models can in theory approximate any function introduces a peculiar consideration which is that fitting exactly the calibration data gives you no guarantee on how the model will behave on unseen data. The gap of performance between "seen" and "unseen" data is called the generalization gap. This has standardized the practice of splitting the calibration data in two sets: training and validation. The training set is used  by the optimization procedure to search for the parameters whereas the validation set is used to assess the quality of each candidate. 
 Addressing the problem of generalization have motivated many innovations in regularization, architectures, initialization schemes and data augmentation techniques.
 
 
@@ -264,8 +254,6 @@ The first factor is quality and availability of data, indeed the creation of lar
 The second factor is the design of informed architectural patterns that are particularly suited to the domain, leading to performance breakthroughs. Examples of these include convolution techniques and U-Net architectures in computer vision, attention mechanisms in natural language processing.
 
 
-
-\subsection{Deep learning for observations}
 Compared to other application domain such as CV and NLP, observation problems present a different context for applying deep learning. 
 On one hand quite extensive theoretical knowledge have been accumulated on the dynamics that gives structure to the data and that explicitly links the observations with the quantities of interests.  
 On the other hand the available data made of observations and numerical model outputs, although consequent, presents challenges since we never have access to the ground truth quantity we want to estimate. (The best we can do is consider a calibrated instrument as ground truth when it's observed). 
