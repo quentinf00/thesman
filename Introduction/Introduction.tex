@@ -66,11 +66,11 @@ With these carefully calibrated graduations now etched onto our thermometer, we 
 \centering
 \begin{tabular}{ccc}
 
-    Step 1: \includegraphics[clip, width=3cm, width=3cm]{Introduction/pics/therm_theroy.png} &    \includegraphics[clip, width=5cm]{Introduction/pics/therm_model.png}     \\  
-     Step 2: \includegraphics[clip, width=4cm, height=4cm, trim={2cm 1cm 2cm 2cm}]{Introduction/pics/therm_obs.png} &    \includegraphics[clip, width=5cm]{Introduction/pics/therm_calib.png}     \\  
+    \includegraphics[clip, width=3cm, width=3cm]{Introduction/pics/therm_theroy.png} &   \includegraphics[clip, width=5cm]{Introduction/pics/therm_model.png}  &   \\  Step 1: Assumptions & Model&\\ 
+     \includegraphics[clip, width=4cm, height=4cm, trim={2cm 1cm 2cm 2cm}]{Introduction/pics/therm_obs.png} &    \includegraphics[clip, width=5cm]{Introduction/pics/therm_calib.png}   &  \\   Step 2: Data & Calibration&\\
 \end{tabular}
 
-    \caption{Mapping thermometer level to temperature. The first step consists in compiling theoritical knowledge to determine a model of the level to temperature relationship. This model define the set of candidate graduations. The second step consists in leveraging data to chose the best candidate graduation through some calibration procedure.}
+    \caption{Mapping thermometer level to temperature. The first step consists in compiling theoretical knowledge to determine a model of the level to temperature relationship. This model define the set of candidate graduations. The second step consists in leveraging data to chose the best candidate graduation through some calibration procedure.}
     \label{fig:therm_mapping}
 \end{figure}
 
@@ -87,7 +87,7 @@ Note that some situations may put importance on other characteristic such at the
   For example that it needs to "be accurate to the half of degree", "have response time under 10 minutes", "work between -30°C and 200°C" "work at a reasonable atmospheric pressure" etc...
 
 Then we need data to measure the precision of our thermometer in a way that is representative of how we want our thermometer to behave. Using a trustworthy reference like a third-party well-graduated thermometer, we could compare the measurements of the reference with the one given by our solution.
-  An example evaluation procedure could be to confront the measurements of the two instruments at different temperatures such as: in a freezer, in a fridge, at ambiant room temperature and in an oven.
+  An example evaluation procedure could be to confront the measurements of the two instruments at different temperatures such as: in a freezer, in a fridge, at ambient room temperature and in an oven.
 
 Using the procedure above, we can compute our precision metrics and assess if the quality of our graduated thermometer is acceptable.
 This exercise, raises some critical points about evaluation. The process relies on two components that require a deep understanding of the thermometer's intended use: a suitable choice of metric and representative data. If the chosen metrics don't align with the intended use of the thermometer, the evaluation will be flawed. Similarly, if the data isn't representative of the thermometer's intended use, the evaluation will also be flawed.
@@ -99,7 +99,7 @@ A well-functioning thermometer should provide accurate temperature readings even
 \begin{figure}
 \includegraphics[clip, width=6cm]{Introduction/pics/errors.png}  
     \centering
-    \caption{Evaluation and errors. Given some evaluation data and choice of metric, we can compute the errors associated with our graduation. $T_{calib}$ and $T_{ref}$ are respectively the temperatures given by our graduation and a reference well graduated thermometer}
+    \caption{Evaluation and errors. Given some evaluation data and choice of metric, we can compute the errors associated with our graduation. $T^{\circ}_{calib}$ and $T^{\circ}_{ref}$ are respectively the temperatures given by our graduation and a reference well graduated thermometer}
     \label{fig:err_sources}
 \end{figure}
 
@@ -110,8 +110,7 @@ A well-functioning thermometer should provide accurate temperature readings even
 Given an evaluation procedure, the errors are the gap to the reference and can be attributed to three sources.
 
 \begin{figure}
-\begin{tabular}{c |c|c}
-
+\begin{tabular}{c|c|c}
      \hspace{-.15\linewidth}\includegraphics[width=.4\linewidth]{Introduction/pics/model_err_w_source.png}  &
      \includegraphics[width=.4\linewidth]{Introduction/pics/data_err_w_source.png} &
      \includegraphics[width=.4\linewidth]{Introduction/pics/optim_err_w_source.png} \\
@@ -158,7 +157,7 @@ Finally, a critical note is that the data used to evaluate a solution at the sec
 
 \section{From thermometer graduation to generic observation problems}
 \subsection{Introducing space and time}
-Our previous example implicitely solved the estimation problem of the liquid temperature  within the thermometer. However, we can extend the problem formulation to try to estimate the temperature in the room the thermometer is placed. This implies to take into account the dynamics of the temperature measurements. The response time of the thermometer —the duration required for the indicated level to reflect the accurate temperature of its location — becomes a critical factor.
+Our previous example implicitly solved the estimation problem of the liquid temperature  within the thermometer. However, we can extend the problem formulation to try to estimate the temperature in the room the thermometer is placed. This implies to take into account the dynamics of the temperature measurements. The response time of the thermometer —the duration required for the indicated level to reflect the accurate temperature of its location — becomes a critical factor.
 
 This dynamical scenario introduces a more complex case where the estimated temperature depends from a series of observations over time. This shift has implications for the components of our method.
 
@@ -184,14 +183,14 @@ The evaluation of the solution rests on the choice of metrics $m$ and evaluation
 \begin{table}
 \begin{tabular}{c|c|c}
    & single point & spatio-temporal extension\\
-  $Omega_y$ & thermometer location& set of time and location of meaurements\\
+  $Omega_y$ & thermometer location& set of time and location of measurements\\
   $Omega_u$ & thermometer location& duration and region of interest\\
   $y$ & liquid level $h$ & levels for each point of $\Omega_y$\\
   $u$ & liquid temperature T° &  temperature field over $\Omega_u$\\
   $\cal{F}$ & $\{ f: h \to \alpha \times h + \beta | (\alpha, \beta) \in \|R^2\}$ &  $\{f: y \to u\}$\\
-  $\cal{D}$ & $\{(h_{0}, 0°), (h_{100}, 100°)\}$ & $\{(y_0, u_0), \dots (y_n, u_n)\}$\\
-  $\cal{E}$ & $\{(h_{freezer}, T°_{freezer}), \dots, (h_{oven}, T°_{oven})\}$ & $\{(y'_0, u'_0), \dots (y'_k, u'_k)\}$\\
-  $m$ & $\sum_{(h_e, T°_e)\in\cal{E}} |f(h_e) - T°_e|$ & $\sum_{(y', u')\in\cal{E}} |f(y') - u'|$ \\
+  $\cal{D}$ & $\{(h_{0}, 0\circ), (h_{100}, 100\circ)\}$ & $\{(y_0, u_0), \dots (y_n, u_n)\}$\\
+  $\cal{E}$ & $\{(h_{freezer}, T^{\circ}_{freezer}), \dots, (h_{oven}, T\circ_{oven})\}$ & $\{(y'_0, u'_0), \dots (y'_k, u'_k)\}$\\
+  $m$ & $\sum_{(h_e, T\circ_e)\in\cal{E}} |f(h_e) - T\circ_e|$ & $\sum_{(y', u')\in\cal{E}} |f(y') - u'|$ \\
 \end{tabular}
     \centering
     \caption{Notations }
@@ -226,7 +225,7 @@ This manuscript, therefore, aims to explore the application of deep learning to 
   \begin{figure}
       \centering
             \includegraphics[width=\linewidth]{Introduction/pics/calib_task.png}    
-      \caption{SWOT calibration problem. The left part illustrate the observed domain in red while the right part indicates the domain on which we aim at estimating the SSH.
+      \caption{SWOT calibration. The left part illustrate the observed domain in red while the right part indicates the domain on which we aim at estimating the SSH.}
       \label{fig:calibration_task}
   \end{figure}
 The first observation problem we address is the estimation of sea surface height on the domain observed by the KaRIN instrument of the SWOT mission from scarce calibrated altimetry observations and uncalibrated SWOT observations.
@@ -249,7 +248,7 @@ For this task the operational approach consist in compiling assumptions about th
   \begin{figure}
       \centering
             \includegraphics[width=\linewidth]{Introduction/pics/mapping_task.png}
-      \caption{Nadir Altimetry problem. The left part illustrate the observed domain in red while the right part indicates the domain on which we aim at estimating the SSH.
+      \caption{Nadir Altimetry mapping. The left part illustrate the observed domain in red while the right part indicates the domain on which we aim at estimating the SSH.}
       \label{fig:mapping_task}
   \end{figure}
 
