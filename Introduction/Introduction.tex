@@ -8,19 +8,21 @@
 Understanding and anticipating the ramifications of climate change represents a pressing challenge of our era.
 Enhancing our knowledge of Earth's systems is a key factor in confronting this challenge.
   Given that the primary source of factual information about the Earth system is observational data, improving our ability to exploit these data could lead to better monitoring and understanding of our planet.
-  This thesis focus on the development of methods to exploit satellite observations for improving our knowledge of ocean surface dynamics. 
+  This thesis focus on the development of methods to exploit satellite observations of the ocean surface height for improving our knowledge of ocean surface dynamics. 
   More specifically we're asking how advances in deep learning research can be beneficial to ocean altimetry analysis.
-  Deep learning consists in a rapidly evolving set of tools that have been successfully applied to a wide range of domain, surpassing existing methods and succeeding in previously unsolved problems.
+  Deep learning research provides a rapidly evolving set of tools that have been successfully applied to a wide range of domain, surpassing existing methods and succeeding in previously unsolved problems.
   
-  In order to introduce the potentials of deep learning for tackling ocean observation problems, we'll introduce the necessary methodological components involved when addressing an observation problem by walking through the development of a thermometer graduation procedure. This simplified problem will help illustrate and contextualize the complementary roles of data and domain knowledge when addressing this class of problem. 
-  We'll then describe the specificities of the methods developped in the deep learning field and present the opportunities and challenges that arise when applying them to ocean observation problem.
+  In order to study the potentials of deep learning for tackling ocean observation problems, we'll introduce the necessary methodological components involved when addressing an observation problem by walking through the toy example of a thermometer graduation procedure.
+  We'll explicit the similarities between this example and the altimetry use-cases studied in this thesis. This simplified problem will help illustrate and contextualize the complementary roles of data and domain knowledge when addressing this class of problem. 
+  
+  We'll then describe the tools and considerations brought by the deep learning field and present the opportunities and challenges that arise when applying them to the ocean observation challenges of interest.
 
-  Finally we'll outline this manuscript by presenting the altimetry usecases and the deep learning methodological aspect considered.
-  This will first consist in decomposing the process of mapping the level of the thermometer to the temperature. Then we'll look at the challenges met when evaluating a graduated thermometer. We'll consider the different sources of errors before finally formalizing the necessary components for developing a thermometer graduation procedure.
+  Finally we'll outline the structure of this manuscript. We'll present the altimetry use-cases and the deep learning methodological aspect considered in the second and third chapter. Finally, we'll introduce the scientific contribution of the OceanBench project which aims at facilitating collaboration between the ocean altimetry and deep learning communities.
+  
 
 
-  \section{Graduating a thermometer}
-\subsection{Mapping observations to quantity of interest}
+  \section{Toy example: Graduating a thermometer}
+\subsection{Estimating temperature from observations}
 \begin{figure}[h]
     \centering
         \includegraphics[clip, width=3cm]{Introduction/pics/therm_pb.png}
@@ -53,8 +55,8 @@ With these carefully calibrated graduations now etched onto our thermometer, we 
 \centering
 \begin{tabular}{ccc}
 
-    \includegraphics[clip, width=3cm, width=3cm]{Introduction/pics/therm_theroy.png} &   \includegraphics[clip, width=5cm]{Introduction/pics/therm_model.png}  &   \\  Step 1: Assumptions & Model&\\ 
-     \includegraphics[clip, width=4cm, height=4cm, trim={2cm 1cm 2cm 2cm}]{Introduction/pics/therm_obs.png} &    \includegraphics[clip, width=5cm]{Introduction/pics/therm_calib.png}   &  \\   Step 2: Data & Calibration&\\
+    \includegraphics[clip, width=3cm, width=3cm]{Introduction/pics/therm_theroy.png} &   \includegraphics[clip, width=5cm]{Introduction/pics/therm_model.png}  &   \\   Assumptions & Model&\\ 
+     \includegraphics[clip, width=4cm, height=4cm, trim={2cm 1cm 2cm 2cm}]{Introduction/pics/therm_obs.png} &    \includegraphics[clip, width=5cm]{Introduction/pics/therm_calib.png}   &  \\    Data & Calibration&\\
 \end{tabular}
 
     \caption{Mapping thermometer level to temperature. The first step consists in compiling theoretical knowledge to determine a model of the level to temperature relationship. This model define the set of candidate graduations. The second step consists in leveraging data to chose the best candidate graduation through some calibration procedure.}
@@ -118,7 +120,7 @@ In order to develop a graduation procedure, we need to take those sources of err
 
 This leads us to the following methodological problem "How to find the best thermometer graduation procedure?"
 
-\subsection{Finding the best thermometer graduation procedure}
+\subsection{Methodological framework}
 In the process of finding a solution to the level-temperature mapping problem, we need to chose a model, an algorithm, and have access to calibration data. Additionally, to evaluate our solution, we need to define a metric and have access to evaluation data. Interestingly, these components can be specified at a higher level for solving and evaluating the graduation procedure itself, essentially creating a meta-level or "second order" problem.
 
 The \textbf{Model}, in this second order scenario, combines different assumptions to determine the set of potential graduation procedures. 
@@ -141,7 +143,7 @@ The second order problem also involves making decisions on parameters to select 
 
 Finally, a critical note is that the data used to evaluate a solution at the second order level should still be separate from the calibration data. This principle holds true for the same reasons it applies to the first order problem - using distinct data sets helps to ensure that our solutions generalize well beyond the specific scenarios they were trained on.
 
-\section{From thermometer graduation to generic observation problems}
+\section{From toy example to ocean altimetry scenarii}
 \subsection{Introducing space and time}
 Our previous example implicitly solved the estimation problem of the liquid temperature  within the thermometer. However, we can extend the problem formulation to try to estimate the temperature in the room the thermometer is placed. This implies to take into account the duration required for the indicated level to reflect the accurate temperature of its location. This introduce a temporal consideration and therefore some dynamics about the system.
 
@@ -166,13 +168,13 @@ Given some observations $y$ defined on a spatio-temporal domain $\Omega_y$ we wa
 The process of determining $f$ can be detailed in two steps, first determining the set $\cal{F}$ such that $f \in \cal{F}$ by making some assumptions on $f$. Then determining the calibration procedure $c$ that will use the calibration data $\cal{D}$ to select $f$ from $\cal{F}$
 The evaluation of the solution rests on the choice of metrics $m$ and evaluation data $\cal{E}$
 
-\subsection{The case of satellite altimetry}
+\subsection{Satellite altimetry}
 The thermometer provided a good stepping stone to introduce the necessary concepts.
 However the actual problem we're interested in is the estimation of the sea surface height (SSH) given satellite altimetry data.
 
 In recent decades, Satellite NADIR altimeters have greatly improved our observational capabilities enabled by providing a global coverage 
 
-However due to the scarce and irregular smapling of altimeter constellations, current operational products do not yet resolve processes with horizontal scales smaller than 150 km\cite{}.
+However due to the scarce and irregular sampling of altimeter constellations, current operational products do not yet resolve processes with horizontal scales smaller than 150 km\cite{}.
 These processes linked to the mesoscale and submesoscale dynamics of the ocean surface play an important role in the heat redistribution within the ocean, which has implications for climate monitoring.
 The recent deployment of the novel KaRIN sensor during the SWOT satellite mission\cite{} provides opportunities to address this gap.
 This new sensor will provide unprecedented two dimensional images of the ocean surface topography but will also introduces calibration challenges\cite{} due to previously unseen errors.
@@ -200,7 +202,7 @@ This manuscript, therefore, aims to explore the application of deep learning to 
       \label{fig:calibration_task}
   \end{figure}
 The first observation problem we address is the estimation of sea surface height on the domain observed by the KaRIN instrument of the SWOT mission from scarce calibrated altimetry observations and uncalibrated SWOT observations.
-As mentionned above, the KaRIN instrument deployed during the SWOT will contain both unprecedented errors and information about the sea surface height.
+As mentioned above, the KaRIN instrument deployed during the SWOT will contain both unprecedented errors and information about the sea surface height.
 We are more precisely interested in the removal of correlated errors due to systematic instrument errors and noise-inducing geophysical processes.
 
 
@@ -220,9 +222,9 @@ Contrary to the KaRIN calibration which is a novel task, the mapping of NADIR al
 Those methods use different assumptions and algorithm to estimate the maps of SSH.
 
 
-\section{Deep learning: opportunities and challeges}
+\section{Deep learning: opportunities and challenges}
 
-\subsection{Deep learning success stories in computer vision and natural language processing}
+\subsection{Success stories in computer vision and natural language processing}
 Deep learning brings forth models, such as neural networks, that are predicated on very weak assumptions. Their strength lies in the fact that, given sufficient parameters, they can approximate any function\cite{}. This leads to deep learning models defining vast sets of potential candidates, consequently requiring substantial datasets and sophisticated algorithms to find the best fit.
 
 Innovations in model architectures such as ResNet\cite{}, batch normalization\cite{}, and in optimization procedures\cite{} like Stochastic Gradient Descent (SGD)\cite{}, Adam\cite{}, and various learning rate schedules have consistently improved the search of larger spaces for candidate solutions, therefore enabling the use of larger neural networks. 
@@ -235,7 +237,7 @@ Addressing the problem of generalization have motivated many innovations in regu
 
 When looking at different application domain, the track records of deep learning in computer vision\cite{} and natural language processing\cite{} are especially impressive. 
 The combination of models and algorithm brought by deep learning have managed to solve tasks that were previously unsolved.
-Indeed the universality of deep learning models have brought a big leap forward in tasks such as generic image recognition or next word prediction which are very hard to model using theoritical knowledge.
+Indeed the universality of deep learning models have brought a big leap forward in tasks such as generic image recognition or next word prediction which are very hard to model using theoretical knowledge.
 
 Presented as such deep learning seems to provide universal tools,  
 however we would like to stress two factors that seem of great importance when looking at the contributions of deep learning in specific fields.
@@ -245,40 +247,40 @@ The second factor is the design of informed architectural patterns that are part
 Examples of these include convolution techniques\cite{} and U-Net architectures\cite{} in computer vision, and attention mechanisms\cite{} in natural language processing.
 
 
-\subsection{Deep learning for altimetry}
+\subsection{Deep learning for ocean altimetry}
 Given a observation problem stated as above, deep learning brings to the table its set of tools for defining candidate solutions to a problem as well as optimization procedures for searching this set for the optimal candidate.
-Notice that these tools are generic enough to be used for both order of problems. For example when applied to altimetry mapping, deep learning architecures can used to directly model the SSH field with neural fields\cite{}. In this case the model is calibrated on a single set of observations.
+Notice that these tools are generic enough to be used for both order of problems. For example when applied to altimetry mapping, deep learning architectures can used to directly model the SSH field with neural fields\cite{}. In this case the model is calibrated on a single set of observations.
 They can also be used to model the mapping procedure itself\cite{} and in this case the model will be calibrated on multiple sets of observations.
 
-When comparing altimetry to other deep learning application domain, we denote some specificities.
+When comparing altimetry to previously mentioned deep learning application domain, we note some specificities.
 On one hand extensive theoretical knowledge has been accumulated on the physical processes that give structure to the data and that explicitly links the observations with the quantities of interests.
 This raises the question on the advantages of generic purpose models when domain expertise can inform tailored ones explicitly accounting for the system dynamics.
 And domain experts have successfully exploited that to solve different observation problems.
 
-On the other hand the available data made of instrument measurements, observation products, and numerical model outputs, although consequent, introduce challenges by the lack of the ground truth quantity we want to estimate. (The best we can do is consider a calibrated instrument as ground truth when available). This is the case for both the altimetry usecases considered.
-Note that the lack of ground truthed dataset introduce challenges both for the calibration of the model as well as for the evaluation of the method.
+On the other hand the available data made of instrument measurements, observation products, and numerical model outputs, although consequent, introduce challenges by the lack of the ground truth quantity we want to estimate. (The best we can do is consider a calibrated instrument as ground truth when available). This is the case for both the altimetry use-cases considered.
+Note that the lack of ground-truthed dataset introduce challenges both for the calibration of the model as well as for the evaluation of the method.
 
 
 This manuscript will specifically look at how domain knowledge and available data can be used to benefit from the deep learning advances for altimetry analysis.
 
 
 
-\subsection{Thesis objectives and outline}
+\section{Thesis objectives and outline}
 
 The following chapters of this thesis are organized as follows:
 
 \textbf{Chapter 2} addresses the relevance of deep learning architectures for the calibration of correlated errors in SWOT data.
-From an applicative standpoint, the flexibility of deep learning methodology opens the potential for capturing signals that are tricky to explicitely parameterize.
+From an applicative standpoint, the flexibility of deep learning methodology opens the potential for capturing signals that are tricky to explicitly parameterize.
 From a methodological perspective, this study shows how deep learning architectures can be tailored with assumptions on the instrument and its measurements.
 More specifically, this is done by using the spectral specifities of the errors can be leveraged to design a efficient neural calibration scheme.
-This study bypasses the challenges brought by the lack of ground truthed dataset.
+This study bypasses the challenges brought by the lack of ground-truthed dataset.
 It takes place in a simulated setup with the SSH and error signals are simulated and therefore known.
 
 
 \textbf{Chapter 3} tackles more specifically the data availability problem. It studies how neural mapping schemes can be applied to real data.
 It looks more specifically at the 4DVarNet\cite{} framework which has been demonstrated in a simulated setup\cite{} using simulated SSH for training and evaluation.
 This chapter look at the performance of deep learning models trained on simulated data.
-It shows how the extensive physical knowledge of the ocean dynamics can be leveraged to paliate the lack of ground truthed dataset in altimetry through the use  of numerical simulations for training.
+It shows how the extensive physical knowledge of the ocean dynamics can be leveraged to palliate the lack of ground-truthed dataset in altimetry through the use  of numerical simulations for training.
 
 \textbf{Chapter 4} considers the more practical scientific question of how to maximize the synergies between the ocean altimetry and deep learning community.
 Both fields are well established with accumulated knowledge, conventions, and best practices. 
@@ -286,7 +288,7 @@ As described in this chapter, deep learning brings powerful models and algorithm
 However the evaluation data and metrics of an altimetry product can only be sensibly designed by an domain expert. 
 We propose OceanBench, an interface in the form of a software suite of tools.
 Oceanbench aims at empowering domain experts to easily design altimetry problems of interests and qualifying them with relevant metrics. 
-It then provides machine learning practicionners access to the necessary data as well as suited utilities for 
+It then provides machine learning practitioners access to the necessary data as well as suited utilities for 
 
 \textbf{Chapter 5} discusses and concludes on the research presented in this manuscript. We summarize the main objectives and results in previous chapters as well as proposing some future avenues of research.
  
