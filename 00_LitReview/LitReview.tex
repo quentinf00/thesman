@@ -1,64 +1,295 @@
 \begin{bibunit}[IEEEtran.bst]
 
-\chapter*{Review state of the art}
-\addcontentsline{toc}{chapter}{Review}
-\chaptermark{Review}
-We have introduced in the previous chapter the different components to consider when addressing observation problems such as altimetry mapping and calibration. In this chapter, we'll paint the landscape of the different approaches that have been developped in order to contextualize where our research fit in.
+  \chapter*{First and second order modeling for altimetry problems}
+\addcontentsline{toc}{chapter}{First and second order modeling for altimetry problems}
+  \chaptermark{First and second order modeling for altimetry problems}
+
+  \section{First order: Estimating an SSH field}
+
+  First order calibration data is a sample of altimetry observations corresponding to a single estimation task.
+  The estimation can be of a map and the data would be the surrounding nadir observations.
+  The estimation could also be of the calibrated SSH, and then the data would be the concerned nadir track as well as the surrounding nadir observation.
+
+  \subsection{Assumptions about the SSH field: Model and model state}
+  % maybe start with the state, ssh, constraints on state
+  The kind of assumptions we make about the SSH field will result in two components.
+  The definition of a state which will be a set of values to be determined for the SSH estimation as well as some computational procedure to infer the SSH values on the domain from the state.
+  Each choice of model introduce parameters that need to be tuned prior to state inference
+
+  Model -> state -> parameters -> inference
+  Dynamical models of the ocean -> initial conditions (weak constraints: initial condition per subsegment) -> integration grid and step -> integration scheme
+  Grid -> SSH grid values -> resolution -> interpolation
+  Covariance model of errors wrt a first guess -> First guess errors -> addition / interpolation
+  Neural network -> parameters -> architecture -> nn inference
+  Composite signal with additive errors -> error parameters -> 
+  Dimensionality reduction -> basis components
+  Auto-Encoder -> grid -> interpolation (similar to denoising)
 
 
-  \section{Evaluation}
-  As mentionned in the previous chapter, 
-  First of all different methods have been evaluat
-  \section{Methods}
+  \subsection{State estimation procedure}
+    Depending on the prior assumptions, different approaches exists to perform the actual state estimation from the altimetry observations.
+    Each procedure also introduce parameters that need to be tuned for inference.
 
-  \begin{itemize}
-    \item OI
-    \item MIOST
-    \item DYMOST
-    \item DA (Kalman filters, 4DVAR)
-    \item convlstm
-    \item Dincae
-    \item 4dVarNet
-  \end{itemize}
-\section{Models}
-  \subsection{Physics}
-  \begin{itemize}
-    \item Ocean physics BFN, GLORYS 
-    \item Calibration roll estimation
-  \end{itemize}
-  \subsection{Statistics}
-  \begin{itemize}
-    \item OI
-  \end{itemize}
-  \subsection{Deep learning}
-  \begin{itemize}
-    \item 
-  \end{itemize}
-\section{Data}
-  \subsection{Observations}
-  \begin{itemize}
-    \item 
-  \end{itemize}
-  \subsection{Numerical model simulations}
-  \begin{itemize}
-    \item 
-  \end{itemize}
-\section{Algorithm}
-  \subsection{Statistics}
-  \begin{itemize}
-    \item 
-  \end{itemize}
-  \subsection{Data Assimilation}
-  \begin{itemize}
-    \item 
-  \end{itemize}
-  \subsection{Iterative Gradient based}
-  \begin{itemize}
-    \item 
-  \end{itemize}
-\section{Evaluation}
-  \subsection{OSSE}
-  \subsection{OSE}
+    cross-validation leaving some calibration data out, trying different values and checking which ones works best.
+    bayesian estimation: kalman gains of kalman filters  and optimal interpolation computation in observation error modeling
+    Variational methods: data assimilation or optimal interpolation solving a minimization problem.  Minimization procedure (iterative step), observation cost
+    Neural network training: Stochastic gradient descent, learning to learn algorithm,  (J em)
+    Neural network inference (for grid values, for covariance matrix) (Manuch)
+
+
+  \section{Second order problem: tuning the parameters of SSH model and estimation procedure}
+  In order to solve the SSH estimation tasks, the parameters introduced in the model and estimation procedure need to be determined.
+
+
+  The calibration data for this second order data represent historical observations as well as potential numerical simulation
+  Some parameters can be estimated through statistical analysis of historical data when available.
+  the first guess can be determined through historical average
+  noise levels can be informed by historical data and tuned through different 
+
+  Others need to be calibrated on similar tasks that can be evaluated on OSE or OSSE setup.
+  Neural network parameters can be trained
+  Sensible grid and integration schemes of dynamical model can be chosen
+  Covariance matrices 
+
+
+  Note that the second order calibration can introduce hyper parameters than themselves need to be determined,
+  they are usually found through trial and error in a cross validation  fashion.
+
+
+\section{A closer look at the 4dVarNet prospect: a hybrid approach}
+  \subsection{overview}
+This thesis is extensively on prior work 
+This 4dVarNet makes an interesting combination of classical and deep learning based methods.
+The first order assumptions made on the SSH field is that the field should be a fixed point of a certain neural network phi.
+the state is represented as a spatial temporal grid, first application decompose the ssh value in a large scale and small scale component.
+this phi can be though as analoguous as the integration of the dynamical model in strong 4DVAR, in which want the estimated SSH to be the integration of the 
+in order to find the state that satisfy the prior for given observations, a variational formulation is employed,
+  meaning that the estimation is done trhough the minimization of a quantity.
+  This minimization is done using a neural based gradient descent initially developped for meta learning tasks involving a recurrent neural network
+  The second order parameters therefore consists in the neural network parameters of the phi operator as well as the parameters of the recurrent neural network.
+
+\subsection{Existing results}
+
+
+
+
+  
+%   \chapter*{Model driven, data-driven and deep learning for altimetry analysis.}
+% \addcontentsline{toc}{chapter}{Deep Learning, inverse problems and altimetry}
+%   \chaptermark{Model driven, data-driven and deep learning for altimetry analysis.}
+%
+%
+%
+%
+% As presented in the previous chapter, the \textbf{model} and \textbf{calibration data} are inter-dependent. The number of parameters of the model will impose constraints on the quantity calibration data and reciproquely the available data will constrain the kind of model that can be considered.
+% This coupling introduce a possible distinction between model-driven and data-driven approaches. We use this distinction to organize the overview of the existing altimetry methods in the first two sections.
+% Deep learning can be viewed as data-driven but introduce specific considerations that are presented in a third section.
+%
+%
+%   \section{Model driven}
+% We designate by model-driven the class of methods that are predicated on domain specific assumptions.
+% \subsection{Data assimilation for altimetry: mapping}
+% The ocean being a dynamical system, we look more in detail about the methods making use of physical assumptions of the system in the form of dynamical models.
+%
+% We will first detail here more precisely the data assimilation methods that leverage dynamical knowledge of ocean processes for altimetry mapping.
+% In geoscience, data assimilation refer to the estimation of a state $X$ from observation data $y$ using a dynamical model $M$.
+%
+% In practice, data assimilation work in altimetry rely on \textbf{models} that vary greatly in complexity.
+%   The reanalysis GLORYS12 rely on the full-fledged Ocean General Circulation Model (OGCM) NEMO\cite{} which solves the primitive equations and models the sea-ice.
+%   Other works rely on simplified Quasi-Geostrophic dynamics.
+%
+%
+%   Given a dynamical model, different formulation and algorithms are used to assimilate the observation data.
+%   We detail three methods which are Kalman filtering\cite{}, Variational data assimilation\cite{} and back and forth nudging\cite{}.
+% Kalman filtering is a sequential assimilation method that requires a linearization of the dynamical model and the observation model and assume gaussian noise in the observation and the model.
+%   This principle is at the base of the SEEK formulation used for state of the art operational oceanography like product like Glorys.
+%   Variational data assimilation (VarDA) formulates the problem as a minimization problem in which the state minimizes an observation discrepency cost combined with a regularization cost involving a dynamical integration of the state.
+%   The minimization of the variational cost then involves an iterative optimization procedure like a gradient descent.
+%   Flavours of VarDA go from 3DVAR, 4DVAR, weak4DVAR. 3D-Var is also used for biais correction in GLORYS12 product\cite{}. Variational approaches do not require the model to be linear but the optimization procedure can be computationally expensive by requiring multiple integrations of the dynamical model.
+%   Back and forth nudging (BFN) is an approach that has been succesfully used to assimilate altimetry data with a QG model\cite{}. It can be seen like an hybrid method between kalman filtering and VarDA and consists in iteratively integrating the model forward and backward in time while adding a term to the dynamical model that nudges the integration towards observed values. 
+%
+% \subsection{Systematic error modeling for SWOT calibration}
+% For the SWOT calibration of correlated errors, fewer studies exists. However envisionned operational approaches also rely on models, but instead of modeling ocean processes, they model the processes behind the error signals.
+% Once the different processes are modeled, calibration data is used to estimate the parameters of the error processes.
+%
+% \section{Data driven}
+% Data driven aims at making the minimal assumptions given the available data, the problem can then be seen as an interpolation problem. 
+% Optimal interpolation is the main method used in altimetry. The model characterizes  the spatial and temporal decorrelation rate through a covariance model.
+% parameters covaraince model as well as decorrelation factor.
+% covariance can depend on place and time
+%   MIOST solve in reduced wavelet basis, the choice of basis adds additional parameters.
+%
+%
+% \section{deep learning}
+% Deep learning models are data driven but require potentially even less
+%   deep learning models for computer vision are mostly based on convolution filters and non linearities.
+%   deep learning calibration algorithms include stateful gradient descent with adaptive step size and second order term estimation that can themselfes be parameterized with neural networks.
+%
+%   Application of deep learning for altimetry has known a significant boom during the course of this PhD.
+%   Traditional CV architectures have been tested on QG simulation with toy spatial and temporal interpolation tasks.
+%   the 4dvarnet inspired from variational data assimilation tested in  OSSE with a SOTA simulation.
+%   by the end of the thesis, ConvLSTM have been trained on real altimetry data.
+%
+%   For the calibration of swot, studies exist to remove the KaRIN noise but not for the correlated errors.
+%
+%
+
+
+
+
+
+% We aim here at providing a more detailed overview of the state of the art methods for tackling the mapping and calibration challenges adressed in following chapters.
+% First we introduce the generic class of inverse problems.
+%
+%
+%
+% Denoising. Reconstructing the trajectory of a dynamical system from observation.
+%
+% One characteristic of such problem is that they are usually ill-posed, in the sense that the solution may not be unique.
+% Different approaches for solving these inverse problems rely on different way to model the sytem and computational methods to estimate the parameters of the system from the data.
+% Therefore inverse problem solving methods usually rely on injecting prior knowledge about the system in the model.
+%
+% We'll first look in detail at two different method
+% Tasks such as altimetry mapping and SWOT calibration have both been adressed before.
+%   In this chapter we review the formalism and methods that exists for solving such problems.
+%   Both task can be formulated as inverse problems, and this chapter is organized as follows:
+%   First part will look 
+%   Given some data $y$ that result from a process $\cal{F}$ applied to some state $x$, the task of determining $x$ from $y$ can 
+% Estimating an underlying state from a 
+% The task we introduced can be seen as inverse problems and existing 
+% We have introduced in the previous chapter the different components to consider when addressing observation problems such as altimetry mapping and calibration. In this chapter, we'll paint the landscape of the different approaches that have been developped in order to contextualize where our research fit in.
+%
+%
+%
+%
+% Observation tasks such as altimetry mapping and sensor calibration can be seen as inverse problems. 
+% Inverse problems broadly encompasses the tasks of estimating states parameters of a system from data produced by that system.
+% These problems are characterized by their ill-posedness. 
+% Over the years different class of computational methods have been developped to solve these problems. Recently deep learning has also been increasingly used for such problems.
+% We detail in the first section of this chapter how the altimetry usecases considered fit in the inverse problem formulation justifying therefore the relevance of this category of methods.
+% In the second section we present two state of the art domain approaches that are especially relevant for our case.
+% In the third section, we present the deep learning methods 
+%   Finally we'll describe the 4dvarnet, a neural scheme inspired by variational data assimilation
+%
+%   \section{Altimetry Usecases as inverse problems}
+%   \subsection{Notation for inverse problems}
+%
+%   \subsection{Mapping methods}
+%   \subsection{Calibration Methods}
+%
+%   \section{Domain methods for Inverse Problems}
+%   \subsection{Model driven: Dynamical prior and data assimilation}
+%   \subsection{Data driven: Statistical prior and optimal interpolation}
+%   \subsection{Experimental methods }
+%
+%
+%   \section{Deep learning for inverse problems}
+%   \subsection{Deep prior and neural radiance fields}
+%   \subsection{Direct inversion}
+%   \subsection{Physics informed deep learning}
+%
+%
+%   \section{An hybrid method: the 4dVarNet}
+%
+%
+%
+%
+%   \begin{itemize}
+%     \item OI
+%     \item MIOST
+%     \item DYMOST
+%     \item DA (Kalman filters, 4DVAR)
+%     \item convlstm
+%     \item Dincae
+%     \item 4dVarNet
+%   \end{itemize}
+% \section{Models}
+%   \subsection{Physics}
+%   \begin{itemize}
+%     \item Ocean physics BFN, GLORYS 
+%     \item Calibration roll estimation
+%   \end{itemize}
+%   \subsection{Statistics}
+%   \begin{itemize}
+%     \item OI
+%   \end{itemize}
+%   \subsection{Deep learning}
+%   \begin{itemize}
+%     \item 
+%   \end{itemize}
+% \section{Data}
+%   \subsection{Observations}
+%   \begin{itemize}
+%     \item 
+%   \end{itemize}
+%   \subsection{Numerical model simulations}
+%   \begin{itemize}
+%     \item 
+%   \end{itemize}
+% \section{Algorithm}
+%   \subsection{Statistics}
+%   \begin{itemize}
+%     \item 
+%   \end{itemize}
+%   \subsection{Data Assimilation}
+%   \begin{itemize}
+%     \item 
+%   \end{itemize}
+%   \subsection{Iterative Gradient based}
+%   \begin{itemize}
+%     \item 
+%   \end{itemize}
+% \section{Evaluation}
+%   \subsection{OSSE}
+%   \subsection{OSE}
+%
+%
+%
+%
+% Section 1: Altimetry Usecases as Inverse Problems
+% Introduction
+%
+% Altimetry, particularly when it involves oceanic applications, often deals with indirect measurements. Essentially, we have observable data—like sea surface height—from which we aim to estimate underlying physical states or parameters, such as current velocities or sea bed topology. This task fits squarely within the framework of what are called 'inverse problems'.
+% Notation for Inverse Problems
+%
+% Before we delve into the specifics, let's set some simple notation to help us along the way:
+%
+%     yy: Observed data (e.g., sea surface height)
+%     xx: Parameters or states to be estimated (e.g., ocean currents)
+%     FF: Forward model that connects xx to yy, F(x)=yF(x)=y
+%
+% The goal of an inverse problem is to find xx given yy and FF.
+% Mapping Methods
+%
+% Ocean altimetry mapping aims to derive high-resolution ocean surface topography or currents from relatively sparse and irregularly distributed satellite altimetry data. These methods take the observable—sea surface height (yy)—and use it to estimate underlying physical states like ocean currents (xx) using a forward model FF that incorporates equations of fluid dynamics and other physical laws. These are quintessential examples of inverse problems.
+%
+% In the literature, techniques like Optimal Interpolation and Kalman Filtering have been extensively used for this task. These methods come with their own assumptions and limitations, such as requiring the error statistics to be Gaussian or assuming linearity in the forward model FF.
+% Calibration Methods
+%
+% Calibration in the context of altimetry involves adjusting sensor parameters to ensure that the measurements are accurate and reliable. Here, the observed data (yy) could be the raw readings from the altimeter, and the states or parameters (xx) would be the calibration factors. The forward model FF in this case would describe how the calibrated sensor should behave under ideal conditions.
+%
+% For example, one might have a mathematical model FF that predicts sensor readings based on laboratory conditions and known physical laws. The inverse problem then is to adjust xx (calibration parameters) such that F(x)F(x) closely matches yy (actual sensor readings).
+%
+%
+% Section 2: Domain Methods for Inverse Problems
+% Introduction
+%
+% The landscape of computational methods for solving inverse problems in altimetry is quite diverse. Broadly, these methods can be classified into three categories: model-driven, data-driven, and experimental methods. Each has its advantages and limitations, and the choice often depends on the specific use-case, data availability, and computational resources. This section aims to provide an overview of these classes of methods, particularly in the context of ocean altimetry.
+% Model-Driven: Dynamical Prior and Data Assimilation
+% Definition
+%
+% Model-driven methods often employ a priori knowledge of the physical laws governing the system. In oceanography, this could involve fluid dynamics, gravitational forces, and thermodynamics to make educated estimations. Data assimilation techniques, such as the Kalman filter, are typical examples.
+% Pros and Cons
+%
+%
+% Data-Driven: Statistical Prior and Optimal Interpolation
+% Data-driven methods rely on statistical models to solve inverse problems. Rather than using detailed physics-based models, these methods use statistical approaches to approximate the relationship between observed data and underlying states. Optimal Interpolation is a commonly used technique.
+%
+%
+% Experimental methods:
+% BFNQG
+% MIOST
+% DYMOST
 
 \end{bibunit}
 
