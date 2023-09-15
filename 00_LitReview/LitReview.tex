@@ -3,72 +3,222 @@
   \chapter*{First and second order modeling for altimetry problems}
 \addcontentsline{toc}{chapter}{First and second order modeling for altimetry problems}
   \chaptermark{First and second order modeling for altimetry problems}
+ 
+ Exsisting approaches for modeling alitmetry problems.
+ Goal estimate the SSH on a continuous spatio-temporal domain $\Omega_u$
+ 
+ 
+  \section{Priors: Chosing a model of the SSH}
+A first step is to compile our theoritical knowledge into some assumptions 
 
-  \section{First order: Estimating an SSH field}
+ 
+  \subsection{State representation}
+A first decision needs to be a choice on the representation of this SSH field on this domain. For example, if $\Omega_u$ is a 10°x10° over a year. A example representation would be values of SSH every 1/10° and 24h. Such a representation will discard some small processes and introduce model error.
+This define the state that to estimate
 
-  First order calibration data is a sample of altimetry observations corresponding to a single estimation task.
-  The estimation can be of a map and the data would be the surrounding nadir observations.
-  The estimation could also be of the calibrated SSH, and then the data would be the concerned nadir track as well as the surrounding nadir observation.
+ Grid representation
+     - ssh values at regular sampling dx, dt
+     - ssh values at t0
+     - ssh and ancillary variable values
+     - ssh decomposition (multiscale, wavelet)
+  functional representation
+     - Nerf parameters
 
-  \subsection{Assumptions about the SSH field: Model and model state}
-  % maybe start with the state, ssh, constraints on state
-  The kind of assumptions we make about the SSH field will result in two components.
-  The definition of a state which will be a set of values to be determined for the SSH estimation as well as some computational procedure to infer the SSH values on the domain from the state.
-  Each choice of model introduce parameters that need to be tuned prior to state inference
-
-  Model -> state -> parameters -> inference
-  Dynamical models of the ocean -> initial conditions (weak constraints: initial condition per subsegment) -> integration grid and step -> integration scheme
-  Grid -> SSH grid values -> resolution -> interpolation
-  Covariance model of errors wrt a first guess -> First guess errors -> addition / interpolation
-  Neural network -> parameters -> architecture -> nn inference
-  Composite signal with additive errors -> error parameters -> 
-  Dimensionality reduction -> basis components
-  Auto-Encoder -> grid -> interpolation (similar to denoising)
-
-
-  \subsection{State estimation procedure}
-    Depending on the prior assumptions, different approaches exists to perform the actual state estimation from the altimetry observations.
-    Each procedure also introduce parameters that need to be tuned for inference.
-
-    cross-validation leaving some calibration data out, trying different values and checking which ones works best.
-    bayesian estimation: kalman gains of kalman filters  and optimal interpolation computation in observation error modeling
-    Variational methods: data assimilation or optimal interpolation solving a minimization problem.  Minimization procedure (iterative step), observation cost
-    Neural network training: Stochastic gradient descent, learning to learn algorithm,  (J em)
-    Neural network inference (for grid values, for covariance matrix) (Manuch)
+  through other signals:
+      in calibration the SSH is defined like everything that is not roll,timing,phase...
+      
+  \subsection{SSH estimation from state}
+This state representation is couple with a function that maps state values to SSH values 
+This choice will also impact the final SSH estimation, given grid representation of the SSH, the interpolation choice for estimating values inbetween grid points will give different results
+In 4DVar the dynamical model used to propagate the initial conditions will give different trajectories
+In nerf the neural architecture chosen 
 
 
-  \section{Second order problem: tuning the parameters of SSH model and estimation procedure}
-  In order to solve the SSH estimation tasks, the parameters introduced in the model and estimation procedure need to be determined.
+  \subsection{Prior costs}
+A final way is to define a score over the state space to characterize which 
+This can be done trough likely estimation and error covariance matrices, energy based neural estimation
 
 
-  The calibration data for this second order data represent historical observations as well as potential numerical simulation
-  Some parameters can be estimated through statistical analysis of historical data when available.
-  the first guess can be determined through historical average
-  noise levels can be informed by historical data and tuned through different 
-
-  Others need to be calibrated on similar tasks that can be evaluated on OSE or OSSE setup.
-  Neural network parameters can be trained
-  Sensible grid and integration schemes of dynamical model can be chosen
-  Covariance matrices 
 
 
-  Note that the second order calibration can introduce hyper parameters than themselves need to be determined,
-  they are usually found through trial and error in a cross validation  fashion.
+| Method              | state repr                         |          state -> ssh           |                            prior cost                             |
+| ------------------- |:---------------------------------- |:-------------------------------:|:-----------------------------------------------------------------:|
+| OI                  | Grid $x$                           |             interp              |                          $\|x - x_b\|_B$                          |
+| s4DVar              | Grid t0 $x_0$                      |          dyn model  ++          |                         $\|x_0 - x_b\|_B$                         |
+| w4DVar              | Grid                               |             interp              | $\|x - x_b\|_B + \sum\|x_{k+1} - \cal{M}_{k\to k+1}(x_k)\|_{Q_k}$ |
+| MIOST               | wavelet $x$    +                   |      wavelet transform   +      |                  $\|x - x_b\|_{\Gamma Q\Gamma}$                   |
+| 4DVarNet            | 2 scale Grid $x =(u_{ss}, u_{ls})$ | $u = u_{ss} + u_{ls}$,   interp |                     $\|z - \Phi_{NN}(z)\|_B$                      |
+| Nerf                | NN Params                          |        NN inference +++         |                               None                                |
+| Direct NN inversion | Grid                               |             interp              |                               None                                |
 
 
-\section{A closer look at the 4dVarNet prospect: a hybrid approach}
-  \subsection{overview}
-This thesis is extensively on prior work 
-This 4dVarNet makes an interesting combination of classical and deep learning based methods.
-The first order assumptions made on the SSH field is that the field should be a fixed point of a certain neural network phi.
-the state is represented as a spatial temporal grid, first application decompose the ssh value in a large scale and small scale component.
-this phi can be though as analoguous as the integration of the dynamical model in strong 4DVAR, in which want the estimated SSH to be the integration of the 
-in order to find the state that satisfy the prior for given observations, a variational formulation is employed,
-  meaning that the estimation is done trhough the minimization of a quantity.
-  This minimization is done using a neural based gradient descent initially developped for meta learning tasks involving a recurrent neural network
-  The second order parameters therefore consists in the neural network parameters of the phi operator as well as the parameters of the recurrent neural network.
 
-\subsection{Existing results}
+  \subsection{Solvers: Estimating the state given some observations}
+
+Once all prior assumptions about the SSH field have been made, the next choices concern the **calibration procedure** used to estimate the state given some observations.
+
+This requires formulating about the relationship from the observations to the state and chosing an estimation procedure.
+
+
+A class of method start by defining an observation operator $H$ that describe how to go from state to observations, finding $f$ consist in finding the inverse of this operator $H$. This class of method is named "inverse problem"
+This problem is usually ill posed, without a unique solution.
+Using a grid representation of the SSH without other prior will only allow to fill the observed pixels 
+
+$y = H(x) = \cal{H}(x) + \epsilon$
+After making assumptions on $\epsilon$ such as unbiased gaussian noise.
+The field of data assimilation in geoscience propose a variety of methods to solve inverse problems.
+We can mention here linear algebraic resolution of the kalman gain in Kalman filters and optimal interpolation.
+But also variational methods that formulate the estimation as a minimization problem, the objective to minimize is called variational cost and usually include a observation term and a regularization term making use of the prior cost.
+The minimization procedure usually involves some kind of iterative gradient based algorithm.
+
+
+
+Deep learning also opened the way to directly model the link model the inversion process with a neural network as done in \cite{}. We call this approach direct inversion
+
+
+
+
+
+| Methods    |         estimation         |   O(y, x)   |
+| ---------- |:--------------------------:|:------------:|
+| Nerf       | $\theta = argmin(\cal{L})$ |  $\cal{L}$   |
+| Var        |      $ x = argmin(\alpha R(z) + \beta O(y, x))$      |    $\|y - Hx\|$          |
+| OI, Kalman | $x = x_b + K(y - Hx_b)$ | $\|y - Hx\|$ |
+| Direct Inv |          x = f(y)          |              |
+            
+
+
+
+For nadir altimetry, thanks to the calibration  most methods usually make the assumption of unbiased gaussian noise. 
+$\| y - \cal{H}(x)\|_R$ 
+
+
+## Second order Modeling and estimation }
+All those choices of prior on the ssh field, observation cost, estimation procedure introduced new factors that need to be determined.
+Those factors include the background field of data assimilation schemes, as well as the error covariances for the observation and background. They include choices within numerical schemes parameter for variational optimization procedure or numerical model integrations.
+Finally those factors also include the neural network parameters.
+
+The process estimation of those quantities unfold in a similar manner as the estimation of the SSH.
+It relies on available calibration data that are beyond the sole observations of an estimation problem but include numerical model outputs and historical data.
+
+Given the theoritical knowledge at hand, assumptions are made about what distribution is reasonable to model the errors and to how to model the covariances between the errors, what numerical schemes should be considered for integrating the dynamical models, what constitutes a good first guess for data assimilation schemes and so on... What neural architecture is suited for the direct inversion problem.
+
+Those assumptions characterizes the quantities that need to be estimated and we can differentiate multiple ways that are used to determined them.
+
+A combination of different methods are used to estimate those quantities.
+
+Cross validation consists in using part of the calibration data to evaluate the choice, 
+The choice can then be made "randomly", through some statistics on the calibration data aor through some optimization procedure (bayesian opt or gradient descent...)
+
+In the case of direct inversion, the search for the neural parameters are equivalent the state search of the nerf method
+
+Note that in some sense second order calibration data also contain information that we would like to infuse to our method, so solving the second order problem is the data centric part of the methodology. 
+The information stored in available data can be used to tune the prior models, or the state estimation procedure.
+Neural Direct inversion approach virtually has no prior models (except from the state formulation) and all info contained in the data goes only into the estimation procedure.
+
+\section{A closer look on the 4dVarNet}
+the 4dvarnet framework was a promising at the time of my thesis with strong performances when evaluated on simulated SSH estimation.
+The main use case of interest concerned the interpoaltion task on a 10°x10° region traversed by strong currents from the gulfstream generating dynamic SSH.
+The simulated SSH used was from the NATL60 simulation and the altimetry configurations considered were 4 nadir altimeters with and without swot observations
+Some version also considered an optimal interpolation of the OI as observations to the mapping problem
+We detail below the assumptions made and the different components used.
+
+
+\subsection{State formulation}
+The current 4dvarnet framework uses a grid representation of the SSH at a certain resolution, however a few different variations have been experimented in different work:
+some work represent the SSH directly as scalar
+other decompose each ssh value in a large and small scale components
+finally another formulation consists in introducing latent values in addition to the two scale components 
+
+
+\subsection{Prior cost}
+In the 4dvarnet the prior cost is formulated as an autoencoder loss.
+Given a nn $\phi$, $R(x)=\|x - \phi(x)\|$
+Some use simple or multiscale bilinear blocks
+Some tried with Unets
+on simplified lorenz system, the pde of the system has been tested therefore being a 4dvar formulation
+
+
+
+\subsection{Observation operator}
+Previous work make a no noise assumptions and link directly the observed values to the coresponding grid values
+Some work also introduce a multimodal verion making use of sea surface temperature observations that are linked to the state using neural network formulation.
+
+
+\subsection{State Estimation procedure}
+In this work different approaches were considered for  estimating the state.
+A fixed point algorithm analog to EM were used by maximizing the obs likelihood (clipping the obs to the state) then making a forward pass with the $\phi$
+Other approaches used the variational formulation of minimizing a combination of observation and prior cost
+
+
+\subsection{Learning: Estimation procedure}
+Apart from the cross validation and exploration of different architectures and configurations, the actual parameter values of both the neural solver and the neural prior are trained using a standard deep learning otpimization procedure Adam. There parameter are tune to minimize the mean squared error of the SSH reconstruction as well as  the reconstruction of the gradient. In order to further guide the weights of the neural prior, a term in the training loss is added to nudge the estimated states have low autoencoder loss.
+
+%   \section{First order: Estimating an SSH field}
+%
+%   First order calibration data is a sample of altimetry observations corresponding to a single estimation task.
+%   The estimation can be of a map and the data would be the surrounding nadir observations.
+%   The estimation could also be of the calibrated SSH, and then the data would be the concerned nadir track as well as the surrounding nadir observation.
+%
+%   \subsection{Assumptions about the SSH field: Model and model state}
+%   % maybe start with the state, ssh, constraints on state
+%   The kind of assumptions we make about the SSH field will result in two components.
+%   The definition of a state which will be a set of values to be determined for the SSH estimation as well as some computational procedure to infer the SSH values on the domain from the state.
+%   Each choice of model introduce parameters that need to be tuned prior to state inference
+%
+%   Model -> state -> parameters -> inference
+%   Dynamical models of the ocean -> initial conditions (weak constraints: initial condition per subsegment) -> integration grid and step -> integration scheme
+%   Grid -> SSH grid values -> resolution -> interpolation
+%   Covariance model of errors wrt a first guess -> First guess errors -> addition / interpolation
+%   Neural network -> parameters -> architecture -> nn inference
+%   Composite signal with additive errors -> error parameters -> 
+%   Dimensionality reduction -> basis components
+%   Auto-Encoder -> grid -> interpolation (similar to denoising)
+%
+%
+%   \subsection{State estimation procedure}
+%     Depending on the prior assumptions, different approaches exists to perform the actual state estimation from the altimetry observations.
+%     Each procedure also introduce parameters that need to be tuned for inference.
+%
+%     cross-validation leaving some calibration data out, trying different values and checking which ones works best.
+%     bayesian estimation: kalman gains of kalman filters  and optimal interpolation computation in observation error modeling
+%     Variational methods: data assimilation or optimal interpolation solving a minimization problem.  Minimization procedure (iterative step), observation cost
+%     Neural network training: Stochastic gradient descent, learning to learn algorithm,  (J em)
+%     Neural network inference (for grid values, for covariance matrix) (Manuch)
+%
+%
+%   \section{Second order problem: tuning the parameters of SSH model and estimation procedure}
+%   In order to solve the SSH estimation tasks, the parameters introduced in the model and estimation procedure need to be determined.
+%
+%
+%   The calibration data for this second order data represent historical observations as well as potential numerical simulation
+%   Some parameters can be estimated through statistical analysis of historical data when available.
+%   the first guess can be determined through historical average
+%   noise levels can be informed by historical data and tuned through different 
+%
+%   Others need to be calibrated on similar tasks that can be evaluated on OSE or OSSE setup.
+%   Neural network parameters can be trained
+%   Sensible grid and integration schemes of dynamical model can be chosen
+%   Covariance matrices 
+%
+%
+%   Note that the second order calibration can introduce hyper parameters than themselves need to be determined,
+%   they are usually found through trial and error in a cross validation  fashion.
+%
+%
+% \section{A closer look at the 4dVarNet prospect: a hybrid approach}
+%   \subsection{overview}
+% This thesis is extensively on prior work 
+% This 4dVarNet makes an interesting combination of classical and deep learning based methods.
+% The first order assumptions made on the SSH field is that the field should be a fixed point of a certain neural network phi.
+% the state is represented as a spatial temporal grid, first application decompose the ssh value in a large scale and small scale component.
+% this phi can be though as analoguous as the integration of the dynamical model in strong 4DVAR, in which want the estimated SSH to be the integration of the 
+% in order to find the state that satisfy the prior for given observations, a variational formulation is employed,
+%   meaning that the estimation is done trhough the minimization of a quantity.
+%   This minimization is done using a neural based gradient descent initially developped for meta learning tasks involving a recurrent neural network
+%   The second order parameters therefore consists in the neural network parameters of the phi operator as well as the parameters of the recurrent neural network.
+%
+% \subsection{Existing results}
 
 
 
