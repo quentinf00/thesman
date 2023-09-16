@@ -8,84 +8,123 @@
  Goal estimate the SSH on a continuous spatio-temporal domain $\Omega_u$
  
  
-  \section{Priors: Chosing a model of the SSH}
+  \section{Priors: Chosing a model of the sea surface height (SSH)}
 A first step is to compile our theoritical knowledge into some assumptions 
+We differentiate between two ways of specifying our prior knowledge.
+
+The first is the choice of representation of the SSH field we want to estimate. This define the space of all the possible SSH states.
+The second way is to define some kind of distribution over the possible states.
+
 
  
   \subsection{State representation}
-A first decision needs to be a choice on the representation of this SSH field on this domain. For example, if $\Omega_u$ is a 10°x10° over a year. A example representation would be values of SSH every 1/10° and 24h. Such a representation will discard some small processes and introduce model error.
-This define the state that to estimate
-
- Grid representation
-     - ssh values at regular sampling dx, dt
-     - ssh values at t0
-     - ssh and ancillary variable values
-     - ssh decomposition (multiscale, wavelet)
-  functional representation
-     - Nerf parameters
-
-  through other signals:
-      in calibration the SSH is defined like everything that is not roll,timing,phase...
-      
-  \subsection{SSH estimation from state}
-This state representation is couple with a function that maps state values to SSH values 
-This choice will also impact the final SSH estimation, given grid representation of the SSH, the interpolation choice for estimating values inbetween grid points will give different results
-In 4DVar the dynamical model used to propagate the initial conditions will give different trajectories
-In nerf the neural architecture chosen 
+Chosing a state representation is equivalent to determining the quantities that characterizes the state and the relationship between the state values and the SSH field.
 
 
-  \subsection{Prior costs}
-A final way is to define a score over the state space to characterize which 
-This can be done trough likely estimation and error covariance matrices, energy based neural estimation
+  Looking at existing methods, the ssh field can be characterized through values sampled on a grid of the domain. These values can be directly SSH (OI), Kalman Smoother, or some scale components of the SSH (4darnet) or even values within another basis like MIOST which uses the wavelet transform.
+  The choices like the mesh, basis or SSH decomposition used are a way to dimension the state space informed by  prior knowledge on the SSH estimation problem.
+Given a discrete representation of the SSH, the SSH estimation can be made on the whole domain using an interpolation scheme.
+
+The strong contraint four dimensional variational data assimilation 4DVAR method characterizes the SSH field over a period through the initial conditions. A numerical integration scheme of a dynamical model is then used to infer the SSH over the whole temporal horizon. Note that the initial condition representation is usually also made on some grid. 
+
+Deep learning has introduced another way of representing the SSH through Neural fields, this consists of describing the SSH with the parameters of a coordinate based neural network. The neural network can then be used to output the SSH value for given any coordinate of the domain.
+
+
+Finally the state can also contain ancillary quantities that are linked to the SSH. In the GLORYS data assimilation product, the ocean model used NEMO considers the state of the ocean beyond the SSH.
+In the case of the SWOT calibration, the estimating the SSH is equivalent to estimating the error signals. Operational method approach the problem as chose a state representation of the different error signals making assumptions on the processes generating them.
+
+\subsection{Prior costs}
+The representation of SSH we chose defined the space of all possible states. Additional constraints can be added to better characterize the assumptions on the SSH by specifying which states are more likely than others. This is the prior on the states distribution.
+In Optimal interpolation and strong 4dVar this is done by defining a first guess (or background state) and its error covariance matrix.
+In Kalman filtering, 3DVar or weak4DVar, the prior likelihood is computed with errors covariance with regard to the trajectory of a dynamical model.
+
+In this regard deep learning introduce energy-based model to this end. In 4DVarNet, the prior over the state space is formulated using an auto-encoder $\phi$  as $\| x - \phi(x)\|$
 
 
 
+We summarize in the table below the different first order \textbf{models} of different 
+  \begin{table}
+\begin{tabular}{|l|l|l|l|}
+\hline
+Method & state repr & state $\to$ ssh & prior cost \\
+\hline
+OI & Grid $x$ & interp & $\|x - x_b\|_B$ \\
+\hline
+s4DVar & Grid t0 $x_0$ & dyn model  ++ & $\|x_0 - x_b\|_B$ \\
+\hline
+w4DVar & Grid & interp & $\|x - x_b\|_B + \sum\|x_{k+1} - \mathcal{M}_{k\to k+1}(x_k)\|_{Q_k}$ \\
+\hline
+MIOST & wavelet $x$ + & wavelet transform + & $\|x - x_b\|_{\Gamma Q\Gamma}$ \\
+\hline
+4DVarNet & 2 scale Grid $x =(u_{ss}, u_{ls})$ & $u = u_{ss} + u_{ls}$, interp & $\|z - \Phi_{NN}(z)\|_B$ \\
+\hline
+Nerf & NN Params & NN inference +++ & None \\
+\hline
+Direct NN inversion & Grid & interp & None \\
+\hline
+\end{tabular}
+\end{table}
 
-| Method              | state repr                         |          state -> ssh           |                            prior cost                             |
-| ------------------- |:---------------------------------- |:-------------------------------:|:-----------------------------------------------------------------:|
-| OI                  | Grid $x$                           |             interp              |                          $\|x - x_b\|_B$                          |
-| s4DVar              | Grid t0 $x_0$                      |          dyn model  ++          |                         $\|x_0 - x_b\|_B$                         |
-| w4DVar              | Grid                               |             interp              | $\|x - x_b\|_B + \sum\|x_{k+1} - \cal{M}_{k\to k+1}(x_k)\|_{Q_k}$ |
-| MIOST               | wavelet $x$    +                   |      wavelet transform   +      |                  $\|x - x_b\|_{\Gamma Q\Gamma}$                   |
-| 4DVarNet            | 2 scale Grid $x =(u_{ss}, u_{ls})$ | $u = u_{ss} + u_{ls}$,   interp |                     $\|z - \Phi_{NN}(z)\|_B$                      |
-| Nerf                | NN Params                          |        NN inference +++         |                               None                                |
-| Direct NN inversion | Grid                               |             interp              |                               None                                |
+% | Method              | state repr                         |          state -> ssh           |                            prior cost                             |
+% | ------------------- |:---------------------------------- |:-------------------------------:|:-----------------------------------------------------------------:|
+% | OI                  | Grid $x$                           |             interp              |                          $\|x - x_b\|_B$                          |
+% | s4DVar              | Grid t0 $x_0$                      |          dyn model  ++          |                         $\|x_0 - x_b\|_B$                         |
+% | w4DVar              | Grid                               |             interp              | $\|x - x_b\|_B + \sum\|x_{k+1} - \cal{M}_{k\to k+1}(x_k)\|_{Q_k}$ |
+% | MIOST               | wavelet $x$    +                   |      wavelet transform   +      |                  $\|x - x_b\|_{\Gamma Q\Gamma}$                   |
+% | 4DVarNet            | 2 scale Grid $x =(u_{ss}, u_{ls})$ | $u = u_{ss} + u_{ls}$,   interp |                     $\|z - \Phi_{NN}(z)\|_B$                      |
+% | Nerf                | NN Params                          |        NN inference +++         |                               None                                |
+% | Direct NN inversion | Grid                               |             interp              |                               None                                |
 
 
 
-  \subsection{Solvers: Estimating the state given some observations}
+\section{Solvers: Estimating the state given some observations}
 
-Once all prior assumptions about the SSH field have been made, the next choices concern the **calibration procedure** used to estimate the state given some observations.
+Once all prior assumptions about the SSH field have been made, the next choices concern the \textbf{calibration procedure} used to estimate the state given some observations.
 
 This requires formulating about the relationship from the observations to the state and chosing an estimation procedure.
 
-
 A class of method start by defining an observation operator $H$ that describe how to go from state to observations, finding $f$ consist in finding the inverse of this operator $H$. This class of method is named "inverse problem"
 This problem is usually ill posed, without a unique solution.
-Using a grid representation of the SSH without other prior will only allow to fill the observed pixels 
 
 $y = H(x) = \cal{H}(x) + \epsilon$
 After making assumptions on $\epsilon$ such as unbiased gaussian noise.
 The field of data assimilation in geoscience propose a variety of methods to solve inverse problems.
-We can mention here linear algebraic resolution of the kalman gain in Kalman filters and optimal interpolation.
+Kalman filters use a bayesian based statistical formulation. They solve for the posterior estimate given the observation. Optimal interpolation can also use such formulation to estimate the SSH. 
 But also variational methods that formulate the estimation as a minimization problem, the objective to minimize is called variational cost and usually include a observation term and a regularization term making use of the prior cost.
 The minimization procedure usually involves some kind of iterative gradient based algorithm.
+In previous work using neural fields, the state is fitted only on the observation cost.
+
+
+Deep learning also opened the way to directly model the inversion process with a neural network as done in \cite{}. We call this approach direct inversion.
 
 
 
-Deep learning also opened the way to directly model the link model the inversion process with a neural network as done in \cite{}. We call this approach direct inversion
+The different procedures are summarized in the table below
 
+\begin{table}
+  \begin{tabular}{|c|c|c|}
+\hline
+Methods & Estimation & $O(y, x)$ \\
+\hline
+Nerf & $\theta = \arg\min(\mathcal{L})$ & $\mathcal{L}$ \\
+\hline
+Var & $x = \arg\min(\alpha R(z) + \beta O(y, x))$ & $\|y - Hx\|$ \\
+\hline
+OI, Kalman & $x = x_b + K(y - Hx_b)$ & $\|y - Hx\|$ \\
+\hline
+Direct Inv & $x = \phi(y)$ & \\
+\hline
+\end{tabular}
 
+\end{table}
 
-
-
-| Methods    |         estimation         |   O(y, x)   |
-| ---------- |:--------------------------:|:------------:|
-| Nerf       | $\theta = argmin(\cal{L})$ |  $\cal{L}$   |
-| Var        |      $ x = argmin(\alpha R(z) + \beta O(y, x))$      |    $\|y - Hx\|$          |
-| OI, Kalman | $x = x_b + K(y - Hx_b)$ | $\|y - Hx\|$ |
-| Direct Inv |          x = f(y)          |              |
-            
+% | Methods    |         estimation         |   O(y, x)   |
+% | ---------- |:--------------------------:|:------------:|
+% | Nerf       | $\theta = argmin(\cal{L})$ |  $\cal{L}$   |
+% | Var        |      $ x = argmin(\alpha R(z) + \beta O(y, x))$      |    $\|y - Hx\|$          |
+% | OI, Kalman | $x = x_b + K(y - Hx_b)$ | $\|y - Hx\|$ |
+% | Direct Inv |          $x = \phi(y)$          |              |
+%
 
 
 
@@ -93,17 +132,16 @@ For nadir altimetry, thanks to the calibration  most methods usually make the as
 $\| y - \cal{H}(x)\|_R$ 
 
 
-## Second order Modeling and estimation }
+\section{Second order Modeling and estimation}
 All those choices of prior on the ssh field, observation cost, estimation procedure introduced new factors that need to be determined.
-Those factors include the background field of data assimilation schemes, as well as the error covariances for the observation and background. They include choices within numerical schemes parameter for variational optimization procedure or numerical model integrations.
-Finally those factors also include the neural network parameters.
+Those factors include the background field of data assimilation schemes, as well as the error covariances for the observation and background. They also include the choices numerical schemes parameter for variational optimization procedure or numerical model integrations. Finally those factors also include the neural network parameters.
 
 The process estimation of those quantities unfold in a similar manner as the estimation of the SSH.
-It relies on available calibration data that are beyond the sole observations of an estimation problem but include numerical model outputs and historical data.
+It relies on data that include numerical model outputs and historical observations.
 
-Given the theoritical knowledge at hand, assumptions are made about what distribution is reasonable to model the errors and to how to model the covariances between the errors, what numerical schemes should be considered for integrating the dynamical models, what constitutes a good first guess for data assimilation schemes and so on... What neural architecture is suited for the direct inversion problem.
+Given the theoritical knowledge at hand, assumptions are made about what distribution is reasonable to model the errors and to how to model the covariances between the errors, what numerical schemes should be considered for integrating the dynamical models, what constitutes a good first guess for data assimilation schemes or what neural architecture is suited for the direct inversion problem.
 
-Those assumptions characterizes the quantities that need to be estimated and we can differentiate multiple ways that are used to determined them.
+Those assumptions characterize the quantities that need to be estimated and we can differentiate multiple ways that are used to determined them.
 
 A combination of different methods are used to estimate those quantities.
 
@@ -117,23 +155,24 @@ The information stored in available data can be used to tune the prior models, o
 Neural Direct inversion approach virtually has no prior models (except from the state formulation) and all info contained in the data goes only into the estimation procedure.
 
 \section{A closer look on the 4dVarNet}
-the 4dvarnet framework was a promising at the time of my thesis with strong performances when evaluated on simulated SSH estimation.
-The main use case of interest concerned the interpoaltion task on a 10°x10° region traversed by strong currents from the gulfstream generating dynamic SSH.
-The simulated SSH used was from the NATL60 simulation and the altimetry configurations considered were 4 nadir altimeters with and without swot observations
-Some version also considered an optimal interpolation of the OI as observations to the mapping problem
+In this section we look in closer detail at an architecture that is used throughout this thesis.
+The 4dvarnet framework was a novel and promising  formulation at the time of my thesis. In \cite{}, it showed some strong performances when evaluated on simulated SSH Gulf stream study.
+The simulated SSH used was from the NATL60 simulation and the altimetry configurations considered were 4 nadir altimeters with and without SWOT observations
+Early version also considered an OI-based product as observations to the mapping problem
 We detail below the assumptions made and the different components used.
 
 
 \subsection{State formulation}
-The current 4dvarnet framework uses a grid representation of the SSH at a certain resolution, however a few different variations have been experimented in different work:
+The 4dvarnet framework uses a grid representation of the SSH with a few different variations have been experimented in different work.
 some work represent the SSH directly as scalar
 other decompose each ssh value in a large and small scale components
 finally another formulation consists in introducing latent values in addition to the two scale components 
 
 
 \subsection{Prior cost}
-In the 4dvarnet the prior cost is formulated as an autoencoder loss.
-Given a nn $\phi$, $R(x)=\|x - \phi(x)\|$
+In the 4dvarnet the prior cost is formulated using a neural network.
+Given a nn $\phi$, $R(x)=\|x - \phi(x)\|$.
+Different choices of $\phi$ have been used in different works.
 Some use simple or multiscale bilinear blocks
 Some tried with Unets
 on simplified lorenz system, the pde of the system has been tested therefore being a 4dvar formulation
