@@ -177,7 +177,7 @@ The estimation of the sea surface height (SSH) given satellite altimetry data en
       \caption{SWOT calibration. The left part illustrate the observed domain in red while the right part indicates the domain on which we aim at estimating the SSH.}
       \label{fig:calibration_task}
   \end{figure}
-The calibration problem considered in this thesis consists in estimating the SSH measured by the KaRIN intrument by removing  correlated error signals, using calibrated Nadir observations. The target estimation domain here is fully observed, however, some observations contains errors originating from the instrument acquisition process. The \textbf{model} for this problem therefore needs to include assumptions about the processes that produce the errors. Note that some assumptions about the spatio-temporal evolution of the SSH are also required here to relate the SSH on the KaRIN instrument to surroundings a NADIR altimers measurements. The mapping problem below focuses more on this challenge.
+The calibration problem considered in this thesis consists in estimating the SSH measured by the KaRIN intrument by removing  correlated error signals, using calibrated Nadir observations. The target estimation domain here is fully observed, however, some observations contains errors originating from the instrument acquisition process. The \textbf{model} for this problem includes assumptions about the processes that produce the errors. Note that some assumptions about the spatio-temporal structure of the SSH are also required here to relate the SSH on the KaRIN instrument to surrounding  NADIR altimer measurements. The mapping problem below isolate this challenge more specifically.
 
 \begin{figure}
     \centering
@@ -185,19 +185,21 @@ The calibration problem considered in this thesis consists in estimating the SSH
     \caption{Nadir Altimetry mapping. The left part illustrate the observed domain in red while the right part indicates the domain on which we aim at estimating the SSH.}
     \label{fig:mapping_task}
 \end{figure}
-The mapping problem considered in this thesis focuses on the spatial and temporal interpolation of NADIR altimetry data. Considering that the observation is calibrated gives a direct measurement of SSH, we aim at estimating daily maps over a whole domain. The \textbf{model} for such a problem needs to take into account the dynamical structure of the ocean surface topography.
-This manuscript, therefore, aims to explore the application of deep learning to two key observation problems related to these issues. The first is estimating SSH from noisy SWOT observations, and the second is inferring the complete SSH field from partial measurements which we detail in the following two sections.
+The altimetry mapping problem focuses on the spatial and temporal interpolation of NADIR altimetry data. Considering the observation as direct measurements of SSH, we aim at estimating daily maps over a delimited domain. The \textbf{model} for such a problem needs to take into account the dynamical structure of the ocean surface topography.
+This manuscript, therefore, aims to explore the application of deep learning to these two observation problems. The first is estimating SSH from noisy SWOT observations, and the second is inferring the complete SSH field from partial measurements which we detail in the following two sections.
+We give an overview of the next chapter the different \textbf{models} and \textbf{calibration procedure} that have been developped for tackling these challenges.
   
 
 
-In order to solve and evaluate those two problems \textbf{Calibration and Evaluation data} are necessary. However, the SSH we aim to estimate is unknown on the target domain.
-Two seperate experimental setups are used to adress this issue.
+In order to solve and evaluate solutions to these problems \textbf{Calibration and Evaluation data} are necessary. However, the SSH we aim to estimate is unknown on the target domain.
+Two separate experimental setups are used to adress this issue.
 
 Observing System Experiments (OSE)\cite{} constitute a framework for working directly with observations for calibrating and evaluating new methods.
 For altimetry mapping for example, some satellite observations may be reserved for the interpolation process while others are employed to calibrate and evaluate the resulting map.
 
 Observing System Simulation Experiments (OSSE)\cite{} use ocean models as well as simulated observing systems to create an controlled environment where simulated ocean quantities are known. For SWOT calibration, this includes simulating processes of the satellite movement such as roll oscillation that are the source of error signals\cite{}.
 
+This peculiar data context is a critical factor when developping data centric methods like deep learning.
 
 % 
 
@@ -254,7 +256,7 @@ This raises the third question of this research: \textit{What is needed for a wi
 
 The following chapters of this thesis are organized as follows:
 
-\textbf{Chapter 2} gives an overview of classical and experimental approaches for altimetry mapping and calibration. This chapter aims at describing the existing \textbf{models} and \textbf{calibration algorithm} available in altimetry analysis as well as the related work in deep learning.
+\textbf{Chapter 2} describes the main assumptions and methods that are formulated in current methods for altimetry mapping and calibration. This chapter aims at describing the existing \textbf{models} and \textbf{calibration algorithm} available in altimetry analysis as well as the related work in deep learning. A more detailed decription of the neural network-based 4DVarNet framework and its applications will be presented as the contributions of this thesis make extensive use of this architecture.
 
 \textbf{Chapter 2} propose a deep learning architecture for the calibration of correlated errors in SWOT data.
 From an applicative standpoint, the flexibility of deep learning methodology opens the potential for capturing signals that are tricky to explicitly parameterize.
