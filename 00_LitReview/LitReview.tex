@@ -14,7 +14,7 @@ We use the methodolical framework presented in the introduction to differentiate
 \section{Priors: Chosing a model of the sea surface height (SSH)}
 The first aspect that differentiate between methods is the assumptions made on the SSH field $u$.
 We differentiate between two kind of assumptions.
-The first translates into the choice of representation $x$ of the target SSH field $u$. This define the space of all the possible SSH states $x \in \Chi_x$. The second way is to qualify the distribution $p(x)$ of $x$ which describes which states are more likely a priori.
+The first translates into the choice of representation $x$ of the target SSH field $u$. This define the space of all the possible SSH states $x \in \chi_x$. The second way is to qualify the distribution $p(x)$ of $x$ which describes which states are more likely a priori.
 
 
  
@@ -23,7 +23,7 @@ Chosing a state representation is equivalent to determining the quantities that 
 
 
   Looking at existing methods, the SSH field can be characterized through discrete values sampled on a grid or mesh of the domain. These values can directly represent SSH values (OI, Kalman Smoother) \cite{}, scale decomposition of the SSH \cite{}(4darnet) or even projected values on another basis like MIOST \cite{} which uses the wavelet transform \Gamma.
-  The choices like the mesh, basis or SSH decomposition used is a way to use prior knowledge to dimension the state space $\Chi_x$. Given grid representations of the SSH, the SSH estimation can be propagated to the whole domain $\Omega_u$ using interpolation schemes $I$ which impose additional choices.
+  The choices like the mesh, basis or SSH decomposition used is a way to use prior knowledge to dimension the state space $\chi_x$. Given grid representations of the SSH, the SSH estimation can be propagated to the whole domain $\Omega_u$ using interpolation schemes $I$ which impose additional choices.
 
   The strong contrained four dimensional variational data assimilation (s4DVAR)\cite{} characterizes the SSH field over a period through the initial conditions $x_0$. A numerical forecast scheme of a dynamical model $F_{\cal{M}}$ is then used to infer the SSH over the whole temporal horizon. Note that the initial condition is usually also representaed on a grid. 
 
@@ -34,15 +34,15 @@ Finally the state can also contain ancillary quantities that are linked to the S
 In the case of the SWOT calibration, estimating the SSH is equivalent to estimating the error signals. Operational methods approach the problem as defining a state representation of the different error signals making assumptions on the processes generating them.
 
 \subsection{Prior costs}
-The representation of SSH $\x$ we chose defined the space of all possible states $\Chi_x$. Additional assumptions can be made to better characterize our prior knowledge on the SSH by specifying which states are more likely than others. This is the prior on the states distribution.
+The representation of SSH $\x$ we chose defined the space of all possible states $\chi_x$. Additional assumptions can be made to better characterize our prior knowledge on the SSH by specifying which states are more likely than others. This is the prior on the states distribution.
 Some approaches like Neural fields do not define explicit prior distribution over the state space, which implies a unifor distribution $U$ by default.
 In Optimal interpolation and strong 4dVar this is done by defining a background state $x_b$ and its error covariance matrix $B$. Under gaussian assumptions, the prior likelihood of a state becomes 
  $$\mathcal{p}(\mathbf{x}) = \frac{1}{\sqrt{(2\pi)^n |\mathbf{B}|}} \exp\left(-\frac{1}{2} (mathbf{x} - x_b)^T \mathbf{B}^{-1} (\mathbf{x} - x_b)\right)$$
-  We note this distribution $\cal(G)_B(x - x_b)$
+  We note this distribution $\cal{G}_B(x - x_b)$
 
 In Kalman filtering, 3DVar or weakly constrained four dimensional variational data assimilation, the likelihood of a state is determined by comparing it to the trajectory of a dynamical model instead of a background state.
 
-  Deep learning also introduce tools for probabilistic and energy-based modeling. The 4DVarNet defines an prior cost over the state space $\Chi_x$ using an auto-encoder $\phi$  as $\| x - \phi(x)\|$. Interpreting this as an energy, the prior distribution over $\Chi_x$ becomes using a Boltzmann distribution:  $p(\mathbf{x}) = \frac{\exp(-E(\mathbf{x}) / T)}{Z}$ with $Z = \int \exp(-E(\mathbf{x}) / T) \, d\mathbf{x}$ and $T$ the temperature parameter. We denote this ditribution $B_{E}$.
+  Deep learning also introduce tools for probabilistic and energy-based modeling. The 4DVarNet defines an prior cost over the state space $\chi_x$ using an auto-encoder $\phi$  as $\| x - \phi(x)\|$. Interpreting this as an energy, the prior distribution over $\chi_x$ becomes using a Boltzmann distribution:  $p(\mathbf{x}) = \frac{\exp(-E(\mathbf{x}) / T)}{Z}$ with $Z = \int \exp(-E(\mathbf{x}) / T) \, d\mathbf{x}$ and $T$ the temperature parameter. We denote this ditribution $B_{E}$.
 
 
 
@@ -50,21 +50,21 @@ We summarize in the table below the different approaches.
   \begin{table}
 \begin{tabular}{|l|l|l|l|}
 \hline
-  Method & state $x$ & state  $x$ $\to$ ssh $\hat(u)_x$ & prior distribution $p(x)$\\
+  Method & state $x$ & state  $x$ $\to$ ssh $\hat{u}_x$ & prior distribution $p(x)$\\
 \hline
-  OI & Grid $x$ & $\hat(u)_x = I(x)$ & $\cal(G)_B(x - x_b)$ \\
+  OI & Grid $x$ & $\hat{u}_x = I(x)$ & $\cal{G}_B(x - x_b)$ \\
 \hline
-  3DVAR & Grid at $t$ $x_t$ & $\hat(u)_x = I(x)$ & $\cal(G)_{Q_t}(x_{t} - F_{\mathcal{M}}_{t-1 \to t}(x_{t-1})$ \\
+  KF, 3DVAR & Grid at $t$ $x_t$ & $\hat{u}_x = I(x)$ & $\cal{G}_{Q_t}(x_{t} - F_{\mathcal{M}}_{t-1 \to t}(x_{t-1})$ \\
 \hline
-  s4DVar & Grid at $t_0$ $x_0$ & $\hat(u)_x = F_{\cal{M}}(x_0)$& $\cal(G)_B(x - x_b)$ \\
+  s4DVar & Grid at $t_0$ $x_0$ & $\hat{u}_x = F_{\cal{M}}(x_0)$& $\cal{G}_B(x - x_b)$ \\
 \hline
-  w4DVar & Grid & $\hat(u)_x = I(x)$ & $\cal(G)_B(x - x_b)\prod\cal(G)_{Q_t}(x_{t} - F_{\mathcal{M}}_{t-1 \to t}(x_{t-1})$ \\
+  w4DVar & Grid & $\hat{u}_x = I(x)$ & $\cal{G}_B(x - x_b)\prod\cal{G}_{Q_t}(x_{t} - F_{\mathcal{M}}_{t-1 \to t}(x_{t-1})$ \\
 \hline
-  MIOST & wavelet components $x$ & $\hat(u)_x = I(\Gamma x)$  & $\cal(G)_B(x - x_b)$ \\
+  MIOST & wavelet components $x$ & $\hat{u}_x = I(\Gamma x)$  & $\cal{G}_B(x - x_b)$ \\
 \hline
-  4DVarNet & scale decomposition $x =(x_{ss}, x_{ls})$ & $\hat(u)_x =I(x_{ss} + x_{ls})$ & $B_{z \to \|z - \Phi(z)\|}(x)$ \\
+  4DVarNet & scale decomposition $x =(x_{ss}, x_{ls})$ & $\hat{u}_x =I(x_{ss} + x_{ls})$ & $B_{z \to \|z - \Phi(z)\|}(x)$ \\
 \hline
-  Neural field & Neural network parameters & $\hat(u)_x = \eta_x$  & $\cal{U}$ \\
+  Neural field & Neural network parameters & $\hat{u}_x = \eta_x$  & $\cal{U}$ \\
 \hline
 \end{tabular}
 \end{table}
@@ -108,9 +108,9 @@ The different procedures are summarized in the table below
 \hline
     Methods & Estimation $f$ \\
 \hline
-    Neural fields & $\hat{x} = \arg\min_x(J_{obs}(y, x)$ \\
+    Neural fields & $\hat{x} = \arg\min_x J_{obs}(y, x)$ \\
 \hline
-    3DVAR, w4DVAR, OI & $\hat{x} = \arg\min(\alpha J_{reg}(z) + \beta J_{obs}(y, x))$ \\
+    3DVAR, w4DVAR, OI & $\hat{x} = \arg\min \alpha J_{reg}(z) + \beta J_{obs}(y, x)$ \\
 \hline
     OI, Kalman filters & $\hat{x} = x_b + K(y - Hx_b)$ \\
 \hline
@@ -135,10 +135,9 @@ The different procedures are summarized in the table below
 All those choices of prior on the ssh field, observation cost, estimation procedure introduced new factors that need to be determined.
 Those factors include the background field of data assimilation schemes, as well as the error covariances for the observation and background. They also include the parameter choices for the variational optimization procedure or numerical model integration. Finally those factors also include the neural network parameters used in direct inversion, prior costs, observation costs or estimation procedures.
 
-The estimation of these factors relies on data that include numerical model outputs and historical observations.
-A combination of different methods are used to estimate those quantities. One which is always used to some degree is cross validataion. It consists in using part of the calibration data to evaluate choices that are made. 
-Different search algorithms can be used to test different choices. the DUACS product leverages statistics on historical observation data to determine the background and covariance models of the OI schemes. 
-Deep learning based methods use gradient-based optimization procedures to search for good parameters.
+The estimation of these factors relies on data such as numerical model outputs and historical observations.
+The main method used to determine those factors is cross validation. Some portion of data is used to chose some configuration which is evaluated on the remaining data. The strategy to explore different configurations can vary from manual exploration to automatic search procedures. 
+Method that use neural architectures can use the advanced deep learning optimization algorithms to determine the network parameters.
 
 Note that in some sense the data used to calibrate the method contain information used to tune the prior models, or the state estimation procedure.
 Neural Direct inversion approach virtually has no prior models (except from the state formulation) and all info contained in the data goes only into the estimation procedure.
