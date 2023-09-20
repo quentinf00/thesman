@@ -1,32 +1,37 @@
 \section{Related Work}
 
 Machine learning applied to geosciences is becoming increasingly popular, but there are few examples of transparent pipelines involving observation data. 
-After a thorough literature review, we have divided the field into three camps: 1) ML applied to simulation datasets, 2) ML applied to reanalysis datasets, and 3) ML applied to observation datasets that pertains to this work. 
+After a thorough literature review, we have divided the field into three camps of ML applications that pertain to this work: 1) toy simulation datasets, 2) reanalysis datasets, and 3) observation datasets. 
 We outline the literature for each of the three categories below.
 
-\textbf{Simulation Data}. 
-One set of benchmarks focuses on learning surrogate models for well-defined but chaotic dynamical systems in the form of ordinary differential equations (ODEs) and partial differential equations (PDEs). 
-There are efforts like the \texttt{Dyst} package~\cite{CHAOSBENCH}, which showcases many chaotic ODEs. 
-Other efforts like \texttt{PDEBench}~\cite{PDEBench} focus on 2D/3D Spatial-Temporal PDEs like Navier-Stokes, which is a great testing ground for simple toy problems that better mimic the structures we see in real-world observations. 
-Working with simulated data is excellent as it is logistically simple and allows users to test their ideas on toy problems without increasing the complexity when dealing with real-world data.
+\textbf{Toy Simulation Data}. 
+One set of benchmarks focuses on learning surrogate models for well-defined but chaotic dynamical systems in the form of ordinary differential equations (ODEs) and partial differential equations (PDEs) and there are freely available code bases which implement different ODEs/PDEs~\citep{CHAOSBENCH,PDEBench,pyQG,JAXCFD,NCARDART,NCARDARTSOFTWARE,VEROS,OCEANANIGANS}.
+% For example, \texttt{Dyst} package~\cite{CHAOSBENCH} has many chaotic ODEs, and packages such as \texttt{PDEBench}~\cite{PDEBench}, pyQG~\citep{pyQG}, NCAR DART~\citep{NCARDART,NCARDARTSOFTWARE}, and jax-CFD~\citep{JAXCFD} have implementations of 2D/3D Spatial-Temporal PDEs similar to Navier-Stokes; 
+This is a great testing ground for simple toy problems that better mimic the structures we see in real-world observations. 
+% More ocean-related simulations include the pyQG package~\citep{pyQG}, the NCAR DART data assimilation testbed~\citep{NCARDART,NCARDARTSOFTWARE}.
+Working with simulated data is excellent because it is logistically simple and allows users to test their ideas on toy problems without increasing the complexity when dealing with real-world data.
 However, these are ultimately simple physical models that often do not reflect the authentic structures we see in real-world, observed data.
 
 \textbf{Reanalysis Data}. 
-The \texttt{WeatherBench}~\cite{weatherbench}, \texttt{ClimateBench}~\cite{ClimateBench}, \texttt{ENS10}~\cite{ENS10Bench} platforms were designed to assess short-term and medium-term forecasting using ML techniques.
-These systems use reanalysis data, an assimilated dataset of actual observations and model outputs.
-While the original papers featured straightforward methods, there has been swift subsequent development within the last few years~\cite{GraphCast,FourCastNet}. 
-Apart from industry momentum and investment, we attribute the recent adoption and success to the problem's clarity, the original tasks' openness, and the software's ML compatibility. 
-This set of benchmark suites has inspired the idea of \texttt{OceanBench}, where we directly focus on problems dealing with observation data.
+This is assimilated data of real observations and model simulations. 
+There are a few major platforms that host ocean reanalysis data like the Copernicus Marine Data Store~\citep{MDSOCEANPHYSICS,MDSBIOGEOCHEMICAL,MDSOCEANPHYSICSENS,MDSWAVES}, the Climate Data Store~\citep{CDSREANALYSISSST}, the BRAN2020 Model~\citep{DATABLUELINK}, and the NOAA platform~\citep{DATANCEP}. 
+However, to our knowledge, there is no standard ML-specific ocean-related tasks to accompany the data. On the atmospheric side, platforms like \texttt{WeatherBench}~\cite{weatherbench}, \texttt{ClimateBench}~\cite{ClimateBench}, \texttt{ENS10}~\cite{ENS10Bench} were designed to assess short-term and medium-term forecasting using ML techniques with recent success of ML~\cite{GraphCast,FourCastNet}
+% While the original papers featured straightforward methods, there has been swift subsequent development within the last few years~\cite{GraphCast,FourCastNet}. 
+% Apart from industry momentum and investment, we attribute the recent adoption and success of ML to the problem's clarity, the original tasks' openness, and the software's ML compatibility. 
+The clarity of the challenges set by the benchmark suites has inspired the idea of \texttt{OceanBench}, where we directly focus on problems dealing with ocean observation data.
 
 \textbf{Observation Data}. 
+These observation datasets (typically sparse) stem from satellite observations that measure surface variables or in-situ measurements that measure quantities within the water column. 
+Some major platforms to host data include the Marine Data Store~\citep{MDSALONGTRACK,MDSINSITU}, the Climate Data Store~\citep{CDSOBSSST,CDSOBSSSTENS,CDSOBSOC}, ARGO~\citep{ARGO}, and the SOCAT platform~\citep{SOCAT}.
+However, it is more difficult to assess the efficacy of operational ML methods that have been trained only on observation data and, to our knowledge, there is no coherent ML benchmarking system for ocean state estimation.
 % In one community, there is the Surface Ocean CO$_2$ Atlas (SOCAT)~\cite{SOCAT} which is a community effort to aggregate all collocated observations (included SSH) which help predict the fugacity of carbon dioxide (fCO$_2$). 
 % This has been a huge effort to provide a consistently updated suite of observations for some key variables that are important in biogeochemical processes.
 % However, there is currently no coherent benchmarking system with standard metrics despite their being a wide range of new methods to try and tackle the interpolation problem.
 % Most new work tends to use the observations provided with their own additional variable with no standard comparison framework other works.
 % In a completely different community, 
-There has been significant effort by the \textit{Ocean-Data-Challenge} Group\footnote{Ocean Data Challenge group: Freely associated scientist for oceanographic algorithm and product improvements (\href{https://ocean-data-challenges.github.io/}{ocean-data-challenges.github.io})} which provides an extensive suite of datasets for SSH interpolation.
-Their motivation is to investigate which methods could be employed for the upcoming SWOT mission~\cite{SWOT} which is highly-challenging for current operational interpolation techniques.
-They provide over eight challenges of varying degrees of difficulty with completely open-source data, along with tutorials for metrics.
+There has been significant effort by the \textit{Ocean-Data-Challenge} Group\footnote{Ocean Data Challenge group: Freely associated scientist for oceanographic algorithm and product improvements (\href{https://ocean-data-challenges.github.io/}{ocean-data-challenges.github.io})} which provides an extensive suite of datasets and metrics for SSH interpolation.
+% Their motivation is to investigate which methods could be employed for the upcoming SWOT mission~\cite{SWOT} which is highly-challenging for current operational interpolation techniques.
+% where they provide over eight challenges of varying degrees of difficulty with completely open-source data, along with tutorials for metrics.
 Their efforts heavily inspired our work, and we hope that \texttt{OceanBench} can build upon their work by adding cohesion and facilitating the ease of use for ML research and providing a high-level framework for providing ML-related data products.
 
 

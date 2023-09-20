@@ -3,9 +3,9 @@
 \subsection{Why OceanBench?} \label{sec:oceanbench_why}
 
 There is a high barrier to entry in working with ocean observations for researchers in applied machine learning as there are many processing steps for both the observation data and the domain-specific evaluation procedures. 
-\texttt{OceanBench} aims to lower the barrier to entry cost for ML researchers to make meaningful progress in the field. 
+\texttt{OceanBench} aims to lower the barrier to entry cost for ML researchers to make meaningful progress in the field of state prediction. 
 We distribute a standardized, transparent, and flexible procedure for defining data and evaluation pipelines for data-intensive geoscience applications. 
-Proposed examples and case studies provide a plug-and-play framework to benchmark novel ML schemes w.r.t.  state-of-the-art domain-specific and ML baselines. 
+Proposed examples and case studies provide a plug-and-play framework to benchmark novel ML schemes w.r.t.  state-of-the-art, domain-specific ML baselines. 
 In addition, we adopt a pedagogical abstraction that allows users to customize and extend the pipelines for their specific tasks.
 To our knowledge, no framework embeds processing steps for earth observation data in a manner compatible with MLOps abstractions and standards regarding reproducibility and evaluation procedures. 
 Ultimately, we aim to facilitate the uptake of ML schemes to address ocean observation challenges and to bring new challenges to the ML community to extend additional ML tools and methods for irregularly-sampled and partially-observed high-dimensional space-time dynamics.
@@ -55,7 +55,7 @@ Almost all \texttt{OceanBench} toolsets are exclusively within the \texttt{xarra
 As discussed above, many specific packages accomplish many different tasks. 
 However, what needs to be added is the flexibility to mix and match these operations as the users see fit. 
 \texttt{Hydra}~\cite{Hydra} provides a configurable way to aggregate and \textit{pipe} many sequential operations together. 
-It also maintains readability, robustness, and flexibility through the use of \texttt{.yaml} files which explicitly highlight the function used, the function parameters chosen, and the sequence of operations performed. 
+It also maintains readability, robustness, and flexibility through the use of \texttt{.yaml} files which explicitly highlights the function used, the function parameters chosen, and the sequence of operations performed. 
 In the ML software stack, \texttt{Hydra} is often used to manage the model, optimizer, and loss configurations which helps the user experiment with different options. 
 We apply this same concept in preprocessing, geoprocessing, and evaluation steps, often more important than the model configuration in geoscience-related tasks.  
 
@@ -74,3 +74,23 @@ We invested heavily in showing use cases that appeal to different users with the
 Code with context is imperative for domain and ML experts as we need to explain and justify each component and give many examples of how they can be used in other situations. 
 % \texttt{Hydra} is an effective tool, but it has a steep learning curve, and the tutorials are very computer science-oriented, and there are many domain scientists (and seasoned ML researchers) who will. 
 Thus, we have paid special attention to providing an extensive suite of tutorials, and we also highlight use cases for how one can effectively use the tools. 
+
+
+\subsection{Problem Scope} \label{sec:problem_scope}
+
+% As outlined in the introduction, we are interested in the state estimation problem for important variables like SSH and SST. We use the data assimilation perspective whereby state estimation is defined as the combination of observations, constraints and initial state~\citep{DAGEOSCIENCE}. Tackling the issue of state estimation directly is very challenging due to the uncertainty in the measurements, the prior constraints, and the initial state. In addition, there are many logistical constraints that further complicate the problem including the very high-dimensional, spatiotemporal state space, the multi-scale complexity of the dynamics, and the extreme missing data.
+
+
+
+
+There are many problems that are of great interest the ocean community~\citep{ML4DA} but we limit the scope to state estimation problems~\citep{DAGEOSCIENCE}. Under this scope, there are research questions that are relevant to operational centers which are responsible for generating the vast majority of global ocean state maps~\citep{MDSOCEANPHYSICS,MDSOCEANPHYSICSENS,MDSBIOGEOCHEMICAL, MDSWAVES} that are subsequently used for many downstream tasks~\citep{ML4OCN}. For example: how can we effectively use heterogeneous observations to predict the ocean state on the sea surface~\citep{BFNQG,NERFSSSH,MIOST,4DVARNETSST,4DVARNETSWOT,OCEANSATELLITESST}; how can we incorporate prior physics knowledge into our predictions of ocean state trajectories~\citep{BFNQG,ML4DA,ML4OCN}; and how can we use the current ocean state at time $T$ to predict the future ocean state at time $T+\tau$~\citep{METNET2,weatherbench,FORECASTSSCGP}.
+In the same vain, there are more research questions that are of interest to the academic modeling community. For example: is simulated or reanalysis data more effective for learning ML emulators that replace expensive ocean models~\citep{MLSUBGRID,MLCLOSURE}; what metrics are more effective for assessing our ability to mimic ocean dynamics~\citep{SSTFLOWANOMALY,MLMETRICSINVARIANCE}; and how much model error can we characterize when learning from observations~\citep{MLMODELERR,MLMODELERR2}. 
+
+We have cited many potential applications of how ML can be applied to tackle the state estimation problem. 
+However, to our knowledge there is no publicly available, standardized benchmark system that is caters to ML-research standards.
+We believe that, irrespective of the questions posed above and the data we access, there are many logistical similarities for each of the problem formulations where we can start to set standards for a subset of tasks like interpolation or forecasting. 
+On the front-end, we need a way to select regions, periods, variables, and a valid train-test split (see sec. ~\ref{sec:hydra_recipe_task}). 
+On the back-end, we need a way to transform the predictions into more meaningful variables with appropriate metrics for validation (see sec. ~\ref{sec:hydra_geoprocess_task} and ~\ref{sec:hydra_evaluation_task}).
+\texttt{OceanBench} was designed to be an agnostic tool that is extensible to the types of datasets, processing techniques and metrics needed for working with a specific class of Ocean-related datasets. 
+We strongly feel that a suite like this is the first step in designing task-specific benchmarks within the ocean community that is compatible with ML standards. 
+In the remainder of the paper, we will demonstrate how \texttt{OceanBench} can be configured to facilite a ML-ready data challenge involving our first edition to demonstrate \texttt{OceanBench}'s applicability: sea surface height interpolation.

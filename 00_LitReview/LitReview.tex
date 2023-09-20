@@ -32,7 +32,7 @@ The second type of assumption aims to characterize the probability distribution 
 Choosing a state representation is equivalent to determining the quantities that characterizes the state and the relationship between the state values $x$ and the estimated SSH field $\hat{u}$.
 
 
-  Looking at existing methods, the SSH field can be characterized through values sampled on a grid or mesh of the domain. These values can directly represent SSH as represented by methods such as the DUACS optimal interpolation\cite{taburetDUACSDT2018252019} (OI), quasi-geostrophic back and forth nudging (BFN-QG)\cite{guillouMappingAltimetryForthcoming2021}, Kalman filtering in GLORYS12 reanalysis\cite{lelloucheCopernicusGlobal122021} or Dynamical Interpolation\cite{ubelmannDynamicInterpolationSea2015,ballarottaDynamicMappingAlongTrack2020} .
+  Looking at existing methods, the SSH field can be characterized through values sampled on a grid or mesh of the domain. These values can directly represent SSH as represented by methods such as the DUACS optimal interpolation \cite{taburetDUACSDT2018252019} (OI), quasi-geostrophic back and forth nudging (BFN-QG) \cite{guillouMappingAltimetryForthcoming2021}, Kalman filtering in GLORYS12 reanalysis \cite{lelloucheCopernicusGlobal122021} or Dynamical Interpolation \cite{ubelmannDynamicInterpolationSea2015,ballarottaDynamicMappingAlongTrack2020} .
   Other methods chose more complex description of the SSH values with large scale and small scale components like in the 4DVarNet\cite{beauchamp4DVarNetSSHEndtoendLearning2023} or even projected values on another basis like MIOST\cite{ubelmannReconstructingOceanSurface2021,ubelmannSimultaneousEstimationOcean2022} which uses a wavelet basis.
   The choices like the mesh, basis or SSH decomposition used is a way to use prior knowledge to dimension the state space. A grid representations of the SSH can be propagated to the whole domain $\Omega_u$ using interpolation schemes which impose additional choices.
 
@@ -48,7 +48,7 @@ In the case of the SWOT calibration, estimating the SSH is equivalent to estimat
 The representation of SSH $x$ we chose defined the space of all possible states. Additional assumptions can be made to specify which states are more likely than others. This is the prior distribution of the states $p(x)$.
 Some approaches like existing work Neural fields do not define an explicit prior distribution over the state space, which implies a uniform distribution.
 Other like OI and s4DVAR shape $p(x)$ through a background state $x_b$ and an error covariance matrix $B$. Under Gaussian assumptions, the prior distribution becomes 
- $$\mathcal{p}(\mathbf{x}) = \frac{1}{\sqrt{(2\pi)^n |\mathbf{B}|}} \exp\left(-\frac{1}{2} (mathbf{x} - x_b)^T \mathbf{B}^{-1} (\mathbf{x} - x_b)\right)$$
+ $$\mathcal{p}(\mathbf{x}) = \frac{1}{\sqrt{(2\pi)^n |\mathbf{B}|}} \exp\left(-\frac{1}{2} (\mathbf{x} - x_b)^T \mathbf{B}^{-1} (\mathbf{x} - x_b)\right)$$
 
 In Kalman filters, 3DVAR or weakly constrained four dimensional variational data assimilation (w4DVAR), the likelihood of a state is based on its distance to the trajectory of a dynamical model rather than to a background state giving a similar formulation as above but with $x_b$ replaced by a state-dependent quantity.
 
@@ -176,6 +176,7 @@ State estimation in 4DVarNet is tackled as a minimization problem for a variatio
 Apart from the cross validation and exploration of different architectures and configurations, the calibration of the neural network's parameters, both for the solver and the prior, is achieved through the Adam optimization algorithm \cite{kingmaAdamMethodStochastic2017}. The aim is to minimize both the mean squared error in SSH reconstruction and its gradients. To ensure effective weightage in the neural prior, a supplementary term is added to the training loss, constraining the estimated states to have low prior costs.
 4DVarNet has emerged as a versatile and effective architecture for handling altimetry data, with various advancements and optimizations over time. By combining neural networks with traditional variational techniques, it opens up promising avenues for state-of-the-art state estimation in oceanographic applications.
 
-
+\addcontentsline{toc}{section}{Bibliography}
+\putbib[./00_LitReview/LitReview-Biblio.bib]
 \end{bibunit}
 

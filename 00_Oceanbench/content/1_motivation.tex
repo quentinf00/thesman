@@ -3,7 +3,7 @@
 The ocean is vital to the Earth's system~\cite{OCEANWARMING}. 
 It plays a significant role in climate regulation regarding carbon~\cite{OCEANCARBONCYCLE} and heat uptake~\cite{OCEANHEATUPTAKE}. It is also a primary driver of human activities (e.g., maritime traffic and world trade, marine resources and services)~\cite{SSHOPERATIONAL, ML4OCN}. 
 However, monitoring the ocean is a critical challenge: the ocean state can only partially be determined because most of the ocean consists of subsurface quantities that we cannot directly observe. 
-Thus, to quantify even a fraction of the ocean state, we must often rely only on surface quantities that we can monitor from space, drifting buoys, or autonomous devices.
+Thus, to quantify even a fraction of the physical or biochemical ocean state, we must often rely only on surface quantities that we can monitor from space, drifting buoys, or autonomous devices.
 Satellite remote sensing, in particular, is one of the most effective ways of measuring essential sea surface quantities~\cite{Altimetry} such as sea surface height (SSH)~\cite{DUACS}, sea surface temperature (SST)~\cite{OCEANSATELLITESST}, and ocean color (OC)~\cite{OCEANSATELLITEOC}. 
 While these variables characterize only a tiny portion of the ocean ecosystem, they present a gateway to many other derived physical quantities~\cite{ML4OCN}.
 
@@ -31,7 +31,7 @@ It consists of an end-to-end framework for piping data from its raw form to an M
 We regard \texttt{OceanBench} as a key facilitator for the uptake of MLOPs tools and research~\cite{MLOPS1,MLOPS2} for ocean-related datasets and case studies. This first edition provides datasets and ML-ready benchmarking pipelines for SSH interpolation problems, an essential topic for the space oceanography community, related to ML communities dealing with issues like in-painting~\cite{InPaintingSurvey}, denoising~\cite{DENOISESURVEY,DENOISESURVEY2}, and super-resolution~\cite{SuperResSurvey}. 
 We expect \texttt{OceanBench} to facilitate new challenges to the applied machine learning community and contribute to meaningful ocean-relevant breakthroughs.
 %
-The remainder of the paper is organized as follows: in \S2, we outline some related work that was inspirational for this work; in \S3, we formally outline \texttt{OceanBench} by highlighting the target audience and code structure; in \S4, we outline the problem formulation of SSH interpolation and provide some insight into different tasks related to SSH interpolation where \texttt{OceanBench} could provide some helpful utility; and in \S5 we give some concluding remarks while also informally inviting other researchers to help fill in the gaps.
+The remainder of the paper is organized as follows: in \S2, we outline some related work that was inspirational for this work; in \S3, we formally outline \texttt{OceanBench} by highlighting the target audience, code structure, and problem scope; in \S4, we outline the problem formulation of SSH interpolation and provide some insight into different tasks related to SSH interpolation where \texttt{OceanBench} could provide some helpful utility; and in \S5 we give some concluding remarks while also informally inviting other researchers to help fill in the gaps.
 
 % \textbf{How We Measure SSH + Gap Problem}. 
 

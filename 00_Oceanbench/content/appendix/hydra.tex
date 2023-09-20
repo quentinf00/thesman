@@ -2,7 +2,47 @@
 
 This framework has drastically reduced the overhead for the ML researcher while also enhancing the reprducibility and replicability of the preprocessing steps. In this section we showcase a few examples for how one can use oceanbench in conjunction with hydra to provide recipes for some standard processes.
 
-\subsection{GeoProcessing Recipe}
+\subsection{Task Recipe} \label{sec:hydra_recipe_task}
+
+In this example, we showcase how we define an interpolation task for the OSE NADIR data challenge. 
+We need to state the list of datasets available and specify which datasets are to be using for training and testings.
+We also specify the spatial region we would like to train on and the train-test period.
+There are a few simple changes one could do here to extend this task provided that one has uploaded standardized data that follows our set conventions.
+For example, for this interpolation task, the test period is a complete subset of the train period but one could imagine a forecasting task whereby the test period is at a completely different time period.
+Similarly, for this task, the train-test domain is the same but we could easily change the region of interest to see how the models perform in a completely different domain.
+
+\begin{listing}[ht!]
+\begin{minted}[frame=lines]{yaml}
+#@package _global_.task
+outputs:
+    # name of data challenge
+    name: DC2021 OSE Gulfstream
+    # list of datasets and locations
+    data:
+      train: # train data list
+        alg: ${....data.outputs.alg}
+        h2g: ${....data.outputs.h2g}
+        j2g: ${....data.outputs.j2g}
+        j2n: ${....data.outputs.j2n}
+        j3: ${....data.outputs.j3}
+        s3a: ${....data.outputs.s3a}
+      test: # test data list
+        c2: ${....data.outputs.c2}
+    # spatial region specification
+    domain: {lat: [33, 43], lon: [-65, -55]}
+    # temporal period specification
+    splits: {
+        test: ['2017-01-01', '2017-12-31'], 
+        train: ['2016-12-01', '2018-01-31']
+    }
+\end{minted}
+\label{hydraconfig:task}
+\caption{This is a \texttt{.yaml} which showcases how we can communicate with \texttt{Hydra} framework to list a predefined set of specifications for the spatial region and the temporal period. This is an interpolation task for the OSE NADIR data challenge listed in section~\ref{sec:ose_nadir}.}
+\end{listing}
+
+
+\newpage
+\subsection{GeoProcessing Recipe} \label{sec:hydra_geoprocess_task}
 
 In this example, we showcase how one can pipe a sequential transformation through the hydra framework. In this example, we open the dataset, validate the coordinates to comply to our standards, select the region of interest, subset the data, regrid the alongtrack data to a uniform grid, and save the data to a netcdf file. See the listing~\ref{hydraconfig:geoprocess} for more information.
 
@@ -45,7 +85,7 @@ fns:
 
 
 \newpage
-\subsection{Evaluation Recipe - OSSE}
+\subsection{Evaluation Recipe - OSSE} \label{sec:hydra_evaluation_task}
 
 In this example, we showcase how one can use hydra to do the evaluation procedure. This is the same evaluation procedure that is used to evaluate the effectiveness of the OSSE NADIR experiment. From code snippet~\ref{hydraconfig:geoprocess}, we see that we choose which target function to initialize and we choose the data directory where the \texttt{.netcdf} file is located. Then, we pipe some transformations for the \texttt{.netcdf} file: 1) validate the spatiotemporal coordinates, 2) we select the evaluation region, 3) we regrid it to the target get, 4) we fill in the nans with a Gauss-Seidel procedure, 5) we rescale the coordinates to be in meters and days, and 6) we perform the isotropic power spectrum transformation to get the effective resolution outlined in section~\ref{sec:metrics}.
 
@@ -83,8 +123,10 @@ fns:
     - {_target_: "xarray.Dataset.to_netcdf", 
        save_name: "ml_result_psd.nc", _partial_: True}
 \end{minted}
+
+
 \label{hydraconfig:evaluation}
-\caption{This is a \texttt{.yaml} which showcases how we can communicate with \texttt{Hydra} framework to list a predefined set of transformations to be \textit{piped} through sequentiall. In this example, we showcase some standard pre-processing strategies to be saved to another netcdf file.}
+\caption{This is a \texttt{.yaml} which showcases how we can communicate with \texttt{Hydra} framework to list a predefined set of transformations to be \textit{piped} through sequential. In this example, we showcase some standard pre-processing strategies to be saved to another netcdf file.}
 \end{listing}
 
 

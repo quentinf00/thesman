@@ -1,18 +1,14 @@
 % \documentclass{article}
 
-\begin{bibunit}[IEEEtran.bst]
 
-\clearemptydoublepage
-\chapter{\textsc{OceanBench}: \\ The Sea Surface Height Edition}
-\label{chap:1}
 
-% \input{00_Oceanbench/content/preamble.tex}
-% \input{00_Oceanbench/content/custom}
+% \input{content/preamble.tex}
+% \input{content/custom}
 
 
 % \title{\textsc{OceanBench}: \\ The Sea Surface Height Edition}
 
-\input{00_Oceanbench/content/authors.tex}
+% % \input{content/authors.tex}
 
 % \begin{document}
 
@@ -21,7 +17,11 @@
 
 % \maketitle
 % \def\thefootnote{*}\footnotetext{These authors contributed equally to this work}\def\thefootnote{\arabic{footnote}}
+\begin{bibunit}[IEEEtran.bst]
 
+\chapter*{\textsc{OceanBench}: \\ The Sea Surface Height Edition}
+\addcontentsline{toc}{chapter}{\textsc{OceanBench}: \\ The Sea Surface Height Edition}
+\chaptermark{\textsc{OceanBench}: \\ The Sea Surface Height Edition}
 %##################################
 % KEYWORDS
 % - Sea Surface Height
@@ -30,30 +30,31 @@
 % - 
 % Scientific Machine Learning
 % Benchmark, Partial Differential Equations, PINN, FNO, U-Net, Inverse problem
-
-\input{00_Oceanbench/content/0_abstract}
-\input{00_Oceanbench/content/1_motivation}
-\input{00_Oceanbench/content/2_related_work}
-\input{00_Oceanbench/content/3_oceanbench}
-\input{00_Oceanbench/content/4_tasks}
-\input{00_Oceanbench/content/5_conclusions}
+% \linenumbers
+\input{./00_Oceanbench/content/0_abstract}
+\input{./00_Oceanbench/content/1_motivation}
+\input{./00_Oceanbench/content/2_related_work}
+\input{./00_Oceanbench/content/3_oceanbench}
+\input{./00_Oceanbench/content/4_tasks}
+\input{./00_Oceanbench/content/5_conclusions}
 
 %% ACKNOWLEDGEMENTS
-% \newpage
-% \input{00_Oceanbench/content/acknowledgements}
-% \input{00_Oceanbench/content/checklist}
+\newpage
+% \input{./00_Oceanbench/content/acknowledgements}
+% \input{./00_Oceanbench/content/checklist}
 
 % \bibliographystyle{plain}
-% % \nocite{*}
-
-\bibliography{
-00_Oceanbench/content/biblio.bib, 
-00_Oceanbench/content/bibliographies/software, 
-00_Oceanbench/content/bibliographies/machine_learning, 
-00_Oceanbench/content/bibliographies/sea_surface_height,
-00_Oceanbench/content/bibliographies/ocean,
-00_Oceanbench/content/bibliographies/data
-}
+% \nocite{*}
+% \input{neurips_data_2023.bbl}
+% \bibliography{
+% content/biblio, 
+% content/bibliographies/software, 
+% content/bibliographies/machine_learning, 
+% content/bibliographies/sea_surface_height,
+% content/bibliographies/ocean,
+% content/bibliographies/data,
+% content/bibliographies/applications
+% }
 
 % \section*{References}
 
@@ -82,48 +83,27 @@
 % }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \newpage
+\newpage
 % \appendix
 % \section*{\textsc{OceanBench}: The Sea Surface Height Edition - Supplementary Material}
 % % \newpage
-% \input{00_Oceanbench/content/appendix/data_challenges}
+% \input{content/appendix/data_challenges}
 % \newpage
-% \input{00_Oceanbench/content/b_physical_variables}
+% \input{content/b_physical_variables}
 % \newpage
-% \input{00_Oceanbench/content/c_metrics}
+% \input{content/c_metrics}
 % \newpage
-% \input{00_Oceanbench/content/appendix/hydra}
+% \input{content/appendix/hydra}
 % \newpage
-% \input{00_Oceanbench/content/a3_usecase_patcher}
+% \input{content/a3_usecase_patcher}
 % \newpage
-% \input{00_Oceanbench/content/e_other_tasks}
+% \input{content/e_other_tasks}
 % \newpage
-% \input{00_Oceanbench/content/f_ml_methods}
+% \input{content/f_ml_methods}
 % % \newpage
-% % \input{00_Oceanbench/content/g_userstories}
+% % \input{content/g_userstories}
 % \newpage
-% \input{00_Oceanbench/content/h_limitations}
+% \input{content/h_limitations}
 
-\addcontentsline{toc}{section}{Bibliography}
-% \bibliographystyle{plain}
-% % \nocite{*}
-
-% \bibliography{
-% 00_Oceanbench/content/biblio.bib, 
-% 00_Oceanbench/content/bibliographies/software, 
-% 00_Oceanbench/content/bibliographies/machine_learning, 
-% 00_Oceanbench/content/bibliographies/sea_surface_height,
-% 00_Oceanbench/content/bibliographies/ocean
-% }
-
-\putbib[
-00_Oceanbench/content/biblio.bib
-,00_Oceanbench/content/bibliographies/software, 
-00_Oceanbench/content/bibliographies/machine_learning, 
-00_Oceanbench/content/bibliographies/sea_surface_height,
-00_Oceanbench/content/bibliographies/ocean,
-00_Oceanbench/content/bibliographies/data
-]
+\putbib[./00_Oceanbench/content/bibliographies/full.bib]
 \end{bibunit}
-
-% \end{document}

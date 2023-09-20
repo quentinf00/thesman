@@ -10,14 +10,16 @@ Below, we outline two sets of scores we use within this framework: skill scores 
 
 We classify one set of metrics as \textit{skill scores}. 
 These are globally averaged metrics which tend to operate within the real space.
-Some examples include the root mean squared error (RMSE) and the normalized root mean squared (nRMSE) error.
+Some examples include the root mean squared error (RMSE), the normalized root mean squared (nRMSE) error, and the nRMSE score.
 The RMSE metric can also be calculated w.r.t. the spatial domain, temporal domain or both. 
-For example, figure~\ref{fig:oceanbench_psd} showcases the nRMSE calculated only on the spatial domain and visualized for each time step.
+For example, figure~\ref{fig:oceanbench_psd} showcases the nRMSE score calculated only on the spatial domain and visualized for each time step.
 %
 \begin{align}
     \text{RMSE}: &&\text{RMSE}(\eta,\hat{\eta}) &= ||\eta - \hat{\eta}||_2 \label{eq:RMSE}\\
     % \text{RMSE}_t: &&\text{RMSE}_t(\eta,\hat{\eta}; t) &= ||\eta(t) - \hat{\eta}(t)||_2 \label{eq:RMSE_t}\\
-    \text{nRMSE}: &&\text{nRMSE}(\eta,\hat{\eta}) &= 1 - \frac{\text{RMSE}(\eta - \hat{\eta})}{\text{RMSE}(\eta)} \label{eq:nRMSE}
+    \text{nRMSE}: &&\text{nRMSE}(\eta,\hat{\eta}) &= \frac{\text{RMSE}(\eta,\hat{\eta})}{||\eta||_2} \label{eq:nRMSE} \\
+    \text{nRMSE}_{\text{score}}: &&\text{nRMSE}_{\text{score}}(\eta,\hat{\eta}) &= 1 - \text{nRMSE}(\eta,\hat{\eta})
+    \label{eq:nRMSE_score}
 \end{align}
 %
 However, we are not limited to just the standard MSE metrics.
@@ -44,7 +46,7 @@ Lastly, we denote the standard PSD score as $\lambda_a$ which is the 1D FFT over
 We recognize that the FFT configurations are limited due to their global treatment of the spectral domain and we need more specialized metrics to handle the local scales.
 This opens the door to new metrics that handle such cases such as the Wavelet transformation~\cite{METRICSWAVELET}.
 
-\include{00_Oceanbench/content/appendix/fourdvarnet_psds}
+\include{content/appendix/fourdvarnet_psds}
 
 % \begin{figure}[h]
 % \small

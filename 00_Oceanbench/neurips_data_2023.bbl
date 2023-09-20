@@ -1,0 +1,637 @@
+\begin{thebibliography}{10}
+
+\bibitem{TENSORFLOW}
+Mart{\'\i}n Abadi, Paul Barham, Jianmin Chen, Zhifeng Chen, Andy Davis, Jeffrey
+  Dean, Matthieu Devin, Sanjay Ghemawat, Geoffrey Irving, Michael Isard, et~al.
+\newblock Tensorflow: A system for large-scale machine learning.
+\newblock In {\em OSDI}, volume~16, pages 265--283, 2016.
+
+\bibitem{Altimetry}
+Saleh Abdalla, Abdolnabi {Abdeh Kolahchi}, (...), and Victor Zlotnicki.
+\newblock Altimetry for the future: Building on 25 years of progress.
+\newblock {\em Advances in Space Research}, 68(2):319--363, 2021.
+\newblock 25 Years of Progress in Radar Altimetry.
+
+\bibitem{SSHSEALEVEL}
+M.~{Ablain}, J.~F. {Legeais}, P.~{Prandi}, M.~{Marcos}, L.~{Fenoglio-Marc},
+  H.~B. {Dieng}, J.~{Benveniste}, and A.~{Cazenave}.
+\newblock {Satellite Altimetry-Based Sea Level at Global and Regional Scales}.
+\newblock {\em Surveys in Geophysics}, 38(1):7--31, January 2017.
+
+\bibitem{NEMOAJAYI2020}
+Adekunle Ajayi, Julien Le~Sommer, Eric Chassignet, Jean-Marc Molines, Xiaobiao
+  Xu, Aurelie Albert, and Emmanuel Cosme.
+\newblock Spatial and temporal variability of the north atlantic eddy field
+  from two kilometric-resolution ocean models.
+\newblock {\em Journal of Geophysical Research: Oceans}, 125(5):e2019JC015827,
+  2020.
+\newblock e2019JC015827 10.1029/2019JC015827.
+
+\bibitem{DINEOF2}
+A{\"\i}da Alvera~Azcarate, Alexander Barth, Jean-Marie Beckers, and Robert~H
+  Weisberg.
+\newblock Multivariate reconstruction of missing data in sea surface
+  temperature, chlorophyll, and wind satellite fields.
+\newblock {\em Journal of Geophysical Research. Oceans}, 112(C3), 2007.
+
+\bibitem{DINEOF}
+A{\"\i}da Alvera~Azcarate, Alexander Barth, Michel Rixen, and Jean-Marie
+  Beckers.
+\newblock Reconstruction of incomplete oceanographic data sets using empirical
+  orthogonal functions: application to the adriatic sea surface temperature.
+\newblock {\em Ocean Modelling}, 9(4), 2005.
+
+\bibitem{SSHInterpUNet}
+Th{\'e}o Archambault, Arthur Filoche, Anastase Charantonnis, and Dominique
+  B{\'e}r{\'e}ziat.
+\newblock {Multimodal Unsupervised Spatio-Temporal Interpolation of satellite
+  ocean altimetry maps}.
+\newblock In {\em {VISAPP}}, Lisboa, Portugal, February 2023.
+
+\bibitem{ENS10Bench}
+Saleh Ashkboos, Langwen Huang, Nikoli Dryden, Tal Ben-Nun, Peter Dueben, Lukas
+  Gianinazzi, Luca Kummer, and Torsten Hoefler.
+\newblock Ens-10: A dataset for post-processing ensemble weather forecasts.
+\newblock In S.~Koyejo, S.~Mohamed, A.~Agarwal, D.~Belgrave, K.~Cho, and A.~Oh,
+  editors, {\em Advances in Neural Information Processing Systems}, volume~35,
+  pages 21974--21987. Curran Associates, Inc., 2022.
+
+\bibitem{SOCAT}
+D.~C.~E. Bakker, B.~Pfeil, C.~S. Landa, N.~Metzl, K.~M. O'Brien, A.~Olsen,
+  K.~Smith, C.~Cosca, S.~Harasawa, S.~D. Jones, S.~Nakaoka, Y.~Nojiri,
+  U.~Schuster, T.~Steinhoff, C.~Sweeney, T.~Takahashi, B.~Tilbrook, C.~Wada,
+  R.~Wanninkhof, S.~R. Alin, C.~F. Balestrini, L.~Barbero, N.~R. Bates, A.~A.
+  Bianchi, F.~Bonou, J.~Boutin, Y.~Bozec, E.~F. Burger, W.-J. Cai, R.~D.
+  Castle, L.~Chen, M.~Chierici, K.~Currie, W.~Evans, C.~Featherstone, R.~A.
+  Feely, A.~Fransson, C.~Goyet, N.~Greenwood, L.~Gregor, S.~Hankin, N.~J.
+  Hardman-Mountford, J.~Harlay, J.~Hauck, M.~Hoppema, M.~P. Humphreys, C.~W.
+  Hunt, B.~Huss, J.~S.~P. Ib\'anhez, T.~Johannessen, R.~Keeling, V.~Kitidis,
+  A.~K\"ortzinger, A.~Kozyr, E.~Krasakopoulou, A.~Kuwata, P.~Landsch\"utzer,
+  S.~K. Lauvset, N.~Lef\`evre, C.~Lo~Monaco, A.~Manke, J.~T. Mathis,
+  L.~Merlivat, F.~J. Millero, P.~M.~S. Monteiro, D.~R. Munro, A.~Murata,
+  T.~Newberger, A.~M. Omar, T.~Ono, K.~Paterson, D.~Pearce, D.~Pierrot, L.~L.
+  Robbins, S.~Saito, J.~Salisbury, R.~Schlitzer, B.~Schneider, R.~Schweitzer,
+  R.~Sieger, I.~Skjelvan, K.~F. Sullivan, S.~C. Sutherland, A.~J. Sutton,
+  K.~Tadokoro, M.~Telszewski, M.~Tuma, S.~M. A.~C. van Heuven, D.~Vandemark,
+  B.~Ward, A.~J. Watson, and S.~Xu.
+\newblock A multi-decade record of high-quality $f$co$_{2}$ data in version 3
+  of the surface ocean co$_{2}$ atlas (socat).
+\newblock {\em Earth System Science Data}, 8(2):383--413, 2016.
+
+\bibitem{DCOSSEGULFSSH}
+Maxime Ballarotta, Emmanuel Cosme, and Aurélie Albert.
+\newblock {ocean-data-challenges/2020a\_SSH\_mapping\_NATL60: Material for SSH
+  mapping data challenge}, September 2020.
+\newblock {This challenge is part of the BOOST-SWOT project funded by ANR
+  (project number ANR-17- CE01-0009-01) and a contribution to the MIDAS project
+  funded by CNES for the NASA/CNES SWOT Science Team}.
+
+\bibitem{DCOSEGULFSSH}
+Maxime Ballarotta and Florian~Le Guillou.
+\newblock {ocean-data-challenges/2021a\_SSH\_mapping\_OSE: Material for SSH
+  mapping OSE data challenge}, September 2021.
+
+\bibitem{4DVARNETSWOT}
+Maxime Beauchamp, Quentin Febvre, Hugo Georgentum, and Ronan Fablet.
+\newblock 4dvarnet-ssh: end-to-end learning of variational interpolation
+  schemes for nadir and wide-swath satellite altimetry.
+\newblock {\em Geoscientific Model Development}, 2022.
+
+\bibitem{MLOCNPARAMETERIZATION}
+Thomas Bolton and Laure Zanna.
+\newblock Applications of deep learning to ocean data inference and sub-grid
+  parameterisation.
+\newblock {\em Journal of Advances in Modeling Earth Systems}.
+
+\bibitem{3DQGOC}
+B.~Buongiorno~Nardelli.
+\newblock A multi-year time series of observation-based 3d horizontal and
+  vertical quasi-geostrophic global ocean currents.
+\newblock {\em Earth System Science Data}, 12(3):1711--1723, 2020.
+
+\bibitem{DAGEOSCIENCE}
+Alberto Carrassi, Marc Bocquet, Laurent Bertino, and Geir Evensen.
+\newblock Data assimilation in the geosciences: An overview of methods, issues,
+  and perspectives.
+\newblock {\em WIREs Climate Change}, 9(5):e535, 2018.
+
+\bibitem{SSHMESOSCALE2}
+Dudley~B. Chelton, Michael~G. Schlax, and Roger~M. Samelson.
+\newblock Global observations of nonlinear mesoscale eddies.
+\newblock {\em Progress in Oceanography}, 91(2):167--216, 2011.
+
+\bibitem{OCEANWARMING}
+Lijing Cheng, Karina Schuckmann, John Abraham, Kevin Trenberth, Michael Mann,
+  Laure Zanna, Matthew England, Jan Zika, John Fasullo, Yongqiang Yu, Yuying
+  Pan, Jiang Zhu, Emily Newsom, Ben Bronselaer, and Xiaopei Lin.
+\newblock Past and future ocean warming.
+\newblock {\em Nature Reviews Earth and Environment}, pages 1--19, 10 2022.
+
+\bibitem{KERAS}
+Fran\c{c}ois Chollet et~al.
+\newblock Keras.
+\newblock \url{https://keras.io}, 2015.
+
+\bibitem{JupyterBook}
+Executable~Books Community.
+\newblock Jupyter book, February 2020.
+
+\bibitem{OCEANSEALEVEL}
+Matthew~P Couldrey, Jonathan~M Gregory, Fabio~Boeira Dias, Peter Dobrohotoff,
+  Catia~M Domingues, Oluwayemi Garuba, Stephen~M Griffies, Helmuth Haak, Aixue
+  Hu, Masayoshi Ishii, et~al.
+\newblock What causes the spread of model projections of ocean dynamic
+  sea-level change in response to greenhouse gas forcing?
+\newblock {\em Climate Dynamics}, pages 1--33, 2020.
+
+\bibitem{OCEANCARBONCYCLE}
+Tim DeVries.
+\newblock The ocean carbon cycle.
+\newblock {\em Annual Review of Environment and Resources}, 47(1):317--341,
+  2022.
+
+\bibitem{FUNCTA}
+Emilien Dupont, Hyunjik Kim, S.~M.~Ali Eslami, Danilo~Jimenez Rezende, and Dan
+  Rosenbaum.
+\newblock From data to functa: Your data point is a function and you can treat
+  it like one.
+\newblock In {\em International Conference on Machine Learning}, 2022.
+
+\bibitem{4DVarNetSSC}
+Ronan Fablet, Bertrand Chapron, Julien~Le Sommer, and Florian S'evellec.
+\newblock Inversion of sea surface currents from satellite-derived sst-ssh
+  synergies with 4dvarnets.
+\newblock {\em ArXiv}, abs/2211.13059, 2022.
+
+\bibitem{4DVARNETSST}
+Ronan Fablet, Quentin Febvre, and Bertrand Chapron.
+\newblock Multimodal 4dvarnets for the reconstruction of sea surface dynamics
+  from sst-ssh synergies.
+\newblock {\em IEEE Transactions on Geoscience and Remote Sensing}, 61:1--14,
+  2022.
+
+\bibitem{LIGHTNING}
+William Falcon and {The PyTorch Lightning team}.
+\newblock {PyTorch Lightning}, March 2019.
+
+\bibitem{DENOISESWOT2}
+Quentin Febvre, Cl{\'e}ment Ubelmann, Julien~Le Sommer, and Ronan Fablet.
+\newblock Scale-aware neural calibration for wide swath altimetry observations.
+\newblock {\em ArXiv}, abs/2302.04497, 2023.
+
+\bibitem{METRICSAVERAGE}
+Martin Gauch, Frederik Kratzert, Oren Gilon, Hoshin Gupta, Juliane Mai, Grey
+  Nearing, Bryan Tolson, Sepp Hochreiter, and Daniel Klotz.
+\newblock In defense of metrics: Metrics sufficiently encode typical human
+  preferences regarding hydrological model performance.
+\newblock {\em Water Resources Research}, 59(6):e2022WR033918, 2023.
+\newblock e2022WR033918 2022WR033918.
+
+\bibitem{SWOT}
+Lucile Gaultier, Cl{\'e}ment Ubelmann, and Lee-Lueng Fu.
+\newblock The challenge of using future swot data for oceanic field
+  reconstruction.
+\newblock {\em Journal of Atmospheric and Oceanic Technology}, 33(1):119 --
+  126, 2016.
+
+\bibitem{CHAOSBENCH}
+William Gilpin.
+\newblock Chaos as an interpretable benchmark for forecasting and data-driven
+  modelling.
+\newblock In J.~Vanschoren and S.~Yeung, editors, {\em Proceedings of the
+  Neural Information Processing Systems Track on Datasets and Benchmarks},
+  volume~1. Curran, 2021.
+
+\bibitem{OCEANSATELLITEOC}
+Steve Groom, Shubha Sathyendranath, Yai Ban, Stewart Bernard, Robert Brewin,
+  Vanda Brotas, Carsten Brockmann, Prakash Chauhan, Jong-kuk Choi, Andrei
+  Chuprin, Stefano Ciavatta, Paolo Cipollini, Craig Donlon, Bryan Franz,
+  Xianqiang He, Takafumi Hirata, Tom Jackson, Milton Kampel, Hajo Krasemann,
+  Samantha Lavender, Silvia Pardo-Martinez, Fr{\'e}d{\'e}ric M{\'e}lin, Trevor
+  Platt, Rosalia Santoleri, Jozef Skakala, Blake Schaeffer, Marie Smith,
+  Francois Steinmetz, Andre Valente, and Menghua Wang.
+\newblock Satellite ocean colour: Current status and future perspective.
+\newblock {\em Frontiers in Marine Science}, 6, 2019.
+
+\bibitem{MLOCNPARAMETERIZATION2}
+Arthur~P. Guillaumin and Laure Zanna.
+\newblock Stochastic-deep learning parameterization of ocean momentum forcing.
+\newblock {\em Journal of Advances in Modeling Earth Systems},
+  n/a(n/a):e2021MS002534.
+\newblock e2021MS002534 2021MS002534.
+
+\bibitem{BFNQG}
+Florian~Le Guillou, Sammy Metref, Emmanuel Cosme, Cl{\'e}ment Ubelmann, Maxime
+  Ballarotta, Julien~Le Sommer, and Jacques Verron.
+\newblock Mapping altimetry in the forthcoming swot era by back-and-forth
+  nudging a one-layer quasigeostrophic model.
+\newblock {\em Journal of Atmospheric and Oceanic Technology}, 38(4):697 --
+  710, 2021.
+
+\bibitem{MLOCNPARAMETERIZATION4}
+Helene~T Hewitt, Malcolm Roberts, Pierre Mathiot, Arne Biastoch, Ed~Blockley,
+  Eric~P Chassignet, Baylor Fox-Kemper, Pat Hyder, David~P Marshall, Ekaterina
+  Popova, et~al.
+\newblock Resolving and parameterising the ocean mesoscale in earth system
+  models.
+\newblock {\em Current Climate Change Reports}, pages 1--16, 2020.
+
+\bibitem{XARRAY}
+S.~Hoyer and J.~Hamman.
+\newblock xarray: {N-D} labeled arrays and datasets in {Python}.
+\newblock {\em Journal of Open Research Software}, 5(1), 2017.
+
+\bibitem{IMAGE2IMAGETRANSLATION2}
+Henri Hoyez, C{\'e}dric Schockaert, Jason Rambach, Bruno Mirbach, and Didier
+  Stricker.
+\newblock Unsupervised image-to-image translation: A review.
+\newblock {\em Sensors}, 22(21), 2022.
+
+\bibitem{GLORYS12}
+Lellouche Jean-Michel, Greiner Eric, Bourdall{\'e}-Badie Romain, Garric Gilles,
+  Melet Ang{\'e}lique, Dr{\'e}villon Marie, Bricaud Cl{\'e}ment, Hamon Mathieu,
+  Le~Galloudec Olivier, Regnier Charly, Candela Tony, Testut Charles-Emmanuel,
+  Gasparin Florent, Ruggiero Giovanni, Benkiran Mounir, Drillet Yann, and
+  Le~Traon Pierre-Yves.
+\newblock The copernicus global 1/12$\,^{\circ}$ oceanic and sea ice glorys12
+  reanalysis.
+\newblock {\em Frontiers in Earth Science}, 9, 2021.
+
+\bibitem{METRICSITRBIG}
+J.~Emmanuel Johnson, Valero Laparra, Mar{\'i}a Piles, and Gustau Camps-Valls.
+\newblock Gaussianizing the earth: Multidimensional information measures for
+  earth data analysis.
+\newblock {\em IEEE Geoscience and Remote Sensing Magazine}, 9:191--208, 2020.
+
+\bibitem{NERFSSSH}
+J.~Emmanuel Johnson, Redouane Lguensat, Ronan Fablet, Emmanuel Cosme, and
+  Julien~Le Sommer.
+\newblock Neural fields for fast and scalable interpolation of geophysical
+  ocean variables.
+\newblock {\em ArXiv}, abs/2211.10444, 2022.
+
+\bibitem{PINNS}
+George~Em Karniadakis, Ioannis~G. Kevrekidis, Lu~Lu, Paris Perdikaris, Sifan
+  Wang, and Liu Yang.
+\newblock Physics-informed machine learning.
+\newblock {\em Nature Reviews Physics}, 3(6), 5 2021.
+
+\bibitem{METRICSCKA}
+Simon Kornblith, Mohammad Norouzi, Honglak Lee, and Geoffrey Hinton.
+\newblock Similarity of neural network representations revisited.
+\newblock In Kamalika Chaudhuri and Ruslan Salakhutdinov, editors, {\em
+  Proceedings of the 36th International Conference on Machine Learning},
+  volume~97 of {\em Proceedings of Machine Learning Research}, pages
+  3519--3529. PMLR, 09--15 Jun 2019.
+
+\bibitem{MLOPS1}
+Dominik Kreuzberger, Niklas Kühl, and Sebastian Hirschl.
+\newblock Machine learning operations (mlops): Overview, definition, and
+  architecture, 2022.
+
+\bibitem{DVC}
+Ruslan Kuprieiev, skshetry, Peter Rowlands, Dmitry Petrov, Paweł Redzyński,
+  Casper da~Costa-Luis, David de~la Iglesia~Castro, Alexander Schepanovski,
+  Gao, Ivan Shcheklein, Batuhan Taskaya, Jorge Orpinel, Dave Berenbaum, Fábio
+  Santos, daniele, Ronan Lamy, Aman Sharma, Zhanibek Kaimuldenov, Dani Hodovic,
+  Nikita Kodenko, Andrew Grigorev, Earl, Nabanita Dash, George Vyshnya,
+  maykulkarni, Max Hora, Vera, and Sanidhya Mangal.
+\newblock Dvc: Data version control - git for data \& models, May 2023.
+
+\bibitem{GraphCast}
+R{\'e}mi~R. Lam, Alvaro Sanchez-Gonzalez, Matthew Willson, Peter Wirnsberger,
+  Meire Fortunato, Alexander Pritzel, Suman~V. Ravuri, Timo Ewalds, Ferran
+  Alet, Zach Eaton-Rosen, Weihua Hu, Alexander Merose, Stephan Hoyer, George
+  Holland, Jacklynn Stott, Oriol Vinyals, Shakir Mohamed, and Peter~W.
+  Battaglia.
+\newblock Graphcast: Learning skillful medium-range global weather forecasting.
+\newblock {\em ArXiv}, abs/2212.12794, 2022.
+
+\bibitem{METRICSITRBIG2}
+Valero Laparra, J.~Emmanuel Johnson, Gustau Camps-Valls, Ra{\'u}l
+  Santos-Rodr{\'i}guez, and Jes{\'u}s Malo.
+\newblock Information theory measures via multidimensional gaussianization.
+\newblock {\em ArXiv}, abs/2010.03807, 2020.
+
+\bibitem{ANALOGDA}
+Redouane Lguensat, Pierre Tandeo, Pierre Ailliot, Manuel Pulido, and Ronan
+  Fablet.
+\newblock The analog data assimilation.
+\newblock {\em Monthly Weather Review}, 145(10):4093 -- 4107, 2017.
+
+\bibitem{GPsBIGDATA}
+Haitao Liu, Y.~Ong, Xiaobo Shen, and Jianfei Cai.
+\newblock When gaussian process meets big data: A review of scalable gps.
+\newblock {\em IEEE Transactions on Neural Networks and Learning Systems},
+  31:4405--4423, 2018.
+
+\bibitem{SSHInterpConvLSTM}
+Scott~A. Martin, Georgy~E. Manucharyan, and Patrice Klein.
+\newblock Synthesizing sea surface temperature and satellite altimetry
+  observations using deep learning improves the accuracy and resolution of
+  gridded sea surface height anomalies.
+\newblock {\em Journal of Advances in Modeling Earth Systems},
+  15(5):e2022MS003589, 2023.
+\newblock e2022MS003589 2022MS003589.
+
+\bibitem{SSTFLOWANOMALY}
+Scott~A. Martin, Georgy~E. Manucharyan, and Patrice Klein.
+\newblock Synthesizing sea surface temperature and satellite altimetry
+  observations using deep learning improves the accuracy and resolution of
+  gridded sea surface height anomalies.
+\newblock {\em Journal of Advances in Modeling Earth Systems},
+  15(5):e2022MS003589, 2023.
+\newblock e2022MS003589 2022MS003589.
+
+\bibitem{OCEANEddyTracking}
+Daisuke Matsuoka, Fumiaki Araki, Yumi Inoue, and Hideharu Sasaki.
+\newblock A new approach to ocean eddy detection, tracking, and event
+  visualization --application to the northwest pacific ocean.
+\newblock {\em Procedia Computer Science}, 80:1601--1611, 2016.
+\newblock International Conference on Computational Science 2016, ICCS 2016,
+  6-8 June 2016, San Diego, California, USA.
+
+\bibitem{OCEANSATELLITESST}
+P.J. Minnett, A.~Alvera-Azc{\'a}rate, T.M. Chin, G.K. Corlett, C.L. Gentemann,
+  I.~Karagali, X.~Li, A.~Marsouin, S.~Marullo, E.~Maturi, R.~Santoleri,
+  S.~{Saux Picart}, M.~Steele, and J.~Vazquez-Cuervo.
+\newblock Half a century of satellite remote sensing of sea-surface
+  temperature.
+\newblock {\em Remote Sensing of Environment}, 233:111366, 2019.
+
+\bibitem{SSHMESOSCALE}
+Rosemary Morrow and Pierre-Yves {Le Traon}.
+\newblock Recent advances in observing mesoscale ocean dynamics with satellite
+  altimetry.
+\newblock {\em Advances in Space Research}, 50(8):1062--1076, 2012.
+\newblock Oceanography, Cryosphere and Freshwater Flux to the Ocean.
+
+\bibitem{SSH3DCIRCULATION}
+S.~Mulet, M.-H. Rio, A.~Mignot, S.~Guinehut, and R.~Morrow.
+\newblock A new estimate of the global 3d geostrophic ocean circulation based
+  on satellite data and in-situ measurements.
+\newblock {\em Deep Sea Research Part II: Topical Studies in Oceanography},
+  77-80:70--81, 2012.
+\newblock Satellite Oceanography and Climate Change.
+
+\bibitem{OKUBO}
+Akira Okubo.
+\newblock Horizontal dispersion of floatable particles in the vicinity of
+  velocity singularities such as convergences.
+\newblock {\em Deep Sea Research and Oceanographic Abstracts}, 17(3):445--454,
+  1970.
+
+\bibitem{IMAGE2IMAGETRANSLATION}
+Yingxue Pang, Jianxin Lin, Tao Qin, and Zhibo Chen.
+\newblock Image-to-image translation: Methods and applications.
+\newblock {\em IEEE Transactions on Multimedia}, 24:3859--3881, 2021.
+
+\bibitem{SSHMESOSCALE3}
+Ananda Pascual, Yannice Faug{\`e}re, Gilles Larnicol, and Pierre-Yves Le~Traon.
+\newblock Improved description of the ocean mesoscale variability by combining
+  four satellite altimeters.
+\newblock {\em Geophysical Research Letters}, 33(2), 2006.
+
+\bibitem{PYTORCH}
+Adam Paszke, Sam Gross, Francisco Massa, Adam Lerer, James Bradbury, Gregory
+  Chanan, Trevor Killeen, Zeming Lin, Natalia Gimelshein, Luca Antiga, Alban
+  Desmaison, Andreas Kopf, Edward Yang, Zachary DeVito, Martin Raison, Alykhan
+  Tejani, Sasank Chilamkurthy, Benoit Steiner, Lu~Fang, Junjie Bai, and Soumith
+  Chintala.
+\newblock Pytorch: An imperative style, high-performance deep learning library,
+  2019.
+
+\bibitem{FourCastNet}
+Jaideep Pathak, Shashank Subramanian, Peter Harrington, Sanjeev Raja, Ashesh
+  Chattopadhyay, Morteza Mardani, Thorsten Kurth, David Hall, Zongyi Li, Kamyar
+  Azizzadenesheli, Pedram Hassanzadeh, Karthik Kashinath, and Animashree
+  Anandkumar.
+\newblock Fourcastnet: A global data-driven high-resolution weather model using
+  adaptive fourier neural operators, 2022.
+
+\bibitem{weatherbench}
+Stephan Rasp, Peter~D. Dueben, Sebastian Scher, Jonathan~A. Weyn, Soukayna
+  Mouatadid, and Nils Thuerey.
+\newblock Weatherbench: A benchmark data set for data-driven weather
+  forecasting.
+\newblock {\em Journal of Advances in Modeling Earth Systems},
+  12(11):e2020MS002203, 2020.
+\newblock e2020MS002203 10.1029/2020MS002203.
+
+\bibitem{OCEANHEATUPTAKE}
+L.~Resplandy, R.~F. Keeling, Y.~Eddebbar, M.~K. Brooks, R.~Wang, L.~Bopp, M.~C.
+  Long, J.~P. Dunne, W.~Koeve, and A.~Oschlies.
+\newblock Quantification of ocean heat uptake from changes in atmospheric o2
+  and co2 composition.
+\newblock {\em Nature}, 563(7729):105--108, 2018.
+
+\bibitem{MLOCNPARAMETERIZATION3}
+Andrew Ross, Ziwei Li, Pavel Perezhogin, Carlos Fernandez-Granda, and Laure
+  Zanna.
+\newblock Benchmarking of machine learning ocean subgrid parameterizations in
+  an idealized model.
+\newblock {\em Journal of Advances in Modeling Earth Systems},
+  15(1):e2022MS003258, 2023.
+
+\bibitem{DATA4ML}
+Nithya Sambasivan, Shivani Kapania, Hannah Highfill, Diana Akrong, Praveen
+  Paritosh, and Lora~M Aroyo.
+\newblock “everyone wants to do the model work, not the data work”: Data
+  cascades in high-stakes ai.
+\newblock In {\em Proceedings of the 2021 CHI Conference on Human Factors in
+  Computing Systems}, CHI '21, New York, NY, USA, 2021. Association for
+  Computing Machinery.
+
+\bibitem{OKUBOWEISS}
+B~K Shivamoggi, G~J~F van Heijst, and L~P~J Kamp.
+\newblock The okubo--weiss criterion in hydrodynamic flows: geometric aspects
+  and further extension.
+\newblock {\em Fluid Dynamics Research}, 54(1):015505, jan 2022.
+
+\bibitem{MLSSC}
+Anirban Sinha and Ryan Abernathey.
+\newblock Estimating ocean surface currents with machine learning.
+\newblock {\em Frontiers in Marine Science}, 8, 2021.
+
+\bibitem{ML4OCN}
+Maike Sonnewald, Redouane Lguensat, Daniel~C Jones, Peter~D Dueben, Julien
+  Brajard, and V~Balaji.
+\newblock Bridging observations, theory and numerical simulation of the ocean
+  using machine learning.
+\newblock {\em Environmental Research Letters}, 16(7):073008, July 2021.
+
+\bibitem{MLOPS2}
+Georgios Symeonidis, Evangelos Nerantzis, Apostolos Kazakis, and George~A.
+  Papakostas.
+\newblock Mlops - definitions, tools and challenges.
+\newblock {\em CoRR}, abs/2201.00162, 2022.
+
+\bibitem{DUACS}
+G.~Taburet, A.~Sanchez-Roman, M.~Ballarotta, M.-I. Pujol, J.-F. Legeais,
+  F.~Fournier, Y.~Faugere, and G.~Dibarboure.
+\newblock Duacs~dt2018: 25~years of reprocessed sea level altimetry products.
+\newblock {\em Ocean Science}, 15(5):1207--1224, 2019.
+
+\bibitem{PDEBench}
+Makoto Takamoto, Timothy Praditia, Raphael Leiteritz, Daniel MacKinlay,
+  Francesco Alesiani, Dirk Pfl\"{u}ger, and Mathias Niepert.
+\newblock Pdebench: An extensive benchmark for scientific machine learning.
+\newblock In S.~Koyejo, S.~Mohamed, A.~Agarwal, D.~Belgrave, K.~Cho, and A.~Oh,
+  editors, {\em Advances in Neural Information Processing Systems}, volume~35,
+  pages 1596--1611. Curran Associates, Inc., 2022.
+
+\bibitem{ANALOGDA2}
+Pierre Tandeo, Pierre Ailliot, Juan Ruiz, Alexis Hannart, Bertrand Chapron,
+  Anne Cuzol, Val{\'e}rie Monbet, Robert Easton, and Ronan Fablet.
+\newblock Combining analog method and ensemble data assimilation: Application
+  to the lorenz-63 chaotic system.
+\newblock In Valliappa Lakshmanan, Eric Gilleland, Amy McGovern, and Martin
+  Tingley, editors, {\em Machine Learning and Data Mining Approaches to Climate
+  Science}, pages 3--12, Cham, 2015. Springer International Publishing.
+
+\bibitem{DENOISESURVEY2}
+Rini~Smita Thakur, Shubhojeet Chatterjee, Ram~Narayan Yadav, and Lalita Gupta.
+\newblock Image de-noising with machine learning: A review.
+\newblock {\em IEEE Access}, 9:93338--93363, 2021.
+
+\bibitem{DENOISESURVEY}
+Chunwei Tian, Lunke Fei, Wenxian Zheng, Yong Xu, Wangmeng Zuo, and Chia-Wen
+  Lin.
+\newblock Deep learning on image denoising: An overview.
+\newblock {\em Neural networks : the official journal of the International
+  Neural Network Society}, 131:251--275, 2019.
+
+\bibitem{DENOISESWOT}
+Ana{\"e}lle Tr{\'e}boutte, Elisa Carli, Maxime Ballarotta, Benjamin Carpentier,
+  Yannice Faug{\`e}re, and G{\'e}rald Dibarboure.
+\newblock Karin noise reduction using a convolutional neural network for the
+  swot ocean products.
+\newblock {\em Remote Sensing}, 15(8), 2023.
+
+\bibitem{MIOST}
+Clement Ubelmann, G{\'e}rald Dibarboure, Lucile Gaultier, Aur{\'e}lien Ponte,
+  Fabrice Ardhuin, Maxime Ballarotta, and Yannice Faug{\`e}re.
+\newblock Reconstructing ocean surface current combining altimetry and future
+  spaceborne doppler data.
+\newblock {\em Journal of Geophysical Research: Oceans}, 126(3):e2020JC016560,
+  2021.
+\newblock e2020JC016560 2020JC016560.
+
+\bibitem{METRICSWAVELET}
+Takaya Uchida, Quentin Jamet, Andrew~C. Poje, Nico Wienders, William~K. Dewar,
+  and Bruno Deremble.
+\newblock Wavelet-based wavenumber spectral estimate of eddy kinetic energy:
+  Idealized quasi-geostrophic flow.
+\newblock {\em Journal of Advances in Modeling Earth Systems},
+  15(3):e2022MS003399, 2023.
+\newblock e2022MS003399 2022MS003399.
+
+\bibitem{ATTENTION}
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
+  Aidan~N Gomez, \L~ukasz Kaiser, and Illia Polosukhin.
+\newblock Attention is all you need.
+\newblock In I.~Guyon, U.~Von Luxburg, S.~Bengio, H.~Wallach, R.~Fergus,
+  S.~Vishwanathan, and R.~Garnett, editors, {\em Advances in Neural Information
+  Processing Systems}, volume~30. Curran Associates, Inc., 2017.
+
+\bibitem{SSHOPERATIONAL}
+Karina von Schuckmann, Pierre-Yves~Le Traon, Neville Smith, Ananda Pascual,
+  Pierre Brasseur, Katja Fennel, Samy Djavidnia, Signe Aaboe, Enrique~Alvarez
+  Fanjul, Emmanuelle Autret, Lars Axell, Roland Aznar, Mario Benincasa,
+  Abderahim Bentamy, Fredrik Boberg, Romain Bourdall{\'e}-Badie,
+  Bruno~Buongiorno Nardelli, Vittorio~E. Brando, Cl{\'e}ment Bricaud,
+  Lars-Anders Breivik, Robert~J.W. Brewin, Arthur Capet, Adrien Ceschin,
+  Stefania Ciliberti, Gianpiero Cossarini, Marta de~Alfonso, Alvaro
+  de~Pascual~Collar, Jos de~Kloe, Julie Deshayes, Charles Desportes, Marie
+  Dr{\'e}villon, Yann Drillet, Riccardo Droghei, Clotilde Dubois, Owen Embury,
+  H{\'e}l{\`e}ne Etienne, Claudia Fratianni, Jes{\'u}s~Garc{\'\i}a Lafuente,
+  Marcos~Garcia Sotillo, Gilles Garric, Florent Gasparin, Riccardo Gerin, Simon
+  Good, J{\'e}rome Gourrion, Marilaure Gr{\'e}goire, Eric Greiner,
+  St{\'e}phanie Guinehut, Elodie Gutknecht, Fabrice Hernandez, Olga Hernandez,
+  Jacob H{\o}yer, Laura Jackson, Simon Jandt, Simon Josey, M{\'e}lanie Juza,
+  John Kennedy, Zoi Kokkini, Gerasimos Korres, Mariliis K{\~o}uts, Priidik
+  Lagemaa, Thomas Lavergne, Bernard le~Cann, Jean-Fran{\c c}ois Legeais,
+  Benedicte Lemieux-Dudon, Bruno Levier, Vidar Lien, Ilja Maljutenko, Fernando
+  Manzano, Marta Marcos, Veselka Marinova, Simona Masina, Elena Mauri, Michael
+  Mayer, Angelique Melet, Fr{\'e}d{\'e}ric M{\'e}lin, Benoit Meyssignac, Maeva
+  Monier, Malte M{\"u}ller, Sandrine Mulet, Cristina Naranjo, Giulio
+  Notarstefano, Aur{\'e}lien Paulmier, Bego{\~n}a~P{\'e}rez Gomez,
+  Irene~P{\'e}rez Gonzalez, Elisaveta Peneva, Coralie Perruche, K.~Andrew
+  Peterson, Nadia Pinardi, Andrea Pisano, Silvia Pardo, Pierre-Marie Poulain,
+  Roshin~P. Raj, Urmas Raudsepp, Michaelis Ravdas, Rebecca Reid,
+  Marie-H{\'e}l{\`e}ne Rio, Stefano Salon, Annette Samuelsen, Michela
+  Sammartino, Simone Sammartino, Anne~Britt Sand{\o}, Rosalia Santoleri, Shubha
+  Sathyendranath, Jun She, Simona Simoncelli, Cosimo Solidoro, Ad~Stoffelen,
+  Andrea Storto, Tanguy Szerkely, Susanne Tamm, Steffen Tietsche, Jonathan
+  Tinker, Joaqu{\'\i}n Tintore, Ana Trindade, Daphne van Zanten, Luc
+  Vandenbulcke, Anton Verhoef, Nathalie Verbrugge, Lena Viktorsson, Karina von
+  Schuckmann, Sarah~L. Wakelin, Anna Zacharioudaki, and Hao Zuo.
+\newblock Copernicus marine service ocean state report.
+\newblock {\em Journal of Operational Oceanography}, 11(sup1):S1--S142, 2018.
+
+\bibitem{SuperResSurvey}
+Zhihao Wang, Jian Chen, and Steven C.~H. Hoi.
+\newblock Deep learning for image super-resolution: A survey.
+\newblock {\em IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  43:3365--3387, 2019.
+
+\bibitem{ClimateBench}
+D.~Watson-Parris, Y.~Rao, D.~Olivi{\'e}, {\O}.~Seland, P.~Nowack,
+  G.~Camps-Valls, P.~Stier, S.~Bouabid, M.~Dewey, E.~Fons, J.~Gonzalez,
+  P.~Harder, K.~Jeggle, J.~Lenhardt, P.~Manshausen, M.~Novitasari, L.~Ricard,
+  and C.~Roesch.
+\newblock Climatebench v1.0: A benchmark for data-driven climate projections.
+\newblock {\em Journal of Advances in Modeling Earth Systems},
+  14(10):e2021MS002954, 2022.
+\newblock e2021MS002954 2021MS002954.
+
+\bibitem{WEISS}
+John Weiss.
+\newblock The dynamics of enstrophy transfer in two-dimensional hydrodynamics.
+\newblock {\em Physica D: Nonlinear Phenomena}, 48(2):273--294, 1991.
+
+\bibitem{InPaintingSurvey}
+Hanyu Xiang, Qin Zou, Muhammad~Ali Nawaz, Xianfeng Huang, Fan Zhang, and
+  Hongkai Yu.
+\newblock Deep learning for image inpainting: A survey.
+\newblock {\em Pattern Recognition}, 134:109046, 2023.
+
+\bibitem{Hydra}
+Omry Yadan.
+\newblock Hydra - a framework for elegantly configuring complex applications.
+\newblock Github, 2019.
+
+\bibitem{KRIGINGREVIEW}
+Fatemeh Zakeri and Gregoire Mariethoz.
+\newblock A review of geostatistical simulation models applied to satellite
+  remote sensing: Methods and applications.
+\newblock {\em Remote Sensing of Environment}, 259:112381, 2021.
+
+\bibitem{MLCLOSURE}
+Laure Zanna and Thomas Bolton.
+\newblock Data-driven equation discovery of ocean mesoscale closures.
+\newblock {\em Geophysical Research Letters}, 47(17):e2020GL088376, 2020.
+
+\bibitem{DEEPUNFOLDING}
+Kai Zhang and Radu Timofte.
+\newblock Chapter 14 - deep plug-and-play and deep unfolding methods for image
+  restoration.
+\newblock In E.R. Davies and Matthew~A. Turk, editors, {\em Advanced Methods
+  and Deep Learning in Computer Vision}, Computer Vision and Pattern
+  Recognition, pages 481--509. Academic Press, 2022.
+
+\bibitem{SSHInterpAttention}
+Ke~Zhang, Lei Huang, Zhiqiang Wei, Chen An, and Xianqing Lv.
+\newblock Sea surface height data reconstruction via inter and intra layer
+  features based on dual attention.
+\newblock {\em Neurocomputing}, 545:126313, 2023.
+
+\bibitem{NEMOEOF}
+Y.~Zhang, X.~Wang, Y.~Sun, C.~Ning, S.~Xu, H.~An, D.~Tang, H.~Guo, H.~Yang,
+  Y.~Pu, B.~Jiang, and B.~Wang.
+\newblock Ocean modeling with adaptive resolution (omare, version 1.0) --
+  refactoring nemo model (version 4.0.1) with the parallel computing framework
+  of jasmin. part 1: adaptive grid refinement in an idealized double-gyre case.
+\newblock {\em EGUsphere}, 2022:1--37, 2022.
+
+\end{thebibliography}

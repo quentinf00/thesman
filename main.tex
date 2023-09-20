@@ -1,9 +1,50 @@
 %This file is the main file where the final document is generated
 
 \documentclass{these-ubl} 
-\input{00_Oceanbench/content/preamble.tex}
-\input{00_Oceanbench/content/custom}
+% \input{00_Oceanbench/content/preamble.tex}
+% \input{00_Oceanbench/content/custom}
+% \usepackage{apacite}
+%\RequirePackage{natbib}
+% \let\cite\shortcite %xx So get et al. with three authors the first time.
+% %\let\citep\cite %xx A natbib command.
+% \let\citet\shortciteA %xx Ditto.
+% \usepackage{url}
+
+% \bibliographystyle{apacite}
+
+\usepackage{color}
+\usepackage{soul}
+% \usepackage[normalem]{ulem}
+\newcommand{\hlc}[2][yellow]{{%
+    \colorlet{foo}{#1}%
+    \sethlcolor{foo}\hl{#2}}%
+}
+\newcommand{\tofix}[1]{\hlc[red!20]{#1}}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{xcolor}         % colors
+\usepackage{multirow}
+
+\usepackage{nicefrac} 
+\usepackage{lscape}
+
+
+\usepackage{listings}
+% \usepackage{minted}
+% \usepackage[cachedir=.]{minted}
+% \usepackage{frozencache}
+% \usepackage[frozencache=true,cachedir=minted-cache]{minted} 
+\usepackage[finalizecache=true,cachedir=minted-cache]{minted}
+
 \usepackage{bibunits}
+\usepackage{amsmath}
+\usepackage{amsfonts} 
 \usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
 \usepackage{textcomp}
 \usepackage{stfloats}
@@ -59,11 +100,11 @@
 \clearemptydoublepage
 \input{./00_LitReview/LitReview}
 \clearemptydoublepage
-% \input{./00_Calib/main}
+\input{./00_Calib/main}
 \clearemptydoublepage
-% \input{./00_Simulearning/agujournaltemplate}
+\input{./00_Simulearning/agujournaltemplate}
 \clearemptydoublepage
-% \input{./00_Oceanbench/neurips_data_2023}
+\input{./00_Oceanbench/neurips_data_2023}
 % \clearemptydoublepage
 % \input{./Chapitre1/Chapitre1}
 
