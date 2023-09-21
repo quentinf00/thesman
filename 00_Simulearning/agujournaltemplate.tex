@@ -106,21 +106,21 @@
 % \end{keypoints}
 
 
-\begin{abstract}
-    Satellite altimetry combined with data assimilation and optimal interpolation schemes have deeply renewed our ability to monitor sea surface dynamics. Recently, deep learning (DL) schemes have emerged as appealing solutions to address space-time interpolation problems. The scarcity of real altimetry dataset, in terms of space-time coverage of the sea surface, however impedes the training of state-of-the-art neural schemes on real-world case-studies. Here, we leverage both simulations of ocean dynamics and satellite altimeters to train simulation-based neural mapping schemes for the sea surface height and demonstrate their performance for real altimetry datasets. We analyze further how the ocean simulation dataset used during the training phase impacts this performance. This experimental analysis covers both the resolution from eddy-present configurations to eddy-rich ones, forced simulations vs. reanalyses using data assimilation and tide-free vs. tide-resolving simulations. Our benchmarking framework focuses on a Gulf Stream region for a realistic 5-altimeter constellation using NEMO ocean simulations and 4DVarNet mapping schemes. All simulation-based 4DVarNets outperform the operational observation-driven and reanalysis products, namely DUACS and GLORYS. The more realistic the ocean simulation dataset used during the training phase, the better the mapping. The best 4DVarNet mapping was trained from an eddy-rich and tide-free simulation datasets. It improves the resolved longitudinal scale from 151 kilometers for DUACS and 241 kilometers for GLORYS to 98 kilometers and reduces the root mean squared error (RMSE) by 23\% and 61\%. These results open research avenues for new synergies between ocean modelling and ocean observation using learning-based approaches.
+% \begin{abstract}
+%     Satellite altimetry combined with data assimilation and optimal interpolation schemes have deeply renewed our ability to monitor sea surface dynamics. Recently, deep learning (DL) schemes have emerged as appealing solutions to address space-time interpolation problems. The scarcity of real altimetry dataset, in terms of space-time coverage of the sea surface, however impedes the training of state-of-the-art neural schemes on real-world case-studies. Here, we leverage both simulations of ocean dynamics and satellite altimeters to train simulation-based neural mapping schemes for the sea surface height and demonstrate their performance for real altimetry datasets. We analyze further how the ocean simulation dataset used during the training phase impacts this performance. This experimental analysis covers both the resolution from eddy-present configurations to eddy-rich ones, forced simulations vs. reanalyses using data assimilation and tide-free vs. tide-resolving simulations. Our benchmarking framework focuses on a Gulf Stream region for a realistic 5-altimeter constellation using NEMO ocean simulations and 4DVarNet mapping schemes. All simulation-based 4DVarNets outperform the operational observation-driven and reanalysis products, namely DUACS and GLORYS. The more realistic the ocean simulation dataset used during the training phase, the better the mapping. The best 4DVarNet mapping was trained from an eddy-rich and tide-free simulation datasets. It improves the resolved longitudinal scale from 151 kilometers for DUACS and 241 kilometers for GLORYS to 98 kilometers and reduces the root mean squared error (RMSE) by 23\% and 61\%. These results open research avenues for new synergies between ocean modelling and ocean observation using learning-based approaches.
   
 
-\end{abstract}
+% \end{abstract}
 
-\section*{Plain Language Summary}
+% \section*{Plain Language Summary}
 
-% https://www.agu.org/Share-and-Advocate/Share/Community/Plain-language-summary
-For an artificial intelligence (AI) to learn, one need to describe a task using data and an evaluation procedure. 
-Here we aim at constructing images related to the ocean surface currents. The satellite data we use provide images of the ocean surface with a lot of missing data (around 95\% of missing pixels for a given day), and we aim at finding the values of the missing pixels.
-Because we don't know the full image, it is challenging to train an AI on this task using only the satellite data.
-However, today's physical knowledge makes it possible to numerically simulate oceans on big computers. For these simulated oceans, we have access to the gap-free image, so we can train AI models by first hiding some pixels and checking if the model fill the gaps with the correct values.
-Here, we explore under which conditions AIs trained on simulated oceans are useful for the real ocean.
-We show that today's simulated oceans work well for training an AI on this task and that training on more realistic simulated oceans improve the performance of the AI!
+% % https://www.agu.org/Share-and-Advocate/Share/Community/Plain-language-summary
+% For an artificial intelligence (AI) to learn, one need to describe a task using data and an evaluation procedure. 
+% Here we aim at constructing images related to the ocean surface currents. The satellite data we use provide images of the ocean surface with a lot of missing data (around 95\% of missing pixels for a given day), and we aim at finding the values of the missing pixels.
+% Because we don't know the full image, it is challenging to train an AI on this task using only the satellite data.
+% However, today's physical knowledge makes it possible to numerically simulate oceans on big computers. For these simulated oceans, we have access to the gap-free image, so we can train AI models by first hiding some pixels and checking if the model fill the gaps with the correct values.
+% Here, we explore under which conditions AIs trained on simulated oceans are useful for the real ocean.
+% We show that today's simulated oceans work well for training an AI on this task and that training on more realistic simulated oceans improve the performance of the AI!
 
 
 \section{Introduction}
