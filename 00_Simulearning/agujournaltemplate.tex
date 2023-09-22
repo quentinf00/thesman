@@ -145,15 +145,15 @@ To ensure the reproducibility of our results, our code is made available through
 
 
     
-The content of this paper is organized as follows. Section \ref{sec:background} offers background information on related work, Section \ref{sec:method} presents our method, Section \ref{sec:results} reports our numerical experiments, and Section \ref{sec:discussion} elaborates on our main contributions.
+The content of this paper is organized as follows. Section \ref{c4sec:background} offers background information on related work, Section \ref{c4sec:method} presents our method, Section \ref{c4sec:results} reports our numerical experiments, and Section \ref{c4sec:discussion} elaborates on our main contributions.
 
 
 
 
 \section{Background}
-\label{sec:background}
+\label{c4sec:background}
 \subsection{Gridded satellite altimetry products}
-\label{ssec:interpolation}
+\label{c4ssec:interpolation}
 The ability to produce gridded maps from scattered along-track nadir altimeter measurements of sea surface height is key to the exploitation of altimeter data in operational services and science studies \cite{abdallaAltimetryFutureBuilding2021}.
 As detailed below, we can distinguish three categories of approaches to produce such maps: reanalysis products \cite{jean-michelCopernicusGlobal122021} using data assimilation schemes, observation-based products \cite{taburetDUACSDT2018252019} and learning-based approaches \cite{fabletENDTOENDPHYSICSINFORMEDREPRESENTATION2021}.
 
@@ -169,7 +169,7 @@ Especially deep learning schemes have gained some attention. Recent studies have
 
 
 \subsection{Ocean Modeling and OSSE}
-\label{ssec:oceanmodeling}
+\label{c4ssec:oceanmodeling}
 Advances in modeling and simulating ocean physics have largely contributed to a better understanding of the processes involved in the earth system and to the development of operational oceanography \cite{bernardImpactPartialSteps2006,ajayiSpatialTemporalVariability2020}. 
 High-resolution simulations used in Observing System Simulation Experiments (OSSE) also provide a great test-bed for the design and evaluation of new of ocean observation systems \cite{benkiranAssessingImpactAssimilation2021}.
 The availability of numerical model outputs enables the computation of interpretable metrics directly on the quantities of interest. This avoids challenges met when working solely with observation data that may be incomplete, noisy or indirectly related to the desired quantity.
@@ -187,7 +187,7 @@ Proposed solutions includes the exploitation of large existing datasets (such as
 
 
 \subsection{Physics-aware deep-learning}
-\label{ssec:deeplearning}
+\label{c4ssec:deeplearning}
 In the last decades, DL advances combined with the rise in computational resources and amount of data have shown the power of extracting knowledge from data in domains ranging from computer vision to language processing \cite{lecunDeepLearning2015}. 
 Yet, despite to the universality of DL architectures \cite{hornikMultilayerFeedforwardNetworks1989}, a central challenge persists in learning from data: the generalization performance beyond the distribution of the training data. To tackle this problem, the literature includes a variety of strategies such as data augmentation \cite{shortenSurveyImageData2019} and regularization techniques, including dropout layers \cite{srivastavaDropoutSimpleWay2014} and weight decay schemes \cite{krizhevskyImageNetClassificationDeep2012}. This is of critical importance for physical systems, where models trained on past data will be challenged when the system evolves and reaches dynamics absent from the training data. We can see evidence of this shortcoming in the instability challenges faced by neural closures for climate models \cite{brenowitzInterpretingStabilizingMachineLearning2020}. 
 
@@ -198,11 +198,11 @@ The proposed simulation-based training strategy offers another way to benefit fr
 
 
 \section{Method}
-\label{sec:method}
+\label{c4sec:method}
 
 
 \subsection{Overview}
-\label{ssec:overview}
+\label{c4ssec:overview}
 
 We designate our approach as "simulation-based", it consists in leveraging ocean models and simulations of observing systems to design supervised training environments.
 In this section, we describe the proposed method for assessing the potential of simulation-based neural schemes for the mapping real altimetry tracks. We describe the architecture considered in our study, as well as the different datasets used for training purposes. We also detail our simulation-based training setup and the proposed evaluation framework on real altimetry.  
@@ -211,12 +211,12 @@ In this section, we describe the proposed method for assessing the potential of 
     \centering
     \includegraphics[width=\textwidth]{./00_Simulearning/standalone_figures/schema_method.png}
     \caption{\textbf{Overview of the experimental setup}. On the left side we display the simulation-based training strategy based on an ocean simulation which will be used for 1) generating synthetic observation and 2) computing the training objective of the neural mapping scheme. On the right side we show the evaluation principle of splitting the available satellite observations to evaluate the method on data that were not used for the inference.}
-    \label{fig:method}
+    \label{c4fig:method}
 \end{figure}
 
 
 \subsection{Neural mapping scheme}
-\label{ssec:4DVarNet}
+\label{c4ssec:4DVarNet}
 
 The neural mapping scheme considered for this study is the 4DVarNet framework\cite{fabletENDTOENDPHYSICSINFORMEDREPRESENTATION2021}. 
 We choose this scheme due to the performance shown in the OSSE setup.
@@ -228,7 +228,7 @@ It exploits a prior on the space-time dynamics through a convolutional neural ne
 
 
 \subsection{SSH Data}
-\label{ssec:data}
+\label{c4ssec:data}
 
 \begin{table}[h]
 
@@ -245,10 +245,10 @@ ORCA025& \cite{bernardImpactPartialSteps2006}             &       1/4$^\circ$ & 
 \bottomrule
 \end{tabular}
 \caption{\textbf{Summary table of the different synthetic SSH fields used for training}. The last column indicate whether the Dynamic Atmospheric Correction was applied on the synthetic SSH. It justify the presence of both eNATL60-0 and NATL60 to isolate the impacts of resolution and tide.}
-\label{tab:data}
+\label{c4tab:data}
 \end{table}
 
-We use numerical simulations of ocean general circulation models (OGCM) to build our reference SSH datasets. Such simulations involve a multitude of decisions that affect the resulting simulated SSH. Here we consider NEMO (Nucleus for European Modelling of the Ocean) \cite{gurvanNEMOOceanEngine2022} which is among the state-of-the art OGCM in operational oceanography \cite{ajayiSpatialTemporalVariability2020} as well as in climate studies \cite{voldoireCNRMCM5GlobalClimate2013}. The selected SSH datasets reported in Table \ref{tab:data} focus on three main aspects: the added-value of high-resolution eddy-rich simulations, the impact of reanalysis datasets and the relevance of tide-resolving simulations.
+We use numerical simulations of ocean general circulation models (OGCM) to build our reference SSH datasets. Such simulations involve a multitude of decisions that affect the resulting simulated SSH. Here we consider NEMO (Nucleus for European Modelling of the Ocean) \cite{gurvanNEMOOceanEngine2022} which is among the state-of-the art OGCM in operational oceanography \cite{ajayiSpatialTemporalVariability2020} as well as in climate studies \cite{voldoireCNRMCM5GlobalClimate2013}. The selected SSH datasets reported in Table \ref{c4tab:data} focus on three main aspects: the added-value of high-resolution eddy-rich simulations, the impact of reanalysis datasets and the relevance of tide-resolving simulations.
 
 % /ocean model with different configurations. We selected six distinct datasets to examine the influence of three factors on the dynamical structures manifested in the simulations.
 
@@ -256,17 +256,17 @@ In order to evaluate the impact of eddy-rich simulations, we consider NATL60, GL
 Regarding the impact of reanalysis data, we compare numerical experiments with the GLORYS12-r reanalysis and the associated free run GLORYS12-f. This reanalysis dataset relies on the assimilation of temperature, sea level and sea ice concentration observations. 
 %Another way to nudge ocean simulations to more realistic dynamics is the assimilation of observation data. To evaluate this aspect we compare the GLORYS12-r reanalysis and its associated the free run GLORYS12-f. Measurements of temperature, sea level, sea ice concentration and salinity have been assimilated during the reanalysis. This comparison will also give indication on the impact of using true observation during the training.
 Besides, the recent eNATL60 twin simulations eNATL60-t and eNATL60-0 allow us to evaluate the impact of tide-resolving simulations.
-We summarize in Table \ref{tab:data} the characteristics of the different datasets. 
+We summarize in Table \ref{c4tab:data} the characteristics of the different datasets. 
 
 \subsection{OSSE-based training setup}
-\label{ssec:training}
-We sketch the proposed OSSE-based training setup on the left side of the Figure \ref{fig:method}.
+\label{c4ssec:training}
+We sketch the proposed OSSE-based training setup on the left side of the Figure \ref{c4fig:method}.
 In order to fairly evaluate the datasets' quality as a training resource, we standardize the training procedure.
 We regrid all simulations to the same resolution (1/20°) and we use daily-averaged SSH fields as training targets. We generate noise-free pseudo-observations by sampling values of the daily-averaged fields corresponding to realistic orbits of a 5 altimeter-constellation. We train all models from a one-year dataset in a Gulfstream domain from (66°W, 32°N) to (54°W, 44°N) in which we keep the same two months for validation. The hyper-parameters of the model and training procedure such as the number of epoch, learning rate scheduler are the same for all the experiments. The detailed configuration can be found by the reader in the available implementation. As training objective, we combine the mean square errors for the SSH fields and the amplitude of the gradients as well as a regularization loss for the prior model.
 
 \subsection{OSE-based evaluation setup}
-\label{ssec:eval}
-As sketched on the right side of the Figure \ref{fig:method},
+\label{c4ssec:eval}
+As sketched on the right side of the Figure \ref{c4fig:method},
 the evaluation setup relies on real altimetry data from the constellation of 6 satellites from 2017 (SARAL/Altika, Jason 2, Jason 3, Sentinel 3A, Haiyang-2A and Cryosat-2 ).
 We apply the standardized setup presented in a data-challenge \url{https://github.com/ocean-data-challenges/2021a_SSH_mapping_OSE}.
 We use the data from the first five satellites as inputs for the mapping and the last one (Cryosat-2) for computing the performance metrics. We compute these metrics in the along-track geometry. % on which the gridded product is interpolated on the altimetry tracks. 
@@ -276,7 +276,7 @@ The evaluation domain spans from (65°W, 33°N) to (55°W, 43°N)  and the evalu
     \item $\lambda_x$ is the wavelength at which the power spectrum density (PSD) score  $1 - \displaystyle \frac{PSD(\hat{\eta} - \eta_{c2})}{PSD(\eta_{c2})}$ crosses the $0.5$ threshold, which characterize the scales resolved by the reconstruction (the error below that wavelength makes up for more than half of the total signal)
 \end{itemize}
 
-In Table \ref{tab:res}, we also consider the root mean square error (RMSE) as well as the nRMSE score of the sea level anomaly $\mu_{sla}$ obtained by subtracting the mean dynamic topography to the SSH. Lastly, we assess the performance degradation resulting from the transition from simulated to real data by quantifying the improvement relative to DUACS in the resolved scale $\lambda_x$ on our OSE setup as well as on
+In Table \ref{c4tab:res}, we also consider the root mean square error (RMSE) as well as the nRMSE score of the sea level anomaly $\mu_{sla}$ obtained by subtracting the mean dynamic topography to the SSH. Lastly, we assess the performance degradation resulting from the transition from simulated to real data by quantifying the improvement relative to DUACS in the resolved scale $\lambda_x$ on our OSE setup as well as on
 the OSSE benchmarking setup proposed in related studies \cite{guillouMappingAltimetryForthcoming2021}. This benchmarking setup relies on NATL60-CJM165 OSSE dataset. We refer the reader to \url{https://github.com/ocean-data-challenges/2020a_SSH_mapping\_NATL60} for a detailed description of this experimental setup.
 
 
@@ -297,21 +297,21 @@ The first two columns (a) and (b) show the training data while columns (c) and (
 The kinetic energy is displayed in columns ((a) and (c)) and the relative vorticity normalized by the local Coriolis parameter in columns ((b) and (d)).
 Each row shows the experiment using respectively: ORCA025 (I), GLORYS12-f (II), GLORYS12-r (III), NATL60 (IV), eNATL60-t (V) and eNATL60-0 (VI)}
 \vspace{-5mm}
-\label{fig:maps}
+\label{c4fig:maps}
 \end{center}
 \end{figure}
 
 
 
 \section{Results}
-\label{sec:results}
+\label{c4sec:results}
 
-This section details our numerical experiments for the considered real altimetry case-study for a Gulf Stream region as described in Section \ref{ssec:eval}. We first report the benchmarking experiments to assess the performance of the proposed learning-based strategy with respect to (w.r.t.) state-of-the-art mapping schemes. We then analyse how the characteristics of the training datasets drive the mapping performance. 
+This section details our numerical experiments for the considered real altimetry case-study for a Gulf Stream region as described in Section \ref{c4ssec:eval}. We first report the benchmarking experiments to assess the performance of the proposed learning-based strategy with respect to (w.r.t.) state-of-the-art mapping schemes. We then analyse how the characteristics of the training datasets drive the mapping performance. 
 
 \subsection{Benchmarking against the state of the art}
-\label{ssec:benchmarks}
+\label{c4ssec:benchmarks}
 
-We report in Table \ref{tab:bench} the performance metrics of state-of-the-art approaches including both operational observation products \cite{taburetDUACSDT2018252019,ubelmannReconstructingOceanSurface2021}, deep-learning-based schemes trained on observation data \cite{archambaultMultimodalUnsupervisedSpatioTemporal2023,martinSynthesizingSeaSurface2023} as well as methods using explicitly a model-based prior on sea surface dynamics \cite{guillouMappingAltimetryForthcoming2021,ballarottaDynamicMappingAlongTrack2020,jean-michelCopernicusGlobal122021}. We compare those methods with a 4DVarNet trained on eNATL60-0 OSSE dataset. The latter outperforms all other methods on the two metrics considered (22\% improvement in RMSE w.r.t. the DUACS product and 33\% improvement in the resolved scale). We report a significantly worse performance for GLORYS12 reanalysis. This illustrates the challenge of combining large ocean general circulation models and observation data for the mapping of the SSH.
+We report in Table \ref{c4tab:bench} the performance metrics of state-of-the-art approaches including both operational observation products \cite{taburetDUACSDT2018252019,ubelmannReconstructingOceanSurface2021}, deep-learning-based schemes trained on observation data \cite{archambaultMultimodalUnsupervisedSpatioTemporal2023,martinSynthesizingSeaSurface2023} as well as methods using explicitly a model-based prior on sea surface dynamics \cite{guillouMappingAltimetryForthcoming2021,ballarottaDynamicMappingAlongTrack2020,jean-michelCopernicusGlobal122021}. We compare those methods with a 4DVarNet trained on eNATL60-0 OSSE dataset. The latter outperforms all other methods on the two metrics considered (22\% improvement in RMSE w.r.t. the DUACS product and 33\% improvement in the resolved scale). We report a significantly worse performance for GLORYS12 reanalysis. This illustrates the challenge of combining large ocean general circulation models and observation data for the mapping of the SSH.
 
 
 The last column indicates that the 4DVarNet scheme leads to the best mapping scores for both the OSE and OSSE setups. For the latter, the reported improvement of 47\% is twice greater than the second best at 22\%. The performance of the 4DVarNet drops by 11\% when considering the former. By contrast, other methods do not show such differences between the OSE and OSSE case-studies. This suggests that the finer-scale structures that are well reconstructed in the OSSE setup are not as beneficial in the OSE setup. While one could question the representativeness of the OSSE datasets for the fine-scale patterns in the true ocean, real nadir altimetry data may also involve multiple processes which could impede the reconstruction and evaluation of horizontal scales below 100km.  
@@ -340,8 +340,8 @@ The last column indicates that the 4DVarNet scheme leads to the best mapping sco
 ConvLstm-SST and ConvLstm from Martin et al. (2023), (e) DYMOST from Ballarotta
 et al. (2020), (f) MIOST from Ubelmann et al. (2021), (g) BFN-QG from Guillou et
 al. (2021), (h) DUACS from Taburet et al. (2019), (i) GLORYS12 from Lellouche et al.
-(2021. The columns indicate from left to right: whether athe mapping schemes rely only on SSH data or also exploit additional data such as gap free SST products; if the method uses deep learning architectures; the data used to calibrate (or train) the mapping scheme; the numerical model of the ocean used for the mapping if any (QG stands for quasi-geostrophic); $\mu$ and $\lambda_x$ are the metrics as described in Section \ref{ssec:eval}}
-\label{tab:bench}
+(2021. The columns indicate from left to right: whether athe mapping schemes rely only on SSH data or also exploit additional data such as gap free SST products; if the method uses deep learning architectures; the data used to calibrate (or train) the mapping scheme; the numerical model of the ocean used for the mapping if any (QG stands for quasi-geostrophic); $\mu$ and $\lambda_x$ are the metrics as described in Section \ref{c4ssec:eval}}
+\label{c4tab:bench}
 \end{table}
 
 
@@ -354,7 +354,7 @@ al. (2021), (h) DUACS from Taburet et al. (2019), (i) GLORYS12 from Lellouche et
 
 \caption{
 \textbf{Space-time spectral densities of the training datasets (first row) and of their associated reconstruction (second row)}. Darker blue in the lower left corner indicates higher energy at larger wavelength and periods. The different SSH fields exhibit different energy cascades when moving to  finer temporal (upward) or spatial (rightward) scales.} \vspace{-5mm}
-\label{fig:spacetime_psd}
+\label{c4fig:spacetime_psd}
 \end{figure}
 
 
@@ -378,12 +378,12 @@ ORCA025 & 7.1  & 0.89  & 0.76  & 126 & (17, 17)\\
 \bottomrule
 \end{tabular}
 
-\caption{\textbf{Performance of 4DVarNet mapping schemes trained on different simulated datasets}. The first column shows the source of the training dataset as described in Table \ref{tab:data}; the subsequent columns indicate the reconstruction metrics described in Section \ref{ssec:eval}. Note that the NATL60 could not be evaluated on the OSSE setup since the evaluation data were used for validation during the training stage.}
-\label{tab:res}
+\caption{\textbf{Performance of 4DVarNet mapping schemes trained on different simulated datasets}. The first column shows the source of the training dataset as described in Table \ref{c4tab:data}; the subsequent columns indicate the reconstruction metrics described in Section \ref{c4ssec:eval}. Note that the NATL60 could not be evaluated on the OSSE setup since the evaluation data were used for validation during the training stage.}
+\label{c4tab:res}
 \end{table}
 
 \subsection{Eddy-present datasets versus eddy-rich ones}
-\label{ssec:resolution}
+\label{c4ssec:resolution}
 
 
 \begin{figure}[H]
@@ -392,25 +392,25 @@ ORCA025 & 7.1  & 0.89  & 0.76  & 126 & (17, 17)\\
 % \caption{Row I - Isotrophic PSD. Row 2 - Isotrophic PSD Score}
 \caption{
 \textbf{Spectral analysis of the training and reconstructed SSH datasets}. We display the PSD of the training dataset (left plot), reconstructed SSH field (center plot) as well as the associated PSD score (right plot)}\vspace{-5mm}
-\label{fig:respsd}
+\label{c4fig:respsd}
 \end{figure}
 
 
-We analyse here in more detail the impact of the spatial resolution of the training dataset onto the reconstruction performance. In Table \ref{tab:res}, as expected, the higher resolution grid in the ocean run simulation leads to a better mapping with a 22\% improvement in $\lambda_x$  and a 17\% improvement in the RMSE score between the experiments with the coarsest (ORCA025) and finest (NATL60) resolutions.
-We also observe qualitative differences in the relative vorticity fields in Figure \ref{fig:maps}.  Residual artifacts due to the altimetry tracks appear (60°W, 39°N) for the two lower-resolution training datasets. They are greatly diminished when considering the NATL60 dataset. 
-Despite these differences, the reconstructed vorticity and kinetic energy fields in Figure \ref{fig:maps} look very similar for the different 4DVarNet schemes, whatever the training datasets. By contrast, the vorticity and kinetic energy fields in the training datasets clearly depict fewer fine-scale structures and weaker gradients for the lower-resolution simulation datasets, namely ORCA025 and GLORYS12-f.
+We analyse here in more detail the impact of the spatial resolution of the training dataset onto the reconstruction performance. In Table \ref{c4tab:res}, as expected, the higher resolution grid in the ocean run simulation leads to a better mapping with a 22\% improvement in $\lambda_x$  and a 17\% improvement in the RMSE score between the experiments with the coarsest (ORCA025) and finest (NATL60) resolutions.
+We also observe qualitative differences in the relative vorticity fields in Figure \ref{c4fig:maps}.  Residual artifacts due to the altimetry tracks appear (60°W, 39°N) for the two lower-resolution training datasets. They are greatly diminished when considering the NATL60 dataset. 
+Despite these differences, the reconstructed vorticity and kinetic energy fields in Figure \ref{c4fig:maps} look very similar for the different 4DVarNet schemes, whatever the training datasets. By contrast, the vorticity and kinetic energy fields in the training datasets clearly depict fewer fine-scale structures and weaker gradients for the lower-resolution simulation datasets, namely ORCA025 and GLORYS12-f.
 %However we see that the reconstructed vorticity and kinetic energy of the ORCA025 experiment are quite similar to the one from the NATL60 experiment despite the ORCA025 training data clearly containing fewer fine scale structures an weaker gradients. 
 These results support the generalization skills of 4DVarNet schemes to map real altimetry tracks despite being trained on SSH sensibly different from the reconstruction. 
 
 We draw similar conclusions from the analysis of 
-the spectral densities shown in Figure \ref{fig:respsd}. The differences in the energy distribution of the training data significantly reduce in the reconstructions. 4DVarNet schemes trained from higher-resolution datasets however result in more faithful reconstruction at all scales.
+the spectral densities shown in Figure \ref{c4fig:respsd}. The differences in the energy distribution of the training data significantly reduce in the reconstructions. 4DVarNet schemes trained from higher-resolution datasets however result in more faithful reconstruction at all scales.
 %, however the PSD score plot on the right shows that even if the energy levels are close in the reconstructions, training with finer resolution produces a more faithful reconstruction at all scales
-The patterns observed for the temporal PSD are slightly different in Figure \ref{fig:spacetime_psd}. We do not observe the same homogenization as for the spatial PSD. Lower-resolution training datasets involve a significant drop 
+The patterns observed for the temporal PSD are slightly different in Figure \ref{c4fig:spacetime_psd}. We do not observe the same homogenization as for the spatial PSD. Lower-resolution training datasets involve a significant drop 
 of an order of magnitude for periods greater than 10 days and wavelength greater than 200km.
-%Finally when looking at the space-time PSD in Figure \ref{fig:spacetime_psd}, we can note that even though the spatial spectra have been greatly homogenized, the temporal PSD still contains significant gaps of an order of magnitude for periods greater than 10 days and wavelength greater than 200km.
+%Finally when looking at the space-time PSD in Figure \ref{c4fig:spacetime_psd}, we can note that even though the spatial spectra have been greatly homogenized, the temporal PSD still contains significant gaps of an order of magnitude for periods greater than 10 days and wavelength greater than 200km.
 
 \subsection{Forced simulation datasets versus reanalysis ones}
-\label{ssec:reanalysis}
+\label{c4ssec:reanalysis}
 
 \begin{figure}[h]
 % \vspace{0.9cm}
@@ -421,17 +421,17 @@ of an order of magnitude for periods greater than 10 days and wavelength greater
 % \caption{Row I - Isotrophic PSD. Row 2 - Isotrophic PSD Score}
 \caption{\textbf{Spectral impact of model reanalysis}. We display the PSD of the training dataset (left plot), reconstructed SSH field (center plot) as well as the associated PSD score (right plot)}
 \vspace{-5mm}
-\label{fig:reapsd}
+\label{c4fig:reapsd}
 \end{center}
 \end{figure}
-Looking in more specifically at the effect of ocean reanalysis between the two experiments GLORYS12-f and GLORYS12-r. We can first note the impact of observation data assimilation in Figure \ref{fig:spacetime_psd} where we see how the power spectrum of the reanalysis is significantly raised compared to the free run. The spectrum is closer to ones of the higher resolution simulations. Visually we also clearly see stronger gradients in the kinetic energy in Figure \ref{fig:maps}.
+Looking in more specifically at the effect of ocean reanalysis between the two experiments GLORYS12-f and GLORYS12-r. We can first note the impact of observation data assimilation in Figure \ref{c4fig:spacetime_psd} where we see how the power spectrum of the reanalysis is significantly raised compared to the free run. The spectrum is closer to ones of the higher resolution simulations. Visually we also clearly see stronger gradients in the kinetic energy in Figure \ref{c4fig:maps}.
 
-We can observe a similar behavior as in Section \ref{ssec:resolution} in Figure \ref{fig:reapsd} with the gap of in spectral density being diminished between the training and reconstruction data, and the PSD score indicating a lower energy of the error at all scales for the reanalysis-based experiment.
+We can observe a similar behavior as in Section \ref{c4ssec:resolution} in Figure \ref{c4fig:reapsd} with the gap of in spectral density being diminished between the training and reconstruction data, and the PSD score indicating a lower energy of the error at all scales for the reanalysis-based experiment.
 
-Quantitatively in Table \ref{tab:data} we see an improvement of 11\% in both the RMSE and the scale resolved, besides training on a reanalysis increase the relative gain w.r.t. DUACS significantly more on real data (+9\%) than on simulated data (+5\%) as we can see in the right most column. This suggests that the reanalysis dataset conveys information on real world observations which improves the generalization performance.
+Quantitatively in Table \ref{c4tab:data} we see an improvement of 11\% in both the RMSE and the scale resolved, besides training on a reanalysis increase the relative gain w.r.t. DUACS significantly more on real data (+9\%) than on simulated data (+5\%) as we can see in the right most column. This suggests that the reanalysis dataset conveys information on real world observations which improves the generalization performance.
 
 \subsection{Tide-free datasets versus tide-resolving ones}
-\label{ssec:tide}
+\label{c4ssec:tide}
 % \begin{figure}[h]
 % \small
 % \begin{center}
@@ -455,14 +455,14 @@ Quantitatively in Table \ref{tab:data} we see an improvement of 11\% in both the
 % % \caption{Row I - Isotrophic PSD. Row 2 - Isotrophic PSD Score}
 % \caption{
 % Impact of explicit tide modelling on the PSDs. We display the PSD of the training dataset after the prepocessing (left plot), the reconstructed SSH field (center plot) as well as the associated PSD score (right plot)}\vspace{-5mm}
-% \label{fig:tidepsd}
+% \label{c4fig:tidepsd}
 % \end{center}
 % \end{figure}
 
 We assess here the impact of tide-resolving simulation used as training data. We use the twin eNATL60 runs eNATL60-t and eNATL60-0. Contrary to other runs, those simulations contain barometric and wind forcing, we therefore remove the Dynamic Atmospheric Correction \cite{carrereMajorImprovementAltimetry2016} from the SSH fields. Additionally since the barotropic tide signals are removed from real altimetry tracks prior to interpolation, we also remove the signal from the training data by subtracting the spatial mean over the training domain for each hourly snapshot before calculating the daily averages.  
 
-Given those processing steps, the two training datasets  exhibit very similar wavenumber spectra as shown in Figures \ref{fig:spacetime_psd}. 
-We also find that training on those two datasets produce little differences in the reconstructions both quantitatively  (see Table \ref{tab:res}) and qualitatively (Fig. \ref{fig:maps}). The resulting performance is comparable to that of the NATL60 experiment.
+Given those processing steps, the two training datasets  exhibit very similar wavenumber spectra as shown in Figures \ref{c4fig:spacetime_psd}. 
+We also find that training on those two datasets produce little differences in the reconstructions both quantitatively  (see Table \ref{c4tab:res}) and qualitatively (Fig. \ref{c4fig:maps}). The resulting performance is comparable to that of the NATL60 experiment.
  
 We identify two hypotheses for explaining why tide-resolving simulation do not lead to better mapping schemes:
 \begin{itemize}
@@ -474,7 +474,7 @@ These findings provide motivation for carefully considering the purpose of the l
 
 
 \section{Discussion}
-\label{sec:discussion}
+\label{c4sec:discussion}
 This study has been greatly facilitated by the standardized tasks and evaluation setups proposed in data-challenges \url{https://ocean-data-challenges.github.io/}. Data-challenges are used to specify a targeted problem of interest to domain experts through datasets and relevant evaluation metrics. This preliminary work have been instrumental in constituting the comprehensive benchmark and combining methods from different teams and institution around the world. Additionally, it also constitutes a strong basis for a trans-disciplinary collaboration between the ocean and machine learning research communities.
 
 Moreover, the results presented in this study introduce a use of ocean simulations for developing altimetry products. This opens new ways for ocean physicist, modelers and operational oceanographers to collaborate. In order to assess the range of these new synergies, it would be interesting to explore if the approach proposed here of training neural schemes using simulation data would generalize to other tasks such as forecast or sensor calibration and to other quantities like surface temperature, currents, salinity or biochemical tracers.
