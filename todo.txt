@@ -5,3 +5,4 @@
 - [] conclusion
 - [] résumé francais
 - [] liste publications
+- [] droit images
