@@ -5,14 +5,44 @@
 \addcontentsline{toc}{chapter}{Conclusion and perspectives}
 \chaptermark{Conclusion}
 
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas fermentum, elit non lobortis cursus, orci velit suscipit est, id mollis turpis mi eget orci.
+We review in this chapter the main contributions that have been described in this manuscript as well as the future perspectives introduced through them.
 
-\section*{Première section de la conclusion}
-\addcontentsline{toc}{section}{Première section de la conclusion}
+\section*{Contributions summary}
+\addcontentsline{toc}{section}{Contributions summary}
+Overall this thesis is part of a momentum in developing deep learning methods applied to observation challenges in geosciences.
+More specifically focusing on altimetry applications in the context of the recent lauch of the SWOT mission.
 
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas fermentum, elit non lobortis cursus, orci velit suscipit est, id mollis turpis mi eget orci.
+The first contribution is the successfull of deep learning to bias corrections of simulated SWOT observation data.
+Although off-the-shelf deep learning architectures fail to separate fine SSH signatures from high amplitude bias, we've shown that deep learning methodology can be adapted to the specifities of altimetry data.
+We leveraged SWOT mission's error specifications to design a custom architecture tailored to the calibration of SWOT correlated errrors.
+This study is encouraging but the method developped has been calibrated and evaluated on simulated data, which raises the concerns of applicability to real swot observations.
 
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas fermentum, elit non lobortis cursus, orci velit suscipit est, id mollis turpis mi eget orci.
+The second study shows how learning-based altimetry methods calibrated on simulated data can be applied to real data.
+This is done through the evaluation of 4dVarNet mapping schemes on OSE setups after calibration on simulated data. 
+The results show robust generalization with even coarse simulations while more realistic simulations improve the mapping performances.
+
+The two first studies opened appealing perspectives for applying learning-based methodology to observation challenges in geosciences.
+However they also highlighted the challenges in combining expertise  observation and simulation data, deep learning methods and domain-informed evaluation procedures.
+This motivated the implementation of an opinionated suite of tools Oceanbench to help bridge the distance between the deep learning and ocean science communities.
+Oceanbench provides a way for ocean scientist to flexibly design evaluation setups with data and metrics. These setups are defined along the necessary tools for deep learning practicioners to train and test their models.
+
+
+\section{Perspectives}
+There are a few ways in which the work presented here can extended in interesting ways.
+
+The element absent from this thesis is the uncertainty quantification which is critical in addressing ill-posed inverse problem. Coming back to the methodological framework introduced in the first chapters, incorporating uncertainty comes down to choosing a probabilistic representation of the estimated SSH.
+
+
+This thesis focused on SSH which is a surface field relatively well observed. Other quantities in particular with depth would add significant challenges.
+
+The evaluations were performed on a specific region, converting the results to operational products would introduce significant scaling challenges, Among which handling coasts and different dynamics.
+
+
+Finally, a recurring criticism point to the lack of physical interpretability of deep learning methods. 
+
+
+
+
 
 % \addcontentsline{toc}{section}{Bibliography}
 % \putbib[./Conclusion/End-Biblio.bib]

@@ -49,6 +49,8 @@
 % \end{IEEEkeywords}
 
 
+\section{Preface}
+This chapter
 
 \section{Introduction}
 
@@ -66,7 +68,7 @@ The recently launched SWOT mission, with its Ka-band radar interferometer (KaRIn
 \label{c3fig:gridded}
 \end{figure}
 
-As reported in Figure \ref{c3fig:gridded}, KaRIn data will be affected by instrument and geophysical errors  \cite{ubelmann_swot_nodate} and their exploitation requires to develop robust calibration schemes. We illustrate in Fig.\ref{c3fig:filtered_swath_uncal_comp} the two main error sources: instrument errors, especially roll errors, are expected to cause the dominant large-scale signal in both across-swath and along-swath directions; and geophysical errors, in particular due to wet-troposphere-induced delays\footnote{We refer the reader to Section \ref{c3subsec:altimetry} for the description of these error signals in raw KaRIn observations.}.  
+As reported in Figure \ref{c3fig:gridded}, KaRIn data will be affected by instrument and geophysical errors  \cite{ubelmann_swot_nodate} and their exploitation requires to develop robust calibration schemes. We illustrate in Fig.\ref{c3fig:filtered_swath_uncal_comp} the two main error sources: instrument errors, especially roll errors, are expected to cause the dominant large-scale signal in both across-swath and along-swath directions; and geophysical errors, in particular due to wet-troposphere-induced delays\footnote{We refer the reader to Section \ref{c3subsec:altimetry} for the description of these error signals in raw KaRIn observations.}.
 The amplitude of these errors typically range from a few centimeters to a few meters in simulation, when the variability of the SSH for scales below 150km typically amounts to centimeters (See Fig. \ref{c3fig:gridded_impact}). This makes SWOT calibration a particularly challenging task in terms of signal-to-noise ratio. State-of-the calibration schemes \cite{Dibarboure_Ubelmann_Flamant_Briol_Peral_Bracher_Vergara_Faugere_Soulat_Picot_2022} rely on explicit spectral priors to address the calibration problem. 
 The underlying hypotheses that one can linearly separate the SSH and the different error components may however impede the performance of such calibration methods. Here, we propose a novel learning-based approach. 
 We leverage the computational efficiency of deep learning schemes with a scale-space decomposition \cite{Witkin_1984} adapted to the geometry of KaRIn observations. 
