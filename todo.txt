@@ -1,8 +1,9 @@
 - [] Plumbing chapter calib
 - [] Plumbing chapter simulearning
 - [] Plumbing chapter oceanbench
-- [] Annexes
+- [-] Annexes
 - [] conclusion
 - [] résumé francais
 - [] liste publications
-- [] droit images
+- [-] droit images
+  https://neurips.cc/FAQ/Copyright

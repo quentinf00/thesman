@@ -1,0 +1,40 @@
+
+\section{Preface}
+This first chapter aims at assessing the potential of deep learning models for solving altimetry challenges.
+We consider the challenge of cross-calibrating SWOT correlated errors using calibrated NADIR observations.
+It provide a convincing usecase for assessing deep learning potential in altimetry data analysis because it encompasses considerations about both the ocean system and the observing system.
+Furthermore the exploitation of SWOT data will be conditionned by the removal of the error signals, and the novelty of sensor
+The deep learning solution developped here uses existing mapping methods to provide a first guess of the SSH estimation on the SWOT swath and a neural network inspired by computer vision architectures to improve of the first guess estimate using SWOT observation data.
+In this study, we show that using a priori knowledge about the error signals when designing the deep learning model is paramount to successfully improve on the first guess.
+In order to evaluate the proposed approach, we bypass the obstacles brought by the lack of precise knowledge of the SSH and error signals. We use data from state of the art simulations of the ocean and  SWOT errors to calibrate and evaluate the method. This constitutes an idealized setup from a calibration and evaluation perspectives that allows for a focus on the choice of a deep learning architecture suited to the altimetry task.
+However it leaves some questions unadressed about the transferability of deep learning methods developped in simulated setups to real altimetry data.
+
+
+\section{Interlude}
+The previous chapter confirmed the potential of deep learning models as alternative approaches for altimetry data analysis. In order to confirm this potential on real world scenarii, we aim at evaluating deep learning methodologies with real data.
+At the time of the study SWOT data was not yet available. However the mapping of altimetry tracks can be evaluated on real data.
+Furthermore existing evaluation setups are available to benchmark different methods in OSSE and OSE setups.
+Among the existing methods, the 4dVarNet neural mapping schemes demonstrated state of the art performances when evaluated on simulated data. Therefore it constitutes a good study case for the transferability of neural schemes from simulated to real data.
+The following chapter considers a certain strategy for applying the neural scheme to real data.
+It asks whether simulations of oceans and observing systems constitute good calibration data for neural schemes intended to be used in real world scenarii.
+To this end we explore the use of different runs of numerical model of the ocean to train 4dVarNet schemes and evaluate them on real altimetry mapping task.
+
+\section{Interlude}
+The previous chapters have demonstrated the potential for creating real world altimetry solutions.
+In doing so we found that some circumstances were beneficial to the development of learning based methods.
+Coming from the machine learning community myself, the next chapter asks more specifically what deep learning practicioners need to contribute efficiently to ocean observation science.
+It is my conviction that the adoption of deep learning approaches cannot happen without collaboration between the ocean and ML cmmunity.
+In order to ensure that the methods provide real value, evaluation data and metrics have to specified with domain knowledge by domain experts.
+The quality of an SSH estimation for example will depend on the region, the season, the physical plausibility of the field and derived quantities.
+Whether observation or simulated data is used for computing the metrics will provide different assessments which should be carefully thought of.
+The evaluation criteria should be able to evolve, deep learning methods in particular are especially prone to optimize training objective by taking shortcuts (No free lunch theorem).
+Therefore I believe a platform for this back and forth between deep learning and ocean experts to develop and assess the methods are primordial.
+
+On the other end of the method, the data used to train the deep learning models are critical considerations when thinking about the final method.
+As shown in previous chapter, both observation and simulation data can be used for calibrating and evaluating the method.
+These data are conditioned by processing steps informed by domain knowledge. Access to these data and the relevant processing steps can significantly lower the barrier to entry for interested ML practicioners.
+
+
+These considerations motivated the work presented in the next chapter. \textbb{Oceanbench} is a suite of tools to load and process ocean data. The software is organized at the top level as a series of tasks characterized by evaluation data and metrics. I was designed to provide easy access to load and format the data relevant for calirating neural schemes as well for easy configuration of new evaluation setups on novel tasks, regions and datasets.
+
+

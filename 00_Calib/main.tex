@@ -50,7 +50,11 @@
 
 
 \section{Preface}
-This chapter
+The first chapter aims to assess the potential of deep learning models in addressing altimetry challenges. Specifically, we focus on the task of cross-calibrating SWOT correlated errors using calibrated NADIR observations. This scenario serves as a compelling use case for evaluating the potential of deep learning in altimetry data analysis since it involves considerations related to both the ocean system and the observing system. Additionally, the successful utilization of SWOT data hinges on the removal of error signals, introducing a novel sensor into the equation.
+
+The deep learning solution presented here leverages existing mapping methods to provide an initial estimate of SSH (Sea Surface Height) on the SWOT swath. It also incorporates a neural network inspired by computer vision architectures to refine this initial estimate using SWOT observation data. Our study demonstrates that incorporating a priori knowledge about error signals when designing the deep learning model is crucial for improving the initial estimate.
+
+To evaluate our proposed approach, we circumvent the challenges posed by the lack of precise knowledge regarding SSH and error signals. Instead, we utilize data from state-of-the-art ocean simulations and SWOT error models to calibrate and assess the effectiveness of our method. This approach creates an idealized setup for calibration and evaluation purposes, allowing us to focus on selecting a deep learning architecture suited for the altimetry task. However, it also raises questions about the transferability of deep learning techniques developed in simulated environments to real altimetry data.
 
 \section{Introduction}
 

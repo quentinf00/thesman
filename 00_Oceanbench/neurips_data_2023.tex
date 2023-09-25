@@ -32,6 +32,17 @@
 % Benchmark, Partial Differential Equations, PINN, FNO, U-Net, Inverse problem
 % \linenumbers
 % \input{./00_Oceanbench/content/0_abstract}
+
+The previous chapters have underscored the potential of learning-based methods for developing real-world altimetry solutions. The next chapter delves into what deep learning practitioners can contribute effectively to ocean observation science.
+
+It is my strong belief that the adoption of deep learning approaches necessitates collaboration between the oceanography and machine learning communities. To ensure that these methods provide genuine value, evaluation criteria and metrics must be defined with domain expertise by ocean experts. The quality of SSH estimations, for instance, depends on factors such as geographical region, season, physical plausibility of derived quantities. The choice of using observational or simulated data for metric computation yields different assessments, and these distinctions should be carefully considered.
+
+Evaluation criteria should remain adaptable, especially for deep learning methods, which may optimize training objectives by taking shortcuts (as per the "No Free Lunch" theorem). Consequently, the next chapter introduces a platform that facilitates an ongoing dialogue between deep learning experts and oceanography specialists to develop and assess these methods effectively.
+
+On the data front, the selection of data used to train deep learning models is a critical consideration when shaping the final method. As demonstrated in previous chapters, both observational and simulation data can be instrumental in calibrating and evaluating the method. These data undergo domain-specific processing steps. Accessibility to the data and the relevant processing steps can significantly lower the entry barriers for aspiring machine learning practitioners.
+
+These considerations provide the motivation for the work presented in the next chapter. Oceanbench is a suite of tools designed to load and process ocean data. The software is organized into a series of tasks, each characterized by evaluation data and metrics. Its purpose is to simplify the loading and formatting of data relevant for training neural schemes and to streamline the configuration of new evaluation setups for diverse tasks, regions, and datasets.
+
 \input{./00_Oceanbench/content/1_motivation}
 \input{./00_Oceanbench/content/2_related_work}
 \input{./00_Oceanbench/content/3_oceanbench}
