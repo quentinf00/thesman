@@ -92,8 +92,8 @@
 % \correspondingauthor{Quentin Febvre}{quentin.febvre@imt-atlantique.fr}
 \begin{bibunit}[IEEEtran.bst]
 
-\chapter*{Training neural mapping schemes for satellite altimetry with simulation data}
-\addcontentsline{toc}{chapter}{Training neural mapping schemes for satellite altimetry with simulation data}
+\chapter{Training neural mapping schemes for satellite altimetry with simulation data}
+% \addcontentsline{toc}{chapter}{Training neural mapping schemes for satellite altimetry with simulation data}
 \chaptermark{Training neural mapping schemes for satellite altimetry with simulation data}
 
 
@@ -122,25 +122,26 @@
 % Here, we explore under which conditions AIs trained on simulated oceans are useful for the real ocean.
 % We show that today's simulated oceans work well for training an AI on this task and that training on more realistic simulated oceans improve the performance of the AI!
 
-The preceding chapter confirmed the potential of deep learning models as viable alternatives for altimetry data analysis. To further validate this potential in real-world scenarios, we aim to evaluate deep learning methodologies using actual data. At the time of this study, SWOT data was not yet available. Nevertheless, we can assess the mapping of altimetry tracks using real data. Additionally, existing evaluation setups, such as Observing System Simulation Experiments (OSSE) and Observing System Experiments (OSE), provide opportunities to benchmark various methods.
 
-Among the existing methods, the 4dVarNet neural mapping schemes have demonstrated state-of-the-art performance when evaluated on simulated data. Consequently, they serve as a compelling case study for assessing the transferability of neural schemes from simulated to real data. The following chapter explores a specific strategy for applying these neural schemes to real data and investigates whether simulations of oceans and observing systems can effectively serve as calibration data for neural schemes intended for real-world applications.
+
 \section{Introduction}
 
 
-
-  Satellite altimeters have brought a great leap forward in the observation of sea surface height on a global scale since the 80's. 
-
-  
   Altimetry data have greatly contributed to the monitoring and understanding of key processes such as the sea-level rise and the role of mesoscale dynamics.
     The scarce and irregular sampling of the measurements presents a challenge for training deep neural networks.
   The retrieval of mesoscale-to-submesoscale sea surface dynamics for horizontal scales smaller than 150 km however remains a challenge for operational systems based on optimal interpolation \cite{taburetDUACSDT2018252019} and data assimilation \cite{jean-michelCopernicusGlobal122021} schemes. This has motivated a wealth of research to develop novel mapping schemes \cite{ballarottaDynamicMappingAlongTrack2020,ubelmannReconstructingOceanSurface2021,guillouMappingAltimetryForthcoming2021}.
 
   In this context, data-driven and learning-based approaches \cite{alveraazcarateReconstructionIncompleteOceanographic2005,barthDINCAEMultivariateConvolutional2022,lguensatAnalogDataAssimilation2017,fabletENDTOENDPHYSICSINFORMEDREPRESENTATION2021,martinSynthesizingSeaSurface2023} appear as appealing alternatives to make the most of the available observation and simulation datasets. Especially, Observing System Simulation Experiments (OSSE) have stressed the potential of neural schemes trained through supervised learning for the mapping of satellite-derived altimetry data \cite{fabletENDTOENDPHYSICSINFORMEDREPRESENTATION2021,beauchamp4DVarNetSSHEndtoendLearning2023}. 
   Their applicability to real datasets has yet to be assessed and recent studies have rather explored learning strategies from real gappy multi-year altimetry datasets \cite{martinSynthesizingSeaSurface2023}. Despite promising results, schemes trained with unsupervised strategies do not reach the relative improvement of the operational processing suggested by OSSE-based studies.
-  
-Here, we go beyond using OSSEs as benchmarking-only testbeds. We explore their use for the training of neural mapping schemes and address the space-time interpolation of real satellite altimetry observations. Through numerical experiments on a Gulf Stream case-study with a 5-nadir altimeter constellation, our main contributions are three-fold. We demonstrate the relevance of the simulation-based learning of neural mapping schemes and their generalization performance for real nadir altimetry data. We benchmark the proposed approach with state-of-the-art operational products as well as neural schemes trained from real altimetry datasets. We also assess how the characteristics of the training datasets, especially in terms of resolved ocean processes, drives the mapping performance.
-To ensure the reproducibility of our results, our code is made available through an open source license along with the considered datasets and the trained models \cite{febvreCodeDataRelease2023a}.
+
+  Among the existing methods, the 4dVarNet neural mapping scheme has demonstrated state-of-the-art performance when evaluated on simulated data. Consequently, it serves as a compelling case study for assessing the transferability of neural schemes from simulated to real data. This chapter explores a specific strategy for applying these neural schemes to real data.
+Namely, we go beyond using OSSEs as benchmarking-only testbeds. We explore their use for the training of neural mapping schemes and address the space-time interpolation of real satellite altimetry observations. Through numerical experiments on a Gulf Stream case-study with a 5-nadir altimeter constellation, our main contributions are three-fold.
+\begin{itemize}
+\item{We demonstrate the relevance of the simulation-based learning of neural mapping schemes and their generalization performance for real nadir altimetry data.}
+\item{We benchmark the proposed approach with state-of-the-art operational products as well as neural schemes trained from real altimetry datasets.}
+\item{We also assess how the characteristics of the training datasets, especially in terms of resolved ocean processes, drives the mapping performance.}
+\end{itemize}  
+
 
 %benchmark neural schemes trained with the proposed OSSE-based strategy using different simulation datasets and we assess the impact of the characteristics of these datasets on the mapping performance.
 %    Demonstrate numerically that today's numerical simulations of the ocean are a valuable resource for training machine learning models to be applied on real data, with added benefit of more realistic synthetic data}
@@ -154,7 +155,7 @@ The content of this paper is organized as follows. Section \ref{c4sec:background
 
 \section{Background}
 \label{c4sec:background}
-\subsection{Gridded satellite altimetry products}
+\subsection*{Gridded satellite altimetry products}
 \label{c4ssec:interpolation}
 The ability to produce gridded maps from scattered along-track nadir altimeter measurements of sea surface height is key to the exploitation of altimeter data in operational services and science studies \cite{abdallaAltimetryFutureBuilding2021}.
 As detailed below, we can distinguish three categories of approaches to produce such maps: reanalysis products \cite{jean-michelCopernicusGlobal122021} using data assimilation schemes, observation-based products \cite{taburetDUACSDT2018252019} and learning-based approaches \cite{fabletENDTOENDPHYSICSINFORMEDREPRESENTATION2021}.
@@ -170,7 +171,7 @@ Especially deep learning schemes have gained some attention. Recent studies have
 
 
 
-\subsection{Ocean Modeling and OSSE}
+\subsection*{Ocean Modeling and OSSE}
 \label{c4ssec:oceanmodeling}
 Advances in modeling and simulating ocean physics have largely contributed to a better understanding of the processes involved in the earth system and to the development of operational oceanography \cite{bernardImpactPartialSteps2006,ajayiSpatialTemporalVariability2020}. 
 High-resolution simulations used in Observing System Simulation Experiments (OSSE) also provide a great test-bed for the design and evaluation of new of ocean observation systems \cite{benkiranAssessingImpactAssimilation2021}.
@@ -188,7 +189,7 @@ Proposed solutions includes the exploitation of large existing datasets (such as
 
 
 
-\subsection{Physics-aware deep-learning}
+\subsection*{Physics-aware deep-learning}
 \label{c4ssec:deeplearning}
 In the last decades, DL advances combined with the rise in computational resources and amount of data have shown the power of extracting knowledge from data in domains ranging from computer vision to language processing \cite{lecunDeepLearning2015}. 
 Yet, despite to the universality of DL architectures \cite{hornikMultilayerFeedforwardNetworks1989}, a central challenge persists in learning from data: the generalization performance beyond the distribution of the training data. To tackle this problem, the literature includes a variety of strategies such as data augmentation \cite{shortenSurveyImageData2019} and regularization techniques, including dropout layers \cite{srivastavaDropoutSimpleWay2014} and weight decay schemes \cite{krizhevskyImageNetClassificationDeep2012}. This is of critical importance for physical systems, where models trained on past data will be challenged when the system evolves and reaches dynamics absent from the training data. We can see evidence of this shortcoming in the instability challenges faced by neural closures for climate models \cite{brenowitzInterpretingStabilizingMachineLearning2020}. 
@@ -203,7 +204,7 @@ The proposed simulation-based training strategy offers another way to benefit fr
 \label{c4sec:method}
 
 
-\subsection{Overview}
+\subsection*{Overview}
 \label{c4ssec:overview}
 
 We designate our approach as "simulation-based", it consists in leveraging ocean models and simulations of observing systems to design supervised training environments.
@@ -217,7 +218,7 @@ In this section, we describe the proposed method for assessing the potential of 
 \end{figure}
 
 
-\subsection{Neural mapping scheme}
+\subsection*{Neural mapping scheme}
 \label{c4ssec:4DVarNet}
 
 The neural mapping scheme considered for this study is the 4DVarNet framework\cite{fabletENDTOENDPHYSICSINFORMEDREPRESENTATION2021}. 
@@ -229,10 +230,10 @@ It exploits a prior on the space-time dynamics through a convolutional neural ne
 
 
 
-\subsection{SSH Data}
+\subsection*{SSH Data}
 \label{c4ssec:data}
 
-\begin{table}[h]
+\begin{table}[ht]
 
 \begin{tabular}{ll||cccc}
 \toprule
@@ -260,22 +261,23 @@ Regarding the impact of reanalysis data, we compare numerical experiments with t
 Besides, the recent eNATL60 twin simulations eNATL60-t and eNATL60-0 allow us to evaluate the impact of tide-resolving simulations.
 We summarize in Table \ref{c4tab:data} the characteristics of the different datasets. 
 
-\subsection{OSSE-based training setup}
+\subsection*{OSSE-based training setup}
 \label{c4ssec:training}
 We sketch the proposed OSSE-based training setup on the left side of the Figure \ref{c4fig:method}.
 In order to fairly evaluate the datasets' quality as a training resource, we standardize the training procedure.
 We regrid all simulations to the same resolution (1/20°) and we use daily-averaged SSH fields as training targets. We generate noise-free pseudo-observations by sampling values of the daily-averaged fields corresponding to realistic orbits of a 5 altimeter-constellation. We train all models from a one-year dataset in a Gulfstream domain from (66°W, 32°N) to (54°W, 44°N) in which we keep the same two months for validation. The hyper-parameters of the model and training procedure such as the number of epoch, learning rate scheduler are the same for all the experiments. The detailed configuration can be found by the reader in the available implementation. As training objective, we combine the mean square errors for the SSH fields and the amplitude of the gradients as well as a regularization loss for the prior model.
 
-\subsection{OSE-based evaluation setup}
+\subsection*{OSE-based evaluation setup}
 \label{c4ssec:eval}
 As sketched on the right side of the Figure \ref{c4fig:method},
 the evaluation setup relies on real altimetry data from the constellation of 6 satellites from 2017 (SARAL/Altika, Jason 2, Jason 3, Sentinel 3A, Haiyang-2A and Cryosat-2 ).
 We apply the standardized setup presented in a data-challenge \url{https://github.com/ocean-data-challenges/2021a_SSH_mapping_OSE}.
 We use the data from the first five satellites as inputs for the mapping and the last one (Cryosat-2) for computing the performance metrics. We compute these metrics in the along-track geometry. % on which the gridded product is interpolated on the altimetry tracks. 
 The evaluation domain spans from (65°W, 33°N) to (55°W, 43°N)  and the evaluation period from January 1$^{st}$ to December 31$^{st}$ 2017.  Given $\eta_{c2}$ and $\hat{\eta}$ the measured SSH and the reconstructed SSH respectively, we compute the following two metrics:
+
 \begin{itemize}
-    \item $\mu_{ssh}$ is a score based on the normalized root mean squared (nRMSE) error  computed as $1 - \displaystyle\frac{RMS(\hat{\eta} - \eta_{c2})}{RMS(\eta_{c2})}$
-    \item $\lambda_x$ is the wavelength at which the power spectrum density (PSD) score  $1 - \displaystyle \frac{PSD(\hat{\eta} - \eta_{c2})}{PSD(\eta_{c2})}$ crosses the $0.5$ threshold, which characterize the scales resolved by the reconstruction (the error below that wavelength makes up for more than half of the total signal)
+    \item{$\mu_{ssh}$ is a score based on the normalized root mean squared (nRMSE) error  computed as $1 - \displaystyle\frac{RMS(\hat{\eta} - \eta_{c2})}{RMS(\eta_{c2})}$}
+    \item{$\lambda_x$ is the wavelength at which the power spectrum density (PSD) score  $1 - \displaystyle \frac{PSD(\hat{\eta} - \eta_{c2})}{PSD(\eta_{c2})}$ crosses the $0.5$ threshold, which characterize the scales resolved by the reconstruction (the error below that wavelength makes up for more than half of the total signal)}
 \end{itemize}
 
 In Table \ref{c4tab:res}, we also consider the root mean square error (RMSE) as well as the nRMSE score of the sea level anomaly $\mu_{sla}$ obtained by subtracting the mean dynamic topography to the SSH. Lastly, we assess the performance degradation resulting from the transition from simulated to real data by quantifying the improvement relative to DUACS in the resolved scale $\lambda_x$ on our OSE setup as well as on
@@ -284,25 +286,6 @@ the OSSE benchmarking setup proposed in related studies \cite{guillouMappingAlti
 
 
 
-\begin{figure}[H]
-\small
-
-\begin{center}
-
-\includegraphics[width=\linewidth]{./00_Simulearning/standalone_figures/maps.pdf}
-
-% \caption{Row I - Isotrophic PSD. Row 2 - Isotrophic PSD Score}
-\caption{\textbf{Samples 
-Kinetic energy and relative vorticity of the training and reconstruction data of January 6$^th$ }.
-The reconstructed year is 2017 while the training year vary depending on the simulation.
-The first two columns (a) and (b) show the training data while columns (c) and (d) show the associated 4DVarNet reconstruction.
-The kinetic energy is displayed in columns ((a) and (c)) and the relative vorticity normalized by the local Coriolis parameter in columns ((b) and (d)).
-Each row shows the experiment using respectively: ORCA025 (I), GLORYS12-f (II), GLORYS12-r (III), NATL60 (IV), eNATL60-t (V) and eNATL60-0 (VI)}
-\vspace{-5mm}
-\label{c4fig:maps}
-\end{center}
-\end{figure}
-
 
 
 \section{Results}
@@ -310,7 +293,11 @@ Each row shows the experiment using respectively: ORCA025 (I), GLORYS12-f (II), 
 
 This section details our numerical experiments for the considered real altimetry case-study for a Gulf Stream region as described in Section \ref{c4ssec:eval}. We first report the benchmarking experiments to assess the performance of the proposed learning-based strategy with respect to (w.r.t.) state-of-the-art mapping schemes. We then analyse how the characteristics of the training datasets drive the mapping performance. 
 
-\subsection{Benchmarking against the state of the art}
+
+
+
+
+\subsection*{Benchmarking against the state of the art}
 \label{c4ssec:benchmarks}
 
 We report in Table \ref{c4tab:bench} the performance metrics of state-of-the-art approaches including both operational observation products \cite{taburetDUACSDT2018252019,ubelmannReconstructingOceanSurface2021}, deep-learning-based schemes trained on observation data \cite{archambaultMultimodalUnsupervisedSpatioTemporal2023,martinSynthesizingSeaSurface2023} as well as methods using explicitly a model-based prior on sea surface dynamics \cite{guillouMappingAltimetryForthcoming2021,ballarottaDynamicMappingAlongTrack2020,jean-michelCopernicusGlobal122021}. We compare those methods with a 4DVarNet trained on eNATL60-0 OSSE dataset. The latter outperforms all other methods on the two metrics considered (22\% improvement in RMSE w.r.t. the DUACS product and 33\% improvement in the resolved scale). We report a significantly worse performance for GLORYS12 reanalysis. This illustrates the challenge of combining large ocean general circulation models and observation data for the mapping of the SSH.
@@ -320,7 +307,7 @@ The last column indicates that the 4DVarNet scheme leads to the best mapping sco
 
 
 
-\begin{table}[h]
+\begin{table}[ht]
 %\centering
 \hspace{-10mm}\begin{tabular}{l||llll|rrrc}
 \toprule
@@ -346,6 +333,22 @@ al. (2021), (h) DUACS from Taburet et al. (2019), (i) GLORYS12 from Lellouche et
 \label{c4tab:bench}
 \end{table}
 
+\begin{figure}[H]
+
+\begin{center}
+
+\includegraphics[width=\linewidth]{./00_Simulearning/standalone_figures/maps.pdf}
+
+% \caption{Row I - Isotrophic PSD. Row 2 - Isotrophic PSD Score}
+\caption{\textbf{ 
+Kinetic energy and relative vorticity on January 6$^{th}$ of training and reconstruction data}.
+The first two columns (a) and (b) show the training data while columns (c) and (d) show the associated 4DVarNet reconstruction of the 2017 year.
+Columns ((a) and (c)) display the geostrophic kinetic energy while ((b) and (d)) display the relative vorticity normalized by the Coriolis parameter.
+Each row corresponds to the dataset: ORCA025 (I), GLORYS12-f (II), GLORYS12-r (III), NATL60 (IV), eNATL60-t (V) and eNATL60-0 (VI)}
+\vspace{-5mm}
+\label{c4fig:maps}
+\end{center}
+\end{figure}
 
 
 \begin{figure}[H]
@@ -384,7 +387,7 @@ ORCA025 & 7.1  & 0.89  & 0.76  & 126 & (17, 17)\\
 \label{c4tab:res}
 \end{table}
 
-\subsection{Eddy-present datasets versus eddy-rich ones}
+\subsection*{Eddy-present datasets versus eddy-rich ones}
 \label{c4ssec:resolution}
 
 
@@ -411,10 +414,10 @@ The patterns observed for the temporal PSD are slightly different in Figure \ref
 of an order of magnitude for periods greater than 10 days and wavelength greater than 200km.
 %Finally when looking at the space-time PSD in Figure \ref{c4fig:spacetime_psd}, we can note that even though the spatial spectra have been greatly homogenized, the temporal PSD still contains significant gaps of an order of magnitude for periods greater than 10 days and wavelength greater than 200km.
 
-\subsection{Forced simulation datasets versus reanalysis ones}
+\subsection*{Forced simulation datasets versus reanalysis ones}
 \label{c4ssec:reanalysis}
 
-\begin{figure}[h]
+\begin{figure}[ht]
 % \vspace{0.9cm}
 \small
 \begin{center}
@@ -432,7 +435,7 @@ We can observe a similar behavior as in Section \ref{c4ssec:resolution} in Figur
 
 Quantitatively in Table \ref{c4tab:data} we see an improvement of 11\% in both the RMSE and the scale resolved, besides training on a reanalysis increase the relative gain w.r.t. DUACS significantly more on real data (+9\%) than on simulated data (+5\%) as we can see in the right most column. This suggests that the reanalysis dataset conveys information on real world observations which improves the generalization performance.
 
-\subsection{Tide-free datasets versus tide-resolving ones}
+\subsection*{Tide-free datasets versus tide-resolving ones}
 \label{c4ssec:tide}
 % \begin{figure}[h]
 % \small
@@ -477,20 +480,22 @@ These findings provide motivation for carefully considering the purpose of the l
 
 \section{Discussion}
 \label{c4sec:discussion}
+
+
+
+We have shown in this chapter that training machine learning models on simulations datasets leads good performance on real altimetry data mapping and outperforms current state of the art approaches. The model trained on NATL60 reduces the RMSE by 18\% compared neural schemes trained on observation data and improves the scales resolved by 33\% compared to the DUACS operational product. Even the coarsest simulation considered ORCA025 provides competitive results with current operational methods. We have shown that using a more realistic SSH fields using reanalysis or higher resolution simulations increases the performances of the trained model. This is an exciting result that shows the potential for training operational products from ocean simulations and how advances in ocean modeling in operational oceanography can be beneficial. The results shown here are limited to the interpolation problem on a regional domain but the robustness of the performance shown are encouraging for further developing these results using a larger domain.
+
 This study has been greatly facilitated by the standardized tasks and evaluation setups proposed in data-challenges \url{https://ocean-data-challenges.github.io/}. Data-challenges are used to specify a targeted problem of interest to domain experts through datasets and relevant evaluation metrics. This preliminary work have been instrumental in constituting the comprehensive benchmark and combining methods from different teams and institution around the world. Additionally, it also constitutes a strong basis for a trans-disciplinary collaboration between the ocean and machine learning research communities.
 
-Moreover, the results presented in this study introduce a use of ocean simulations for developing altimetry products. This opens new ways for ocean physicist, modelers and operational oceanographers to collaborate. In order to assess the range of these new synergies, it would be interesting to explore if the approach proposed here of training neural schemes using simulation data would generalize to other tasks such as forecast or sensor calibration and to other quantities like surface temperature, currents, salinity or biochemical tracers.
+The results presented in this study introduce a use of ocean simulations for developing altimetry products. This opens new ways for ocean physicist, modelers and operational oceanographers to collaborate. In order to assess the range of these new synergies, it would be interesting to explore if the approach proposed here of training neural schemes using simulation data would generalize to other tasks such as forecast or sensor calibration and to other quantities like surface temperature, currents, salinity or biochemical tracers.
 
-If the simulation-based training approach introduced here is successfully extended to other ocean problems, one could envision training large foundation deep learning models \cite{brownLanguageModelsAre} capturing the inner structure of high resolution ocean simulations which could then be used in many downstream applications. This could be the way to capitalize on all the advancement in ocean modeling without having to run OGCM numerical simulation for each downstream products.    
+The next chapter paves the way to facilitate the exploration of new application of learning based methods to ocean science questions.
 
-Furthermore, we would like to highlight the cost consideration when running numerical simulation intended for training learning based schemes. Indeed given that the eNATL60 run took 2700x CPU hours and 350x memory compared to the ORCA025 run for a smaller domain, a trade-off arises between generating multiple "cheap" trajectories versus generating a single more realistic trajectory. 
+% If the simulation-based training approach introduced here is successfully extended to other ocean problems, one could envision training large foundation deep learning models \cite{brownLanguageModelsAre} capturing the inner structure of high resolution ocean simulations which could then be used in many downstream applications. This could be the way to capitalize on all the advancement in ocean modeling without having to run OGCM numerical simulation for each downstream products.    
 
-To conclude, we have shown in this study that training machine learning models on simulations datasets leads good performance on real altimetry data mapping and outperforms current state of the art approaches. The model trained on NATL60 reduces the RMSE by 18\% compared neural schemes trained on observation data and improves the scales resolved by 33\% compared to the DUACS operational product. Even the coarsest simulation considered ORCA025 provides competitive results with current operational methods. We have shown that using a more realistic SSH fields using reanalysis or higher resolution simulations increases the performances of the trained model. This is an exciting result that shows the potential for training operational products from ocean simulations and how advances in ocean modeling in operational oceanography can be beneficial. The results shown here are limited to the interpolation problem on a regional domain but the robustness of the performance shown are encouraging for further developing these results using a larger domain.
+% Furthermore, we would like to highlight the cost consideration when running numerical simulation intended for training learning based schemes. Indeed given that the eNATL60 run took 2700x CPU hours and 350x memory compared to the ORCA025 run for a smaller domain, a trade-off arises between generating multiple "cheap" trajectories versus generating a single more realistic trajectory. 
 
 
-
-\section*{Open Research Section}
-The authors provide the training data, source code, reconstructed maps and trained model for each experiments of the manuscript at https://doi.org/10.5281/zenodo.8064114.
 
 
 

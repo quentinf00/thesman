@@ -4,41 +4,66 @@
 \label{chap:conclusions}
 \addcontentsline{toc}{chapter}{Conclusion and perspectives}
 \chaptermark{Conclusion}
+We review in this chapter the primary contributions outlined in this manuscript and the future avenues of research they open.
 
-We review in this chapter the main contributions that have been described in this manuscript as well as the future perspectives introduced through them.
+\section*{Contributions Summary}
+\addcontentsline{toc}{section}{Contributions Summary}
+This thesis is part of a broader movement towards developing deep learning methods to address observation challenges in ocean science. It emphasizes altimetry applications, especially in the context of the recent launch of the SWOT mission.
 
-\section*{Contributions summary}
-\addcontentsline{toc}{section}{Contributions summary}
-Overall this thesis is part of a momentum in developing deep learning methods applied to observation challenges in geosciences.
-More specifically focusing on altimetry applications in the context of the recent lauch of the SWOT mission.
+The first contribution highlights the successful application of deep learning for bias correction of simulated SWOT observation data. While standard deep learning architectures struggled to differentiate fine SSH signatures from high amplitude bias, we demonstrated that deep learning methods could be tailored to suit the unique characteristics of altimetry data. We employed SWOT mission's error specifications to craft a custom architecture focused on calibrating SWOT's correlated errors. This study is promising, yet the method developed was calibrated and assessed using simulated data, bringing up questions about its applicability to actual SWOT observations.
 
-The first contribution is the successfull of deep learning to bias corrections of simulated SWOT observation data.
-Although off-the-shelf deep learning architectures fail to separate fine SSH signatures from high amplitude bias, we've shown that deep learning methodology can be adapted to the specifities of altimetry data.
-We leveraged SWOT mission's error specifications to design a custom architecture tailored to the calibration of SWOT correlated errrors.
-This study is encouraging but the method developped has been calibrated and evaluated on simulated data, which raises the concerns of applicability to real swot observations.
+The second study delves into how learning-based altimetry methods, once calibrated on simulated data, can be applied to real data. We evaluated the 4dVarNet mapping schemes on real altimetry after calibration on simulated data. The findings indicate strong generalization capabilities even with coarse simulations, while more accurate simulations enhance the mapping performance.
 
-The second study shows how learning-based altimetry methods calibrated on simulated data can be applied to real data.
-This is done through the evaluation of 4dVarNet mapping schemes on OSE setups after calibration on simulated data. 
-The results show robust generalization with even coarse simulations while more realistic simulations improve the mapping performances.
+The initial two studies shed light on the potential of applying learning-based approaches to ocean science's observational challenges. Yet, they also spotlight the complexities in melding expertise in observation, simulation data, deep learning techniques, and domain-specific evaluation methodologies. This spurred the creation of the specialized toolset, Oceanbench, aiming to narrow the gap between deep learning and ocean science experts. Oceanbench enables ocean scientists to flexibly design evaluation setups using data and metrics. These setups come with the essential tools for deep learning practitioners to access and prepare the data in view of training their models.
 
-The two first studies opened appealing perspectives for applying learning-based methodology to observation challenges in geosciences.
-However they also highlighted the challenges in combining expertise  observation and simulation data, deep learning methods and domain-informed evaluation procedures.
-This motivated the implementation of an opinionated suite of tools Oceanbench to help bridge the distance between the deep learning and ocean science communities.
-Oceanbench provides a way for ocean scientist to flexibly design evaluation setups with data and metrics. These setups are defined along the necessary tools for deep learning practicioners to train and test their models.
+\section*{Future Perspectives}
+\addcontentsline{toc}{section}{Future Perspectives}
 
+Several avenues can be explored to further extend the work presented in this thesis.
 
-\section{Perspectives}
-There are a few ways in which the work presented here can extended in interesting ways.
+While deep learning methods offer promising results, it's understandable that some ocean scientists may remain cautious, even if these methods demonstrate superior performance to current operational approaches. Their concerns regarding the interpretability of deep learning models and their relative robustness compared to physically descriptive systems are valid points of discussion.
+To address these concerns, I propose two potential paths forward. First, emphasizing the importance of quantifying the uncertainty associated with model estimations. Such uncertainty quantification (UQ) is crucial when addressing ill-posed inverse problems and can play a significant role in bolstering confidence in the results. Second, exploring the realm of physics-informed deep learning, which marries our physical understanding of the ocean with the adaptive nature of deep learning models. There are existing studies that have dabbled in approaches involving dynamical systems, which, while simpler than the ocean, can provide valuable insights.
 
-The element absent from this thesis is the uncertainty quantification which is critical in addressing ill-posed inverse problem. Coming back to the methodological framework introduced in the first chapters, incorporating uncertainty comes down to choosing a probabilistic representation of the estimated SSH.
+This thesis predominantly centers on SSH, a surface field that is relatively well-observed in the realm of ocean quantities. Exploring other quantities, observed through different instrument, with different sampling or even not observed directly at all would introduce many more challenges requiring domain-informed problem specifications that deep learning could adress.
+
+Furthermore, the research presented herein pertains to a particular region. Transitioning these findings to functional products would entail considerable scaling challenges. These encompass both scientific aspects, such as dealing with coastlines and varying ocean regimes, and engineering concerns like handling expansive datasets for the training and assessment of the models.
 
 
-This thesis focused on SSH which is a surface field relatively well observed. Other quantities in particular with depth would add significant challenges.
 
-The evaluations were performed on a specific region, converting the results to operational products would introduce significant scaling challenges, Among which handling coasts and different dynamics.
+% We review in this chapter the main contributions that have been described in this manuscript as well as the future perspectives introduced through them.
+
+% \section*{Contributions summary}
+% \addcontentsline{toc}{section}{Contributions summary}
+% Overall this thesis is part of a momentum in developing deep learning methods applied to observation challenges in geosciences.
+% More specifically focusing on altimetry applications in the context of the recent lauch of the SWOT mission.
+
+% The first contribution is the successfull of deep learning to bias corrections of simulated SWOT observation data.
+% Although off-the-shelf deep learning architectures fail to separate fine SSH signatures from high amplitude bias, we've shown that deep learning methodology can be adapted to the specifities of altimetry data.
+% We leveraged SWOT mission's error specifications to design a custom architecture tailored to the calibration of SWOT correlated errrors.
+% This study is encouraging but the method developped has been calibrated and evaluated on simulated data, which raises the concerns of applicability to real swot observations.
+
+% The second study shows how learning-based altimetry methods calibrated on simulated data can be applied to real data.
+% This is done through the evaluation of 4dVarNet mapping schemes on OSE setups after calibration on simulated data. 
+% The results show robust generalization with even coarse simulations while more realistic simulations improve the mapping performances.
+
+% The two first studies opened appealing perspectives for applying learning-based methodology to observation challenges in geosciences.
+% However they also highlighted the challenges in combining expertise  observation and simulation data, deep learning methods and domain-informed evaluation procedures.
+% This motivated the implementation of an opinionated suite of tools Oceanbench to help bridge the distance between the deep learning and ocean science communities.
+% Oceanbench provides a way for ocean scientist to flexibly design evaluation setups with data and metrics. These setups are defined along the necessary tools for deep learning practicioners to train and test their models.
 
 
-Finally, a recurring criticism point to the lack of physical interpretability of deep learning methods. 
+% \section{Perspectives}
+% There are a few ways in which the work presented here can extended in interesting ways.
+
+% The element absent from this thesis is the uncertainty quantification which is critical in addressing ill-posed inverse problem. Coming back to the methodological framework introduced in the first chapters, incorporating uncertainty comes down to choosing a probabilistic representation of the estimated SSH.
+
+
+% This thesis focused on SSH which is a surface field relatively well observed. Other quantities in particular with depth would add significant challenges.
+
+% The evaluations were performed on a specific region, converting the results to operational products would introduce significant scaling challenges, Among which handling coasts and different dynamics.
+
+
+% Finally, a recurring criticism point to the lack of physical interpretability of deep learning methods. 
 
 
 

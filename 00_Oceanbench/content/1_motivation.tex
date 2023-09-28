@@ -1,21 +1,37 @@
-\section{Motivation}
+\section{Introduction}
 
 The ocean is vital to the Earth's system~\cite{OCEANWARMING}. 
 It plays a significant role in climate regulation regarding carbon~\cite{OCEANCARBONCYCLE} and heat uptake~\cite{OCEANHEATUPTAKE}. It is also a primary driver of human activities (e.g., maritime traffic and world trade, marine resources and services)~\cite{SSHOPERATIONAL, ML4OCN}. 
 However, monitoring the ocean is a critical challenge: the ocean state can only partially be determined because most of the ocean consists of subsurface quantities that we cannot directly observe. 
 Thus, to quantify even a fraction of the physical or biochemical ocean state, we must often rely only on surface quantities that we can monitor from space, drifting buoys, or autonomous devices.
-Satellite remote sensing, in particular, is one of the most effective ways of measuring essential sea surface quantities~\cite{Altimetry} such as sea surface height (SSH)~\cite{DUACS}, sea surface temperature (SST)~\cite{OCEANSATELLITESST}, and ocean color (OC)~\cite{OCEANSATELLITEOC}. 
+Satellite remote sensing, in particular, is one of the most effective ways of measuring essential sea surface quantities~\cite{Altimetry} such as sea surface height (SSH)~\cite{DUACS}, sea surface temperature (SST)~\cite{OCEANSATELLITESST}, and ocean color ~\cite{OCEANSATELLITEOC}. 
 While these variables characterize only a tiny portion of the ocean ecosystem, they present a gateway to many other derived physical quantities~\cite{ML4OCN}.
 
 
 % satellite-derived SSH data allow us to monitor the sea level rise as well as critical physical and biogeochemical ocean processes,
-Although we can access observable sea surface quantities, they are generally irregularly and extremely sparsely sampled. 
-For instance, satellite-derived SSH data has less than 5\% coverage of the globe daily~\cite{DUACS}. 
-These sampling gaps make the characterization of ocean processes highly challenging for operational products and downstream tasks that depend on relevant gap-free variables. This has motivated a rich literature in geoscience over the last decades, mainly using geostatistical kriging methods \cite{DUACS, MIOST} and model-driven data assimilation schemes~\cite{BFNQG, GLORYS12}. Despite significant progress, these schemes often need to improve their ability to leverage available observation datasets' potential fully. 
-This has naturally advocated for exploring data-driven approaches like shallow ML schemes~\cite{DINEOF, DINEOF2, ANALOGDA2, ANALOGDA}. Very recently, deep learning schemes \cite{SSHInterpAttention, SSHInterpConvLSTM, SSHInterpUNet} have become appealing solutions to benefit from existing large-scale observation and simulation datasets and reach significant breakthroughs in the monitoring of upper ocean dynamics from scarcely and irregularly sampled observations. However, the heterogeneity and characteristics of the observation data present major challenges for effectively applying these methods beyond idealized case studies. 
-A data source could have different variables, geometries, and noise levels, resulting in many domain-specific preprocessing procedures that can vastly change the solution outcome.
-Furthermore, the evaluation procedure of the methods and their effectiveness can be regionally-dependent as the physical phenomena vary in space and time, which adds another layer of complexity in convincing domain scientists of their trustworthiness.
-So the entire ML pipeline now requires a unified framework for dealing with heterogeneous data sources, different pre- and post-processing methodologies, and regionally-dependent evaluation procedures.
+Although we can access observable sea surface quantities, they can be irregularly and extremely sparsely sampled like the altimetry data considered in previous in this thesis~\cite{DUACS}. 
+These sampling gaps make the characterization of ocean processes highly challenging for operational products and downstream tasks that depend on relevant gap-free variables. This has motivated a rich literature in geoscience over the last decades, mainly using geostatistical methods \cite{DUACS, MIOST} and model-driven data assimilation schemes~\cite{BFNQG, GLORYS12}. Despite significant progress, these schemes often need to improve their ability to leverage available observation datasets' potential fully. 
+This has naturally advocated for exploring data-driven approaches like shallow ML schemes~\cite{DINEOF, DINEOF2, ANALOGDA2, ANALOGDA}. Very recently, as presented in previous chapters, deep learning schemes \cite{SSHInterpAttention, SSHInterpConvLSTM, SSHInterpUNet} have become appealing solutions to benefit from existing large-scale observation and simulation datasets and reach significant breakthroughs in the monitoring of upper ocean dynamics from scarcely and irregularly sampled observations. 
+To ensure that these methods provide genuine value, evaluation criteria and metrics must be defined with domain expertise by ocean experts. The quality of SSH estimations, for instance, depends on factors such as geographical region, season, physical plausibility of derived quantities. The choice of using observational or simulated data for metric computation also yields different assessments
+
+
+Furthermore, the heterogeneity and characteristics of the observation data present major challenges for effectively applying these methods beyond idealized case studies. 
+A data source can have different variables, geometries, and noise levels, resulting in many domain-specific preprocessing procedures that can vastly change the solution outcome. Accessibility to the data and the relevant processing steps can significantly lower the entry barriers for aspiring machine learning practitioners.
+
+ % Oceanbench is a suite of tools designed to load and process ocean data. The software is organized into a series of tasks, each characterized by evaluation data and metrics. Its purpose is to simplify the loading and formatting of data relevant for training neural schemes and to streamline the configuration of new evaluation setups for diverse tasks, regions, and datasets.
+
+% So the entire ML pipeline requires a unified framework for dealing with heterogeneous data sources, different pre- and post-processing methodologies, and regionally-dependent evaluation procedures.
+
+% The previous chapters have underscored the potential of learning-based methods for developing real-world altimetry solutions. The next chapter delves into what deep learning practitioners can contribute effectively to ocean observation science.
+
+% It is my strong belief that the adoption of deep learning approaches necessitates collaboration between the oceanography and machine learning communities. .
+
+% Evaluation criteria should remain adaptable, especially for deep learning methods, which may optimize training objectives by taking shortcuts (as per the "No Free Lunch" theorem). Consequently, the next chapter introduces a platform that facilitates an ongoing dialogue between deep learning experts and oceanography specialists to develop and assess these methods effectively.
+
+% On the data front, the selection of data used to train deep learning models is a critical consideration when shaping the final method. As demonstrated in previous chapters, both observational and simulation data can be instrumental in calibrating and evaluating the method. These data undergo domain-specific processing steps. Accessibility to the data and the relevant processing steps can significantly lower the entry barriers for aspiring machine learning practitioners.
+
+
+
 
  %So the nature of the observations presents a key challenge for operational products and downstream tasks that depend on relevant gap-free variables.
 %In addition, this sparsity 
@@ -26,7 +42,7 @@ So the entire ML pipeline now requires a unified framework for dealing with hete
 
 % \textbf{Opportunity}.
 %An end-to-end framework for piping data from its raw form to an ML-ready state and from model outputs to interpretable quantities is challenging. Designing an effective system that does this is the basis for many MLOPs tools and research~\tocite{MLOPs Research}.
-To address these challenges, we introduce \textbf{OceanBench}, a framework for co-designing machine-learning-driven high-level experiments from ocean observations. 
+These considerations provide the motivation for the work presented in this chapter. To address these challenges, we introduce \textbf{OceanBench}, a framework for co-designing machine-learning-driven high-level experiments from ocean observations. 
 It consists of an end-to-end framework for piping data from its raw form to an ML-ready state and from model outputs to interpretable quantities. 
 We regard \texttt{OceanBench} as a key facilitator for the uptake of MLOPs tools and research~\cite{MLOPS1,MLOPS2} for ocean-related datasets and case studies. This first edition provides datasets and ML-ready benchmarking pipelines for SSH interpolation problems, an essential topic for the space oceanography community, related to ML communities dealing with issues like in-painting~\cite{InPaintingSurvey}, denoising~\cite{DENOISESURVEY,DENOISESURVEY2}, and super-resolution~\cite{SuperResSurvey}. 
 We expect \texttt{OceanBench} to facilitate new challenges to the applied machine learning community and contribute to meaningful ocean-relevant breakthroughs.

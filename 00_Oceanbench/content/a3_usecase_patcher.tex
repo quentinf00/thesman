@@ -1,9 +1,11 @@
-\section{Use Case III: XRPatcher} \label{sec:xrpatcher}
+\section{Use Case III: XRPatcher}
+\label{sec:xrpatcher}
 
 There are many usecases for the \texttt{XRPatcher}. For example, we can do 1D Time chunking, 2D Spatial-Temporal Patches, or 3D Spatial-Temporal Cubes.
 
 
-\begin{listing}[h!]
+\begin{listing}[!ht]
+\small
 \begin{minted}[frame=lines]{python}
 import xarray as xr
 import torch
@@ -54,7 +56,7 @@ train_dl = torch.utils.data.DataLoader(train_ds, batch_size=4, shuffle=False)
 test_dl = torch.utils.data.DataLoader(test_ds, batch_size=4, shuffle=False)
 \end{minted}
 \label{listing:xrpatcher}
-\caption{This is a snippet showcasing how we can easily integrate PyTorch Datasets within the \texttt{XRPatcher} framework without much overhead. Here we define a custom PyTorch Dataset to handle the \texttt{XRPatcher}. We load an arbitrary dataset with \texttt{xarray}, then we instantiate the \texttt{XRPatcher} with some patching logic, then we instantiate the PyTorch dataset and dataloader as per usual.}
+\caption{\texttt{XRPatcher} integration in Pytorch. We define a PyTorch dataset that handles the \texttt{XRPatcher}. We load an arbitrary dataset with \texttt{xarray}, then we instantiate the \texttt{XRPatcher} with the patching logic, then we instantiate the PyTorch dataset and dataloaders.}
 \end{listing}
 
 

@@ -26,11 +26,11 @@ Enhancing our knowledge of Earth's systems is a key factor in confronting this c
   \section{Toy example: Graduating a thermometer}
 
 
-\subsection{Estimating temperature from observations}
+\subsection*{Estimating temperature from observations}
 \begin{figure}[h]
     \centering
         \includegraphics[clip, width=3cm]{Introduction/pics/therm_pb.png}
-    \caption{Thermometer Graduation problem illustration. Given a simple liquid based thermometer, we aim at finding the matching between height of the liquid within the glass tube and temperature.}
+    \caption{\textbf{Thermometer Graduation problem illustration.} Given a simple liquid based thermometer, we aim at finding the matching between height of the liquid within the glass tube and temperature.}
     \label{fig:therm_calib}
 \end{figure}
 
@@ -60,11 +60,11 @@ With these carefully calibrated graduations now etched onto our thermometer, we 
      \includegraphics[clip, width=4cm, height=4cm, trim={2cm 1cm 2cm 2cm}]{Introduction/pics/therm_obs.png} &    \includegraphics[clip, width=5cm]{Introduction/pics/therm_calib.png}   &  \\    Data & Calibration&\\
 \end{tabular}
 
-    \caption{Mapping thermometer level to temperature. The first step consists in compiling theoretical knowledge to determine a model of the level to temperature relationship. This model define the set of candidate graduations. The second step consists in leveraging data to chose the best candidate graduation through some calibration procedure.}
+    \caption{\textbf{Mapping thermometer level to temperature.} The first step consists in compiling theoretical knowledge to determine a model of the level to temperature relationship. This model define the set of candidate graduations. The second step consists in leveraging data to chose the best candidate graduation through some calibration procedure.}
     \label{fig:therm_mapping}
 \end{figure}
 
-\subsection{Evaluation}
+\subsection*{Evaluation}
 
 Without evaluation the use of our calibrated instrument would solely rely in the faith given to our mapping above.
 However one may prefer quantifying the thermometers quality through metrics.
@@ -90,13 +90,13 @@ If we only measure precision at 0°C and 100°C, a thermometer that perfectly fi
 \begin{figure}
 \includegraphics[clip, width=6cm]{Introduction/pics/errors.png}  
     \centering
-    \caption{Evaluation and errors. Given some evaluation data and choice of metric, we can compute the errors associated with our graduation. $T^{\circ}_{calib}$ and $T^{\circ}_{ref}$ are respectively the temperatures given by our graduation and a reference well graduated thermometer}
+    \caption{\textbf{Evaluation and errors.} Given some evaluation data and choice of metric, we can compute the errors associated with our graduation. $T^{\circ}_{calib}$ and $T^{\circ}_{ref}$ are respectively the temperatures given by our graduation and a reference well graduated thermometer}
     \label{fig:errors}
 \end{figure}
 
 
 
- \subsection{Sources of errors}
+ \subsection*{Sources of errors}
 
 
 \begin{figure}
@@ -107,7 +107,7 @@ If we only measure precision at 0°C and 100°C, a thermometer that perfectly fi
      \hspace{-.15\linewidth}Model &  Data &  Algorithm \\
 \end{tabular}
     \centering
-    \caption{Illustration of the different sources of errors for the thermometer graduation. From left to right: model errors result from erroneous assumptions about the system. Data errors result from inaccuracies in the calibration data and algorithmic errors result from a failure of the calibration procedure to select the best candidate from the model.}
+    \caption{\textbf{Illustration of the different sources of errors for the thermometer graduation.} From left to right: model errors result from erroneous assumptions about the system. Data errors result from inaccuracies in the calibration data and algorithmic errors result from a failure of the calibration procedure to select the best candidate from the model.}
     \label{fig:err_sources}
 \end{figure}
 Given an evaluation procedure, the errors are the differences to the reference and can be attributed to three sources: the model, the data and the calibration algorithm.
@@ -122,7 +122,7 @@ In order to develop a graduation procedure, we need to take those sources of err
 
 This example allows us to formulate a generic methodological framework.
 
-\subsection{Methodological framework}
+\subsection*{Methodological framework}
 In the process of finding a level-temperature relationship, we chose a model, a calibration algorithm, and had access to calibration data. Additionally, to evaluate our solution, we defined a metric and had access to evaluation data. Interestingly, these components can be specified at a higher level for finding and evaluating the graduation procedure itself, essentially creating a meta-level or "second order" problem.
 
 The \textbf{Model}, in this second order scenario, combines different assumptions to determine the set of potential graduation procedures. 
@@ -146,7 +146,7 @@ The second order problem also involves making decisions on parameters to select 
 Finally, a critical note is that the data used to evaluate a solution at the second order level should still be separate from the calibration data. This principle holds true for the same reasons it applies to the first order problem - using distinct data sets helps to ensure that our solutions generalize well beyond the specific scenarios they were trained on.
 
 \section{From toy example to ocean altimetry scenarii}
-\subsection{Introducing space and time}
+\subsection*{Introducing space and time}
 Our previous example implicitly solved the estimation problem of the liquid temperature within the thermometer at a single point in space and time.
 However, we can extend the problem formulation to estimate a quantity over a spatial and temporal domain.
 Given some observations $y$ defined on a spatio-temporal domain $\Omega_y$ we want to estimate a quantity of interest $u$ on a domain $\Omega_u$. We are therefore looking for a mapping $f$ that estimate $u$ from $y$
@@ -159,7 +159,7 @@ These additional assumptions will require suitable \textbf{Calibration data and 
 
 
 
-\subsection{Satellite altimetry}
+\subsection*{Satellite altimetry}
 
 
 In recent decades, satellite NADIR altimeters have greatly improved our observational capabilities enabled by providing a global coverage of the SSH.
@@ -174,15 +174,15 @@ The estimation of the sea surface height (SSH) given satellite altimetry data en
   \begin{figure}
       \centering
             \includegraphics[width=\linewidth]{Introduction/pics/calib_task.png}    
-      \caption{SWOT calibration. The left part illustrate the observed domain in red while the right part indicates the domain on which we aim at estimating the SSH.}
+      \caption{\textbf{SWOT calibration.} The left part illustrate the observed domain in red while the right part indicates the domain on which we aim at estimating the SSH.}
       \label{fig:calibration_task}
   \end{figure}
-The calibration problem considered in this thesis consists in estimating the SSH measured by the KaRIN instrument by removing  correlated error signals, using calibrated Nadir observations. The target estimation domain here is fully observed, however, some observations contains errors originating from the instrument acquisition process. The \textbf{model} for this problem includes assumptions about the processes that produce the errors. Note that some assumptions about the spatio-temporal structure of the SSH are also required here to relate the SSH on the KaRIN instrument to surrounding  NADIR altimer measurements. The mapping problem below isolate this challenge more specifically.
+The calibration problem considered in this thesis consists in estimating the SSH measured by the KaRIN instrument by removing  correlated error signals, using calibrated Nadir observations. The target estimation domain here is fully observed, however, some observations contains errors originating from the instrument acquisition process. The \textbf{model} for this problem includes assumptions about the processes that produce the errors. Note that some assumptions about the spatio-temporal structure of the SSH are also required here to relate the SSH on the KaRIN instrument to surrounding  NADIR altimeter measurements. The mapping problem below isolate this challenge more specifically.
 
 \begin{figure}
     \centering
           \includegraphics[width=\linewidth]{Introduction/pics/mapping_task.png}
-    \caption{Nadir Altimetry mapping. The left part illustrate the observed domain in red while the right part indicates the domain on which we aim at estimating the SSH.}
+    \caption{\textbf{Nadir Altimetry mapping.} The left part illustrate the observed domain in red while the right part indicates the domain on which we aim at estimating the SSH.}
     \label{fig:mapping_task}
 \end{figure}
 The altimetry mapping problem focuses on the spatial and temporal interpolation of NADIR altimetry data. Considering the observation as direct measurements of SSH, we aim at estimating daily maps over a delimited domain. The \textbf{model} for such a problem needs to take into account the dynamical structure of the ocean surface topography.
@@ -205,7 +205,7 @@ This peculiar data context is a critical factor when developing data centric met
 
 \section{Deep learning: opportunities and challenges}
 
-\subsection{Success stories in computer vision (CV) and natural language processing (NLP)}
+\subsection*{Success stories in computer vision (CV) and natural language processing (NLP)}
 
 In regard to the framework described above, deep learning brings forth \textbf{models}, such as neural networks, that are predicated on very weak assumptions. Their strength lies in the fact that, given sufficient parameters, they can approximate any function\cite{hornikMultilayerFeedforwardNetworks1989}. This leads to deep learning models defining vast parameter-space, consequently requiring substantial datasets and sophisticated optimization procedures to identify a good solution. These optimization procedures are the \textbf{calibration algorithms}.
 
@@ -224,30 +224,30 @@ Indeed the universality of deep learning models have brought a big leap forward 
 Presented as such deep learning seems to provide universal tools,  
 however we would like to stress two factors that seem of great importance when looking at the contributions of deep learning in specific fields.
 The first factor is quality and availability of data.
-Indeed the creation of large, curated datasets, like ImageNet\cite{dengImageNetLargescaleHierarchical2009} in computer vision or ThePile\cite{gaoPile800GBDataset2020} in natural language processing have shown to dramatically expedite the development of novel approaches. 
+Indeed the creation of large, curated datasets, like ImageNet\cite{dengImageNetLargescaleHierarchical2009} in CV or ThePile\cite{gaoPile800GBDataset2020} in NLP have shown to dramatically expedite the development of novel approaches. 
 The second factor is the design of informed architectural patterns that are particularly suited to the domain, leading to performance breakthroughs.
-Examples of these include convolution techniques\cite{lecunHandwrittenDigitRecognition1989} and U-Net architectures\cite{ronnebergerUNetConvolutionalNetworks2015} in computer vision, and attention mechanisms\cite{vaswaniAttentionAllYou} in natural language processing.
+Examples of these include convolution techniques\cite{lecunHandwrittenDigitRecognition1989} and U-Net architectures\cite{ronnebergerUNetConvolutionalNetworks2015} in CV, and attention mechanisms\cite{vaswaniAttentionAllYou} in NLP.
 
 
-\subsection{Deep learning for ocean altimetry}
+\subsection*{Deep learning for ocean altimetry}
 For the mapping and calibration challenges at hand in this thesis, the use of deep learning advances presents both opportunities and challenges.
 In deep learning, existing architectures used for video inpainting\cite{kimDeepVideoInpainting} and image denoising\cite{tianDeepLearningImage2020} solve tasks that are formally similar to altimetry mapping and calibration.
 The universality of such models can potentially capture processes relating to ocean dynamics and observations that are hard formulate formally and improve on existing state of the art.
 
 The altimetry data however presents some specific characteristics compared to natural images and video.
 The sampling pattern of altimeters is particularly sparse and irregular which may not be adapted for classical CV architectures.
-Furthermore ocean surface dynamics involve processes at different scales and the less well resolved that operate at finer scales (mesoscale, submesoscale) and that are of interests in this thesis constitute a small proportion of the whole SSH signal.
-Classical methods in altimetry adress this challenge by leveraging theoretical and statistical knowledge of ocean processes and observation data.
-The first question we ask is: \textit{How specific altimetry knowledge can be integrated in deep learning methodology?}
+Furthermore ocean surface dynamics involve processes at different scales and the finer scales (mesoscale, submesoscale) that are of interests in this thesis constitute a small proportion of the whole SSH signal.
+Classical methods in altimetry address this challenge by leveraging theoretical and statistical knowledge of ocean processes and observation data.
+This raises the first question we ask: \textit{How can specific altimetry knowledge be integrated in deep learning methodology?}
 
 Another peculiar aspect of the altimetry context for using deep learning concerns the available calibration and evaluation data.
-Indeed at the beginning of my thesis, the 4dVarNet neural mapping scheme has shown to surpass operational products for a usecase in the gulfstream area\cite{fabletENDTOENDPHYSICSINFORMEDREPRESENTATION2021}. However, this results had been calibrated and evaluated in an OSSE setup. 
-The second scientific question tackled in this manuscript is: \textit{How can deep learning approaches overcome the lack of true SSH and be calibrated for use on real altimetry?}
+Indeed at the beginning of my thesis, the 4dVarNet neural mapping scheme has shown to surpass operational products for a usecase in the gulf stream area\cite{fabletENDTOENDPHYSICSINFORMEDREPRESENTATION2021}. However, this results had been calibrated and evaluated in an OSSE setup. 
+This poses the second question addressed in this manuscript is: \textit{How can deep learning approaches overcome the lack of true SSH for use on real altimetry?}
 
 
 These studies demonstrate how applying deep learning to ocean observation sciences such as altimetry is fully dependent on domain expertise for both the data and evaluation contexts.
-The development and evaluation of methods like the 4dVarNet relied heavily on prior efforts to standardized OSSE and OSE usecases in the form of data challenges\cite{ballarottaOceandatachallenges2020a_SSH_mapping_NATL60Material2020,ballarottaOceandatachallenges2021a_SSH_mapping_OSEMaterial2021}. These usecases provided data as well as metrics relevant for ocean physicists. 
-This raises the third question of this research: \textit{What is needed for a wide-spread adoption of deep learning tools  in ocean observation sciences?}
+The development and evaluation of methods like the 4dVarNet relied heavily on prior efforts to standardized OSSE and OSE usecases in the form of data challenges\cite{ballarottaOceandatachallenges2020a_SSH_mapping_NATL60Material2020,ballarottaOceandatachallenges2021a_SSH_mapping_OSEMaterial2021}. These use-cases provided data access for machine learning practicioners as well as metrics relevant for ocean physicists. 
+This raises the third question of this research: \textit{What is needed for a wide-spread adoption of deep learning tools in ocean observation sciences?}
 
 
 
@@ -256,7 +256,7 @@ This raises the third question of this research: \textit{What is needed for a wi
 
 The following chapters of this thesis are organized as follows:
 
-\textbf{Chapter 2} describes the main assumptions and methods that are formulated in current methods for altimetry mapping and calibration. This chapter aims at describing the existing \textbf{models} and \textbf{calibration algorithm} available in altimetry analysis as well as the related work in deep learning. A more detailed decription of the neural network-based 4DVarNet framework and its applications will be presented as the contributions of this thesis make extensive use of this architecture.
+\textbf{Chapter 2} describes the main assumptions and methods that are formulated in current methods for altimetry mapping and calibration. This chapter aims at describing the existing \textbf{models} and \textbf{calibration algorithm} available in altimetry analysis as well as the related work in deep learning. A more detailed description of the neural network-based 4DVarNet framework and its applications will be presented as the contributions of this thesis make extensive use of this architecture.
 
 \textbf{Chapter 2} propose a deep learning architecture for the calibration of correlated errors in SWOT data.
 From an applicative standpoint, the flexibility of deep learning methodology opens the potential for capturing signals that are tricky to explicitly parameterize.
@@ -277,7 +277,7 @@ As described in this chapter, deep learning brings powerful models and algorithm
 However the calibration and evaluation data as well as the metrics of an altimetry product can only be sensibly designed by an domain expert. 
 We propose OceanBench, an interface in the form of a software suite of tools.
 Oceanbench aims at empowering domain experts to easily design altimetry problems of interests and qualifying them with relevant metrics. 
-It then provides machine learning practicionners access to the necessary data as well as suited utilities for learning
+It then provides machine learning practitioners access to the necessary data as well as suited utilities for learning
 
 \textbf{Chapter 5} discusses and concludes on the research presented in this manuscript. We summarize the main objectives and results in previous chapters as well as proposing some future avenues of research.
 

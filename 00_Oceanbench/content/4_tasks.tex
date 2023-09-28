@@ -14,7 +14,7 @@ We also give an overview of some experimental designs and datasets with a demons
 
 
 
-\subsection{Problem Definition}\label{sec:prob_definition}
+\subsection*{Problem Definition}\label{sec:prob_definition}
 
 We are dealing with satellite observations, so we are interested in the domain across the Earth's surface. 
 Let us define the Earth's domain by some spatial coordinates, $\mathbf{x} = [\text{Longitude},\text{Latitude}]^\top \in\mathbb{R}^{D_s}$, and temporal coordinates, $t=[\text{Time}]\in\mathbb{R}^+$, where $D_s$ is the dimensionality of the coordinate vector.  
@@ -63,7 +63,7 @@ Finally, we are interested in finding some model, $\mathcal{M}$, that maps the S
 which is essentially an inverse problem that maps the observations to the state.
 One could think of it as trying to find the inverse operator, $\mathcal{M}=\mathcal{H}^{-1}$, but this could be some other arbitrary operator.  
 %
-\subsection{Machine Learning Model Ontology} \label{sec:ml_ontology_mini}
+\subsection*{Machine Learning Model Ontology} \label{sec:ml_ontology_mini}
 
 In general, we are interested in finding some parameterized operator, $\mathcal{M}_{\boldsymbol{\theta}}$, that maps the incomplete SSH field to the complete SSH field
 \begin{align} \label{eq:ml_interp_problem}
@@ -94,7 +94,7 @@ We consider at least one baseline approach from each category for each data chal
 While all these methods have pros and cons, we expect the OceanBench platform to showcase to new experimental evidence and understanding regarding their applicability to SSH interpolation problems.
  
 
-\subsection{Experimental Design} \label{sec:experimental_design}
+\subsection*{Experimental Design} \label{sec:experimental_design}
 
 \begin{table}[ht]
 \caption{This table gives a brief overview of the datasets provided to complete the data challenges listed in~\ref{sec:data_challenges} and~\ref{sec:data_challenges_extended}. Note that the OSSE datasets are all gridded products whereas the OSE NADIR is an alongtrack product. See figure~\ref{fig:oceanbench_maps} for an example of the OSSE NEMO Simulations for SSH and SST and pseudo-observations for NADIR \& SWOT.}
@@ -213,8 +213,8 @@ A snapshot at $27^{th}$ October, 2012 of the sea level anomaly (SLA) from the NE
 The top row showcases the aggregated NADIR altimetry tracks and the aggregated SWOT altimetry tracks (12 hours before and 12 hours after) as well as the SST from the NEMO simulation.
 Each subsequent row showcases the following physical variables found in appendix~\ref{sec:physical_variables}: (a) Sea Level Anomaly, (b) Kinetic Energy, (c) Relative Vorticity, and (d) Strain. 
 Each column in the subsequent rows showcase the following reconstructed field from the NEMO simulation found in columrn (a): (b) MIOST~\cite{MIOST}, (c) BFN-QG~\cite{BFNQG}, and (d) 4DVarNet~\cite{4DVARNETSWOT}.}
-\vspace{-5mm}
 \label{fig:oceanbench_maps}
+\vspace{-5mm}
 \end{center}
 \end{figure}
 
@@ -269,7 +269,7 @@ The bottom row showcases the space-time PSD for the NEMO simulation (subfigure (
 
 
 %
-\subsection{Data Challenges} \label{sec:data_challenges}
+\subsection*{Data Challenges} \label{sec:data_challenges}
 
 
 
@@ -315,7 +315,7 @@ One may also explore transfer learning or fine-tuning strategies from the availa
 
 
 
-\subsection{\texttt{OceanBench} Pipelines}
+\subsection*{\texttt{OceanBench} Pipelines}
 
 \begin{table}[h]
 \caption{This table highlights some of the results for the \textbf{OSSE NADIR} experiment outlined in section~\ref{sec:data_challenges} and appendix~\ref{sec:data_challenges_extended}.

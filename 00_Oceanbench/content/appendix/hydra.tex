@@ -2,7 +2,7 @@
 
 This framework has drastically reduced the overhead for the ML researcher while also enhancing the reprducibility and replicability of the preprocessing steps. In this section we showcase a few examples for how one can use oceanbench in conjunction with hydra to provide recipes for some standard processes.
 
-\subsection{Task Recipe} \label{sec:hydra_recipe_task}
+\subsection*{Task Recipe} \label{sec:hydra_recipe_task}
 
 In this example, we showcase how we define an interpolation task for the OSE NADIR data challenge. 
 We need to state the list of datasets available and specify which datasets are to be using for training and testings.
@@ -42,7 +42,7 @@ outputs:
 
 
 \newpage
-\subsection{GeoProcessing Recipe} \label{sec:hydra_geoprocess_task}
+\subsection*{GeoProcessing Recipe} \label{sec:hydra_geoprocess_task}
 
 In this example, we showcase how one can pipe a sequential transformation through the hydra framework. In this example, we open the dataset, validate the coordinates to comply to our standards, select the region of interest, subset the data, regrid the alongtrack data to a uniform grid, and save the data to a netcdf file. See the listing~\ref{hydraconfig:geoprocess} for more information.
 
@@ -77,17 +77,15 @@ fns:
         _partial_: True
       }
 \end{minted}
+\caption{This is a \texttt{.yaml} which showcases how we can communicate with \texttt{Hydra} framework to list a predefined set of transformations to be \textit{piped} through sequential. In this example, we showcase some standard pre-processing strategies to be saved to another netcdf file.}
 \label{hydraconfig:geoprocess}
-\caption{This is a \texttt{.yaml} which showcases how we can communicate with \texttt{Hydra} framework to list a predefined set of transformations to be \textit{piped} through sequentiall. In this example, we showcase some standard pre-processing strategies to be saved to another netcdf file.}
 \end{listing}
 
 
+% \newpage
+\subsection*{Evaluation Recipe - OSSE} \label{sec:hydra_evaluation_task}
 
-
-\newpage
-\subsection{Evaluation Recipe - OSSE} \label{sec:hydra_evaluation_task}
-
-In this example, we showcase how one can use hydra to do the evaluation procedure. This is the same evaluation procedure that is used to evaluate the effectiveness of the OSSE NADIR experiment. From code snippet~\ref{hydraconfig:geoprocess}, we see that we choose which target function to initialize and we choose the data directory where the \texttt{.netcdf} file is located. Then, we pipe some transformations for the \texttt{.netcdf} file: 1) validate the spatiotemporal coordinates, 2) we select the evaluation region, 3) we regrid it to the target get, 4) we fill in the nans with a Gauss-Seidel procedure, 5) we rescale the coordinates to be in meters and days, and 6) we perform the isotropic power spectrum transformation to get the effective resolution outlined in section~\ref{sec:metrics}.
+In this example, we showcase how one can use hydra to do the evaluation procedure. This is the same evaluation procedure that is used to evaluate the effectiveness of the OSSE NADIR experiment. From code snippet~ \ref{hydraconfig:geoprocess}, we see that we choose which target function to initialize and we choose the data directory where the \texttt{.netcdf} file is located. Then, we pipe some transformations for the \texttt{.netcdf} file: 1) validate the spatiotemporal coordinates, 2) we select the evaluation region, 3) we regrid it to the target get, 4) we fill in the nans with a Gauss-Seidel procedure, 5) we rescale the coordinates to be in meters and days, and 6) we perform the isotropic power spectrum transformation to get the effective resolution outlined in section~\ref{sec:metrics}.
 
 \begin{listing}[ht!]
 \begin{minted}[frame=lines]{yaml}

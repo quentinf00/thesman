@@ -1,7 +1,7 @@
 \begin{bibunit}[IEEEtran.bst]
 
-  \chapter*{Modeling and solving altimetry problems}
-\addcontentsline{toc}{chapter}{Modeling and solving altimetry problems}
+  \chapter{Modeling and solving altimetry problems}
+% \addcontentsline{toc}{chapter}{Modeling and solving altimetry problems}
   \chaptermark{Modeling and solving altimetry problems}
   
 \begin{figure}[h]
@@ -11,11 +11,11 @@
     \label{c2fig:method}
 \end{figure}
 
-This chapter uses the methodological framework presented in the introduction to discuss various existing methodologies for modeling and addressing issues related to ocean altimetry. The final section delves into the specifics of the 4DVarNet framework, which serves as the backbone for the research presented in this thesis.
+This chapter uses the methodological framework presented in the introduction to discuss various existing methodologies for modeling and solving tasks related to ocean altimetry. The final section delves into the specifics of the 4DVarNet framework, which serves as the backbone for the research presented in this thesis.
 
 
 
-Our attention is primarily directed towards techniques that are pertinent to the altimetry challenges explored in this study. Most existing methods are geared towards altimetry mapping, as calibration of the Surface Water and Ocean Topography (SWOT) mission is a relatively nascent area with fewer established techniques. Nonetheless, both types of problems aim to estimate the sea surface height $u$ given observations $y$.
+Our attention is primarily directed towards techniques that are pertinent to the altimetry challenges explored in this study. Most existing methods are geared towards altimetry mapping, as calibration of the Surface Water and Ocean Topography (SWOT) mission is a relatively nascent area with fewer established techniques. Nonetheless, both types of problems aim to estimate the sea surface height $u$ on a domain $\Omega_u$ given observations $y$ on a domain $\Omega_y$.
 
 
 
@@ -28,7 +28,7 @@ The second type of assumption aims to characterize the probability distribution 
 
 
  
-  \subsection{State representation}
+  \subsection*{State representation}
 Choosing a state representation is equivalent to determining the quantities that characterizes the state and the relationship between the state values $x$ and the estimated SSH field $\hat{u}$.
 
 
@@ -36,7 +36,7 @@ Choosing a state representation is equivalent to determining the quantities that
   Other methods chose more complex description of the SSH values with large scale and small scale components like in the 4DVarNet\cite{beauchamp4DVarNetSSHEndtoendLearning2023} or even projected values on another basis like MIOST\cite{ubelmannReconstructingOceanSurface2021,ubelmannSimultaneousEstimationOcean2022} which uses a wavelet basis.
   The choices like the mesh, basis or SSH decomposition used is a way to use prior knowledge to dimension the state space. A grid representations of the SSH can be propagated to the whole domain $\Omega_u$ using interpolation schemes which impose additional choices.
 
-  The strongly constrained four dimensional variational data assimilation (s4DVAR)\cite{carrassiDataAssimilationGeosciences2018} characterizes the SSH field over a period through the initial conditions. A dynamical model $\mathcal{M}$ and an associated numerical forecast scheme  is then used to infer the SSH over the whole temporal horizon. Note that the initial condition is usually also represented on a grid and implies similar choices as before. 
+  The strong-constraint four dimensional variational data assimilation (s4DVAR)\cite{carrassiDataAssimilationGeosciences2018} characterizes the SSH field over a period through its initial temporal conditions. A dynamical model $\mathcal{M}$ and an associated numerical forecast scheme  is then used to infer the SSH over the whole temporal horizon. Note that the initial condition is usually also represented on a grid and implies similar choices as before. 
 
 Deep learning has introduced new ways of representing the SSH. Notably, Neural fields\cite{johnsonNeuralFieldsFast2022} consists in describing the SSH with the parameters of a coordinate-based neural network $\eta$. The neural network can then be used to output the SSH value for any given coordinate of the domain.
 
@@ -44,13 +44,13 @@ Deep learning has introduced new ways of representing the SSH. Notably, Neural f
 Finally the state can also contain ancillary quantities that are linked to the SSH. In the GLORYS12\cite{lelloucheCopernicusGlobal122021} reanalysis, the data assimilation scheme considers the state of the ocean beyond the SSH. 
 In the case of the SWOT calibration, estimating the SSH is equivalent to estimating the error signals. Operational methods\cite{dibarboureDataDrivenCalibrationAlgorithm2022} approach the problem as defining a state representation of the different error signals making assumptions on the processes generating them.
 
-\subsection{Prior on the state space}
+\subsection*{Prior on the state space}
 The representation of SSH $x$ we chose defined the space of all possible states. Additional assumptions can be made to specify which states are more likely than others. This is the prior distribution of the states $p(x)$.
-Some approaches like existing work Neural fields do not define an explicit prior distribution over the state space, which implies a uniform distribution.
-Other like OI and s4DVAR shape $p(x)$ through a background state $x_b$ and an error covariance matrix $B$. Under Gaussian assumptions, the prior distribution becomes 
- $$\mathcal{p}(\mathbf{x}) = \frac{1}{\sqrt{(2\pi)^n |\mathbf{B}|}} \exp\left(-\frac{1}{2} (\mathbf{x} - x_b)^T \mathbf{B}^{-1} (\mathbf{x} - x_b)\right)$$
+Some approaches like existing work on Neural fields\cite{johnsonNeuralFieldsFast2022} do not define an explicit prior distribution over the state space, which implies a uniform distribution.
+Other like OI and s4DVAR shape $p(x)$ through a background state $x_b$ and an error covariance matrix $\mathbf{B}$. Under Gaussian assumptions, the prior distribution becomes 
+ $$p(\mathbf{x}) = \frac{1}{\sqrt{(2\pi)^n |\mathbf{B}|}} \exp\left(-\frac{1}{2} (\mathbf{x} - x_b)^T \mathbf{B}^{-1} (\mathbf{x} - x_b)\right)$$
 
-In Kalman filters, 3DVAR or weakly constrained four dimensional variational data assimilation (w4DVAR), the likelihood of a state is based on its distance to the trajectory of a dynamical model rather than to a background state giving a similar formulation as above but with $x_b$ replaced by a state-dependent quantity.
+In Kalman filters, 3DVAR or weak-constraint four dimensional variational data assimilation (w4DVAR)\cite{carrassiDataAssimilationGeosciences2018}, the likelihood of a state is based on its distance to the trajectory of a dynamical model rather than to a background state giving a similar formulation as above but with $x_b$ replaced by a state-dependent quantity.
 
 Deep learning also introduces tools for probabilistic and energy-based modeling that can be used to characterize $p(x)$.
  For example, 4DVarNet employs a neural network $\phi$ to define the following quantity over the state space $\| x - \phi(x)\|$. Interpreting this as an energy function, a Boltzmann distribution over $\chi_x$ can be defined, yielding the prior distribution
@@ -88,7 +88,7 @@ We summarize in the table below the different approaches.
 
 \section{Solvers: Estimating the state given some observations}
 
-Once all prior assumptions about the SSH field have been made (i.e. the first order \textbf{model}), the methods differ by the choice of \textbf{calibration procedure} $\gamma$. $\gamma$ defines how to estimate the state $\hat{x}$ given some observations $y$ defined on a domain $\Omega_y$.
+Once all prior assumptions about the SSH field have been made (i.e. the first order \textbf{model}), the methods differ by the choice of \textbf{calibration procedure} $\gamma$. $\gamma$ defines how to estimate the state $\hat{x}$ given some observations $y$.
 
 This problem can be framed as an inverse problem by defining an observation operator $H$ that describe the relation from state to observations ($\gamma$ then becomes the inverse $H$).
 We define the estimated observations as $\hat{y} = H(x)$. For altimetry observations that measure the quantity of interest $u$, the $H$ operator can be decomposed as $H(x) = \hat{u}_x(\Omega_y) + \epsilon$ with $\epsilon$ an error term and $\hat{u}$ the estimated SSH for a given state $x$ as introduced in the previous section. The field of data assimilation in geoscience propose a variety of methods to solve inverse problems.
@@ -161,9 +161,9 @@ The second source of evaluation data originates from numerical simulations. Dyna
 
 In this thesis, both scenarios are employed. Chapter 3 examines the SWOT calibration in an OSSE context, while Chapter 4 probes how the evaluation of neural mapping schemes varies between OSSE and OSE contexts.
 
-Several metrics are deliberated upon in this thesis. The primary one is the root mean squared error (RMSE) of the estimated SSH compared to the reference evaluation data. Although this metric provides an easily interpretable value in centimeters, it overlooks some aspects. Since the SSH encompasses processes spanning diverse scales and amplitudes, the normalized RMSE (nRMSE) is also employed to better gauge errors relative to the SSH's amplitude. Specifically, we utilize an nRMSE score $\mu$ defined as $\mu=1 - nRMSE$ (a higher score is preferable). Additionally, oceanic processes of varying amplitudes possess distinctive spatial and temporal scales. The more dynamic processes exhibit broader spatial and extended temporal scales. It's imperative for domain experts to ascertain if these processes are aptly depicted in the SSH estimation. Consequently, spectral-based metrics are integral to this thesis. The PSD-score, defined as one minus the ratio of the power spectrum density (PSD) of the error to the reference SSH, is employed. A score closer to one for a given scale indicates minimal error relative to the SSH signal at that scale. Additionally, we define the threshold of spatial scales $\lambda_x$ above which the error signal is below half of the SSH signal. In OSE, $\lambda_x$ calculated along the NADIR altimeter track, while in OSSE, the entire field can be employed. Also, in OSSE, the temporal scales $\lambda_t$ be gauged using the spatial PSD-score.
+Several metrics are deliberated upon in this thesis. The primary one is the root mean squared error (RMSE) of the estimated SSH compared to the reference evaluation data. Although this metric provides an easily interpretable value in centimeters, it overlooks some aspects. Since the SSH encompasses processes spanning diverse scales and amplitudes, the normalized RMSE (nRMSE) is also employed to better gauge errors relative to the SSH's amplitude. Specifically, we utilize an nRMSE score $\mu$ defined as $\mu=1 - nRMSE$ (a higher score is preferable). Additionally, oceanic processes of varying amplitudes possess distinctive spatial and temporal scales. The more energetic processes exhibit broader spatial and extended temporal scales. It's imperative for domain experts to ascertain if these processes are aptly depicted in the SSH estimation. Consequently, spectral-based metrics are integral to this thesis. The PSD-score, defined as one minus the ratio of the power spectrum density (PSD) of the error to the reference SSH, is employed. A score closer to one for a given scale indicates minimal error relative to the SSH signal at that scale. Additionally, we define the threshold of spatial scales $\lambda_x$ above which the error signal is below half of the SSH signal. In OSE, $\lambda_x$ calculated along the NADIR altimeter track, while in OSSE, the entire field can be employed. Also, in OSSE, the temporal scales $\lambda_t$ be gauged using the temporal PSD-score.
 
-In closing, a substantial part of assessing an SSH estimation and deciding on pertinent metrics hinges on qualitatively evaluating the field and its temporal evolution, as well as derived geophysical metrics like geostrophic currents and vorticity. Such qualitative evaluations necessitate profound geophysical expertise. Chapter 4 is rooted in these considerations, elucidating and suggesting tools to design appropriate experimental and evaluation frameworks for the adept development and assessment of altimetry mapping methods.
+In closing, a substantial part of assessing an SSH estimation and deciding on pertinent metrics hinges on qualitatively evaluating the field and its temporal evolution, as well as derived geophysical metrics like geostrophic currents and vorticity. Such qualitative evaluations necessitate profound geophysical expertise. Chapter 5 is rooted in these considerations, elucidating and suggesting tools to design appropriate experimental and evaluation frameworks for the adept development and assessment of altimetry mapping methods.
 
 
 
@@ -177,12 +177,12 @@ In closing, a substantial part of assessing an SSH estimation and deciding on pe
 In this section, we delve into the architecture of 4DVarNet, a prominent framework frequently employed throughout this thesis. 
 Introduced as a promising approach for mapping altimetry data, 4DVarNet demonstrated robust performance in a study involving simulated SSH based on NATL60 simulation data\cite{fabletENDTOENDPHYSICSINFORMEDREPRESENTATION2021}. Various regions \cite{beauchamp4DVarNetSSHEndtoendLearning2023} and altimetry configurations were considered in these studies, including setups with 4 nadir altimeters both with and without SWOT observations. Earlier versions considered OI-based products as additional observational data for the inversion \cite{fabletENDTOENDPHYSICSINFORMEDREPRESENTATION2021}.
 
-The representation of the SSH field within the 4DVarNet framework has evolved over time. While earlier studies decomposed SSH into large and small-scale components \cite{beauchampDatadrivenLearningbasedInterpolations2021}, recent implementations used in Chapter 4 represent directly the SSH grid points a single scalar values. In  \cite{fabletENDTOENDPHYSICSINFORMEDREPRESENTATION2021}, latent variables are added to the state to enrich the prior distribution over the state space without being directly constrained by the observations.
+% The representation of the SSH field within the 4DVarNet framework has evolved over time. While earlier studies decomposed SSH into large and small-scale components \cite{beauchampDatadrivenLearningbasedInterpolations2021}, recent implementations used in Chapter 4 represent directly the SSH grid points a single scalar values. In  \cite{fabletENDTOENDPHYSICSINFORMEDREPRESENTATION2021}, latent variables are added to the state to enrich the prior distribution over the state space without being directly constrained by the observations.
 
 The framework employs a neural network, denoted as  $\phi$  or the formulation of the prior cost as $J_{reg}= \|x - \phi(x)\|_{l2}$ using an $l2$ norm.
-Most altimetry studies using the 4dVarNet formulate $\phi$ as a multiscale bilinear blocks \cite{fabletBilinearResidualNeural2018}, A simpler single scale is used in Chapter 4. Outside of altimetry, other $\phi$ have been experimented on Lorenz systems including true dynamics\cite{fabletLearningVariationalData2021}
+Most altimetry studies using the 4dVarNet formulate $\phi$ as a multiscale bilinear blocks \cite{fabletBilinearResidualNeural2018}, A simpler single scale is used in Chapters 4 adn 5. Outside of altimetry, other $\phi$ have been experimented on Lorenz systems including using the true system's dynamics\cite{fabletLearningVariationalData2021}
 
-A Gaussian assumption for the observation errors is commonly adopted, articulated through a quadratic norm in the observation cost $J_{obs}= \|y - \hat{u}(\Omega_y)\|_{l2}$. In a study that incorporated Sea Surface Temperature (SST) observations\cite{fabletMultimodal4DVarNetsReconstruction2023}, convolutional filters were used to formulate the observation operator that maps the state to SST.
+A Gaussian assumption for the observation errors is commonly adopted, articulated through a quadratic norm in the observation cost $J_{obs}= \|y - \hat{u}(\Omega_y)\|_{l2}$. In a study that incorporated Sea Surface Temperature (SST) observations\cite{fabletMultimodal4DVarNetsReconstruction2023}, convolutional filters were used to formulate the observation operator that relates the state to SST.
 
 
 State estimation in 4DVarNet is tackled as a minimization problem for a variational cost, which is a combination of the observation and regularization costs. The optimization procedure is inspired by meta-learning approaches and employs a Recurrent Neural Network (RNN) to compute state updates at each iteration based on the gradient of the variational cost\cite{fabletENDTOENDPHYSICSINFORMEDREPRESENTATION2021}. Earlier works used fixed-point algorithms for maximizing observation likelihood, followed by a forward pass using the neural network $\phi$ \cite{beauchampDatadrivenLearningbasedInterpolations2021}. 

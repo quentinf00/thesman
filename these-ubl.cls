@@ -139,7 +139,8 @@
 \definecolor{grisfonce}{RGB}{49,49,49}
 \definecolor{grisclair}{RGB}{111,111,111}
 \definecolor{blanc}{RGB}{255,255,255}
-\definecolor{mathSTIC-Color}{RGB}{233,90,104} %MathSTIC 
+% \definecolor{mathSTIC-Color}{RGB}{233,90,104} %MathSTIC 
+\definecolor{mathSTIC-Color}{RGB}{80,92,162} %MathSTIC 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -340,7 +341,7 @@
     \put(0,0){%
     \parbox[b][\paperheight]{\paperwidth}{%
         \vfill
-        \includegraphics[width=\paperwidth,keepaspectratio]{./Couverture-these/MathSTIC/image-fond-MATHSTIC-dos.png}%
+        \includegraphics[width=\paperwidth,keepaspectratio]{./Couverture-these/SPIN/spin_dos.png}%
         \vfill
 }}}
 \pagestyle{empty}
