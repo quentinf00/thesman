@@ -11,50 +11,71 @@
     \label{c2fig:method}
 \end{figure}
 
-This chapter uses the methodological framework presented in the introduction to discuss various existing methodologies for modeling and solving tasks related to ocean altimetry. The final section delves into the specifics of the 4DVarNet framework, which serves as the backbone for the research presented in this thesis.
+This chapter discusses various existing methodologies for modeling and solving tasks related to ocean altimetry. 
 
 
 
 Our attention is primarily directed towards techniques that are pertinent to the altimetry challenges explored in this study. Most existing methods are geared towards altimetry mapping, as calibration of the Surface Water and Ocean Topography (SWOT) mission is a relatively nascent area with fewer established techniques. Nonetheless, both types of problems aim to estimate the sea surface height $u$ on a domain $\Omega_u$ given observations $y$ on a domain $\Omega_y$.
 
+  We are interested methods $f \in \cal{F}$ such that $f(y) = \hat{u}$ with $\hat{u}$ an estimation of $u$
+  Given calibration data $\cal{D}$  and a procedure $c$ we want to find the best candidate $c(\cal{D})=\hat(f) \in cal{F}$.
+  The methods of interest can be further detailed through the decomposition of $f$  as $f = f_{x\to u} \circ f_{y\to x}$. The decomposition introduces the state characterization  through a choice of quantities $x$ that characterize an SSH field and a prior distribution $p(x)$. This implies the definition of $f_{x\to u}$ that provides the SSH estimate given a state.
+  Secondly, the choice of a state estimation procedure $f_{y\to x}$ that will determine the state values best suited given observations $y$
+$f_{x\to u}$
+  Those components fit nicely in the first and second order formulation introduced in the previous chapter as depicted in Figure \ref{}.
 
 
- 
- \section{Priors: Assumptions on Sea Surface Height (SSH)}
-The first distinguishing feature among various methods is the assumptions made about the SSH field $u$. These assumptions can be categorized into two types.
-The first type involves the choice of representation $x$ for the target SSH field $u$. This representation essentially outlines the space of all possible SSH states.
-The second type of assumption aims to characterize the probability distribution $p(x)$ of $x$, describing which states are more likely a priori.
+  This chapter describes existing approaches for formulating the different components introduced. The characterization of the state $x \tilde p(x)$ is detailed in Section \ref{c2sec:prior} while Section \ref{c2sec:solvers}  depicts existing approaches for formulating $f_{y\to x}$. Sections \ref{c2sec:calib} and \ref{c2sec:eval} focus respectively on the calibration $c$ and evaluation considerations.
+  The final section \ref{c2sec:4dvarnet} delves into the specific choices of the 4DVarNet framework, which serves as the backbone for the research presented in this thesis.
+
+
+
+
+
+ \section{Priors on the Sea Surface Height (SSH)}
+  \label{c2sec:prior}
+The first distinguishing feature among various methods is the choice of characterization of SSH fields. The characterization can be decomposed in two parts.
+The first involves the choice of representation $x$ for the target SSH field $u$. This representation essentially outlines the space of all possible SSH states.
+The second aims to characterize the probability distribution $p(x)$ of $x$, describing which states are more likely a priori.
 
 
 
  
   \subsection*{State representation}
-Choosing a state representation is equivalent to determining the quantities that characterizes the state and the relationship between the state values $x$ and the estimated SSH field $\hat{u}$.
+The choice of state representation defines the quantities $x$ that characterizes the estimated SSH field $\hat{u}$. The choice of $x$ implies the choice of the relationship $\lambda$ between the state values $x$ and the estimated SSH field $\hat{u}$. 
 
 
   Looking at existing methods, the SSH field can be characterized through values sampled on a grid or mesh of the domain. These values can directly represent SSH as represented by methods such as the DUACS optimal interpolation \cite{taburetDUACSDT2018252019} (OI), quasi-geostrophic back and forth nudging (BFN-QG) \cite{guillouMappingAltimetryForthcoming2021}, Kalman filtering in GLORYS12 reanalysis \cite{lelloucheCopernicusGlobal122021} or Dynamical Interpolation \cite{ubelmannDynamicInterpolationSea2015,ballarottaDynamicMappingAlongTrack2020} .
   Other methods chose more complex description of the SSH values with large scale and small scale components like in the 4DVarNet\cite{beauchamp4DVarNetSSHEndtoendLearning2023} or even projected values on another basis like MIOST\cite{ubelmannReconstructingOceanSurface2021,ubelmannSimultaneousEstimationOcean2022} which uses a wavelet basis.
   The choices like the mesh, basis or SSH decomposition used is a way to use prior knowledge to dimension the state space. A grid representations of the SSH can be propagated to the whole domain $\Omega_u$ using interpolation schemes which impose additional choices.
 
-  The strong-constraint four dimensional variational data assimilation (s4DVAR)\cite{carrassiDataAssimilationGeosciences2018} characterizes the SSH field over a period through its initial temporal conditions. A dynamical model $\mathcal{M}$ and an associated numerical forecast scheme  is then used to infer the SSH over the whole temporal horizon. Note that the initial condition is usually also represented on a grid and implies similar choices as before. 
+  The strong-constraint four dimensional variational data assimilation (s4DVAR)\cite{carrassiDataAssimilationGeosciences2018} consider states that are solutions to differential equations characterizing the system. The state $x$ then takes the form of initial temporal conditions that are propagated in time using a dynamical model numerical integration scheme. Note that parameters of the model and integration scheme can be part of the state and estimated alongside the initial conditions. 
 
-Deep learning has introduced new ways of representing the SSH. Notably, Neural fields\cite{johnsonNeuralFieldsFast2022} consists in describing the SSH with the parameters of a coordinate-based neural network $\eta$. The neural network can then be used to output the SSH value for any given coordinate of the domain.
+  Deep learning has introduced new ways of representing the SSH. Notably, Neural fields\cite{johnsonNeuralFieldsFast2022} consists in describing the SSH with the parameters of a coordinate-based neural network. The neural network can then be used to output the SSH value for any given coordinate of the domain.
+
 
 
 Finally the state can also contain ancillary quantities that are linked to the SSH. In the GLORYS12\cite{lelloucheCopernicusGlobal122021} reanalysis, the data assimilation scheme considers the state of the ocean beyond the SSH. 
-In the case of the SWOT calibration, estimating the SSH is equivalent to estimating the error signals. Operational methods\cite{dibarboureDataDrivenCalibrationAlgorithm2022} approach the problem as defining a state representation of the different error signals making assumptions on the processes generating them.
+In the case of the SWOT calibration, estimating the SSH is equivalent to estimating the error signals. Operational methods\cite{dibarboureDataDrivenCalibrationAlgorithm2022} approach the problem as defining a state representation of the different error signals.
 
 \subsection*{Prior on the state space}
 The representation of SSH $x$ we chose defined the space of all possible states. Additional assumptions can be made to specify which states are more likely than others. This is the prior distribution of the states $p(x)$.
 Some approaches like existing work on Neural fields\cite{johnsonNeuralFieldsFast2022} do not define an explicit prior distribution over the state space, which implies a uniform distribution.
 Other like OI and s4DVAR shape $p(x)$ through a background state $x_b$ and an error covariance matrix $\mathbf{B}$. Under Gaussian assumptions, the prior distribution becomes 
- $$p(\mathbf{x}) = \frac{1}{\sqrt{(2\pi)^n |\mathbf{B}|}} \exp\left(-\frac{1}{2} (\mathbf{x} - x_b)^T \mathbf{B}^{-1} (\mathbf{x} - x_b)\right)$$
+\begin{equation}
+p(\mathbf{x}) = \frac{1}{\sqrt{(2\pi)^n |\mathbf{B}|}} \exp\left(-\frac{1}{2} (\mathbf{x} - x_b)^T \mathbf{B}^{-1} (\mathbf{x} - x_b)\right)
+    \label{eq:background}
+\end{equation}
 
 In Kalman filters, 3DVAR or weak-constraint four dimensional variational data assimilation (w4DVAR)\cite{carrassiDataAssimilationGeosciences2018}, the likelihood of a state is based on its distance to the trajectory of a dynamical model rather than to a background state giving a similar formulation as above but with $x_b$ replaced by a state-dependent quantity.
 
 Deep learning also introduces tools for probabilistic and energy-based modeling that can be used to characterize $p(x)$.
- For example, 4DVarNet employs a neural network $\phi$ to define the following quantity over the state space $\| x - \phi(x)\|$. Interpreting this as an energy function, a Boltzmann distribution over $\chi_x$ can be defined, yielding the prior distribution
- $$p(\mathbf{x}) = \frac{\exp(-E(\mathbf{x}) / T)}{Z}$$
+ For example, 4DVarNet employs a neural network (NN) $\phi$ to define the following quantity over the state space $\| x - \phi(x)\|$. Interpreting this as an energy function, a Boltzmann distribution can be defined the state space, yielding the prior distribution
+
+  \begin{equation}
+ p(\mathbf{x}) = \frac{\exp(-E(\mathbf{x}) / T)}{Z}
+    \label{eq:boltzmann}
+  \end{equation}
  with $Z = \int \exp(-E(\mathbf{x}) / T) \, d\mathbf{x}$ and $T$ the temperature parameter.
 
 
@@ -76,7 +97,7 @@ We summarize in the table below the different approaches.
 
   MIOST & Wavelet components & Basis change  & Background error \\
 
-  4DVarNet & Scale components & Sum + Grid estimation  & Energy-based model \\
+  4DVarNet & Scale components & Sum + Grid interpolation  & Energy-based model \\
 
   Neural field & NN parameters & NN inference & None (Uniform) \\
 \hline
@@ -87,25 +108,34 @@ We summarize in the table below the different approaches.
 
 
 \section{Solvers: Estimating the state given some observations}
+  \label{c2sec:solvers}
+Once all prior assumptions about the SSH field have been made (i.e. the first order \textbf{model}), the methods differ by the choice of \textbf{calibration procedure} $f_y{\to x}$. $f_{y\to x}$ defines how to estimate the state $\hat{x}$ given some observations $y$.
 
-Once all prior assumptions about the SSH field have been made (i.e. the first order \textbf{model}), the methods differ by the choice of \textbf{calibration procedure} $\gamma$. $\gamma$ defines how to estimate the state $\hat{x}$ given some observations $y$.
-
-This problem can be framed as an inverse problem by defining an observation operator $H$ that describe the relation from state to observations ($\gamma$ then becomes the inverse $H$).
-We define the estimated observations as $\hat{y} = H(x)$. For altimetry observations that measure the quantity of interest $u$, the $H$ operator can be decomposed as $H(x) = \hat{u}_x(\Omega_y) + \epsilon$ with $\epsilon$ an error term and $\hat{u}$ the estimated SSH for a given state $x$ as introduced in the previous section. The field of data assimilation in geoscience propose a variety of methods to solve inverse problems.
+This problem can be framed as an inverse problem by defining an observation operator $H$ that describe the relation from state to observations ($f_{y\to x}$ then becomes the inverse $H$).
+We define the estimated observations as $\hat{y} = H(x)$. For altimetry observations that measure the quantity of interest $u$, the $H$ operator can be decomposed as $H(x) = \f_{x\to u}(x)_{\Omega_y} + \epsilon$ with $\epsilon$ an error term and $\f_{x\to u}(x)_{\Omega_y}$ the estimated SSH for a given state $x$ over the observed domain $\Omega_y$. The field of data assimilation in geoscience propose a variety of methods to solve inverse problems.
 
 Using a Bayesian inference formulation, the estimate of the posterior state is done by assuming Gaussian distributions for observation errors and prior states. 
 For Optimal Interpolation, this can be mathematically expressed as:
- $$\gamma(y)= x_b + K(y - Hx_b)$$
-with $K$ is the Kalman gain and $H$ is a linear observation operator and $x_b$ the background state.
-Kalman filters use a similar expression which is applied sequentially for each time step.
-The procedure $\gamma$ then becomes a sequence of sub-procedure $\gamma_{t1}, ..., \gamma_{t_n}$ applied to observations $y_{t1}, ..., y_{t_n}$ to estimate the states $x_{t1}, ..., x_{t_n}$ 
-$$\gamma_{t+1}(y_{t+1})= x_{t} + K_{t+1}(y_{t+1} - H_{t+1}M_{t:t+1}x_{t})$$
- with $M_{t:t+1}$ a linear forecast operator.
+  \begin{equation}
+ f_{y\to x}(y)= x_b + K(y - Hx_b)
+    \label{eq:KalmanOI}
+  \end{equation}
+with $H$ a linear observation operator, $x_b$ the background state  and $K$ is the Kalman gain (which depends on $H$, $\mathbf{B}$ and error covariance matrix).
+Kalman filters use a similar expression which is applied sequentially for each observation time step.
+The procedure $f_{x\to u}$ then becomes a sequence of sub-procedure $f_{x\to u}^1{t1}, ..., f_{x\to u}^{t_n}$ applied to observations $y_{t1}, ..., y_{t_n}$ to estimate the states $x_{t1}, ..., x_{t_n}$ 
+  \begin{equation}
+f_{y\to x}{t+1}(y_{t+1})= x_{t} + K_{t+1}(y_{t+1} - H_{t+1}M_{t:t+1}x_{t})
+    \label{eq:KalmanKF}
+  \end{equation}
+ with $M_{t:t+1}$ a linear forecast operator and $K_{t+1}$ the kalman gain similarly computed from the error and prediction covariance matrices. 
 
 
 Variational methods solve the estimation as an optimization problem. The objective is framed as the minimization of a variational cost $\gamma(y) = \arg\min_x J(x, y)$ that includes a observation term $J_{obs}(x, y)$ and a regularization term  $J_{reg}(x)$ related to the prior distribution. The formulation is:
 
-$$ \gamma(y) = \arg\min_x \left[ J_{\text{reg}}(x) + J_{\text{obs}}(x, y) \right]$$
+  \begin{equation}
+ f_{y\to x}(y) = \arg\min_x \left[ J_{\text{reg}}(x) + J_{\text{obs}}(x, y) \right]
+    \label{eq:VarDa}
+  \end{equation}
 The minimization procedure is classically performed using an iterative gradient based algorithm\cite{carrassiDataAssimilationGeosciences2018}. The gradients can be computed using the adjoint method\cite{lelloucheCopernicusGlobal122021} or automatic differentiation libraries in deep learning\cite{fabletENDTOENDPHYSICSINFORMEDREPRESENTATION2021}.
 The calibration of neural fields is also framed as a the minimization of a training objective. However in existing work \cite{johnsonNeuralFieldsFast2022}, since no prior distribution is defined over the states, the variational cost effectively contains only on the observation term.
 Such methods are used in variational data assimilation such as 3DVAR, strong and weak 4DVAR, 4DVarNet and can be used to solve the OI problem. Note that similarly to Kalman filters, the 3DVAR method also perform a sequential resolution of the estimation.
@@ -143,8 +173,9 @@ The different calibration procedures of different methods are summarized in the 
 
 
 \section{Calibrating the method}
+  \label{c2sec:calib}
 The choice of prior formulation and estimation procedure provide a method with free parameters (i.e. second order \textbf{model}) that need to be calibrated. 
-Calibrating the method involves the fine-tuning of several parameters and model factors. These include the background field, covariance matrices for observation and background errors, as well as specifics for variational optimization or numerical model integration. In the case of deep learning approaches like direct inversion, the parameters of the neural network also become factors requiring calibration.
+Calibrating the method involves the fine-tuning of several parameters and model factors. These include the background field, covariance matrices for observation and background errors, as well as specifics for variational optimization or numerical integration schemes. In the case of deep learning approaches like direct inversion, the parameters of the neural network also become factors requiring calibration.
 
 
 The calibration process relies on datasets, typically comprising numerical model outputs and pre-existing observations. These data sets serve for estimating the aforementioned factors and for validating the performance of the state estimation procedure.
@@ -153,6 +184,7 @@ A widely adopted approach for this calibration is cross-validation. In this tech
 For methods incorporating neural architectures, advanced optimization algorithms specific to deep learning are often employed. These algorithms efficiently tune the weights and biases of the neural network, aligning them for better performance in the SSH estimation task. This is particularly advantageous for direct inversion approaches, which depend entirely on the data for calibration and do not require explicit prior models.
 
 \section{Evaluation}
+  \label{c2sec:eval}
 So far, we have described the choices made in developing the methods. Yet, a critical choice remains: selecting the criteria to assess the best method for a given problem. To address this, we consider various evaluation data and metrics.
 
 Evaluation data can stem from two main sources, each with its unique risks and benefits. Firstly, the estimated SSH can be compared directly with observation data. Termed as the Observing System Experiment (OSE), its primary advantage lies in its close resemblance to real-world scenarios. However, observational data presents its own challenges. Calibrated nadir altimeters are filtered, unable to capture smaller processes - the same processes anticipated in the new SWOT observations. This poses significant challenges when using nadir altimeter data to assess SWOT calibration. It's worth noting that while data from other observations, such as sea surface temperature or in situ drifter data, can be utilized, they present the challenge of discerning their relationship with the estimated SSH. When mapping altimetry, evaluation using nadir tracks means assessing the SSH over only a portion of the estimated domain. The sampling pattern of nadir altimeters also restricts evaluation. Their sporadic acquisition over time hinders the ability to compare the temporal evolution of the estimation with a reference. Furthermore, the one-dimensional nature of this acquisition precludes the evaluation of pertinent geophysical metrics like the vorticity field.
@@ -168,6 +200,7 @@ In closing, a substantial part of assessing an SSH estimation and deciding on pe
 
 
 \section{A closer look on the 4dVarNet}
+  \label{c2sec:4dvarnet}
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{00_LitReview/Method-4dvarnet.pdf}

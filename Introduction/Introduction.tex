@@ -1,20 +1,28 @@
 \begin{bibunit}[IEEEtran.bst]
 
-\chapter*{Introduction}
+\chapter{Introduction}
 \addcontentsline{toc}{chapter}{Introduction}
 \chaptermark{Introduction}
 
-  \section{Motivation}
-Understanding and anticipating the ramifications of climate change represents a pressing challenge of our era.
-Enhancing our knowledge of Earth's systems is a key factor in confronting this challenge and observation data are key resources to this end.
-  % Given that the primary source of factual information about the Earth system is observational data,
-  % improving our ability to exploit these data could lead to better monitoring and understanding of our planet.
-  This thesis is situated within the context of the Surface Water Ocean topography (SWOT)\cite{KaRInSWOTCharacteristics} mission, which presents opportunities for enhancing our observational capabilities of the oceans.
-  We focus on the development of methods to exploit satellite observations of the ocean surface height for improving our knowledge of ocean surface dynamics. 
-  More specifically we're asking how advances in deep learning research can be beneficial to ocean altimetry analysis.
+  \section{Broad Context}
+
+
+In the context of an evolving climate, monitoring the changes in our environment is a critical aspect of our ability to react and adapt.
+The oceans are physical systems ruled by known but chaotic dynamics which makes the use of observational data essential to monitor their state.
+Our monitoring ability thus depends on the observing systems deployed as well as our ability to exploit the observation data.
+
+In recent decades, satellite NADIR altimeters have greatly improved our observational capabilities by providing a global coverage of the SSH.
+  However due to the scarce and irregular sampling of altimeter constellations, current operational products provide limited insights into phenomena with time scales of a few days and spatial scales of tens of kilometers\cite{ballarottaResolutionsOceanAltimetry2019}. Figure \ref{} shows the approximate scales of the processes of interest in altimetry and the limit of observational capabilities with the data of a nadir altimeter.
+% These processes linked to the mesoscale and submesoscale dynamics of the ocean surface play an important role in the heat redistribution within the ocean, which has implications for climate monitoring.
+  This thesis is situated within the context of the Surface Water Ocean topography (SWOT)\cite{KaRInSWOTCharacteristics} mission, which presents opportunities for enhancing our observational capabilities of the oceans. Figure \ref{} shows an simulated example of NADIR and SWOT observations over the north atlantic ocean over a ten day period.
+% The recent deployment of the novel  during the SWOT satellite mission\cite{KaRInSWOTCharacteristics} provides opportunities to address this gap.
+This Ka-band Radar Interferometer (KaRIn) sensor will provide unprecedented two dimensional images of the ocean surface topography but will also introduce calibration challenges\cite{EmpiricalCrossCalibrationCoherent} due to previously unseen errors.
+
+  The research in this thesis focuses on the development of methods to exploit satellite observations of the sea surface height (SSH) for improving our knowledge of ocean surface dynamics. 
+  More specifically we're asking how advances in deep learning can be beneficial to ocean altimetry analysis.
   Deep learning research provides a rapidly evolving set of tools that have been successfully applied to a wide range of domain, surpassing existing methods and succeeding in previously unsolved problems.
   
-  In order to study the potentials of deep learning for tackling ocean observation problems, we'll introduce the necessary methodological components involved when addressing an observation problem by walking through the toy example of a thermometer graduation procedure.
+  In order to study the potentials of deep learning for tackling ocean observation problems, we'll first introduce the necessary methodological components involved when addressing an observation problem by walking through the illustrative example of a thermometer graduation procedure.
   We will explicit the similarities between this example and the altimetry challenges studied in this thesis.
  This simplified problem will help illustrate and contextualize the complementary roles of data and domain knowledge when addressing this class of problem. 
   We will then describe how the tools brought by the deep learning field fit in this methodological framework and consider the opportunities and challenges that arise when applying them to ocean altimetry analysis.
@@ -23,7 +31,7 @@ Enhancing our knowledge of Earth's systems is a key factor in confronting this c
   
 
 
-  \section{Toy example: Graduating a thermometer}
+  \section{Illustrative case and Key concepts: Graduating a thermometer}
 
 
 \subsection*{Estimating temperature from observations}
@@ -145,7 +153,7 @@ The second order problem also involves making decisions on parameters to select 
 
 Finally, a critical note is that the data used to evaluate a solution at the second order level should still be separate from the calibration data. This principle holds true for the same reasons it applies to the first order problem - using distinct data sets helps to ensure that our solutions generalize well beyond the specific scenarios they were trained on.
 
-\section{From toy example to ocean altimetry scenarii}
+\section{Applying the key notions to ocean altimetry}
 \subsection*{Introducing space and time}
 Our previous example implicitly solved the estimation problem of the liquid temperature within the thermometer at a single point in space and time.
 However, we can extend the problem formulation to estimate a quantity over a spatial and temporal domain.
@@ -161,13 +169,6 @@ These additional assumptions will require suitable \textbf{Calibration data and 
 
 \subsection*{Satellite altimetry}
 
-
-In recent decades, satellite NADIR altimeters have greatly improved our observational capabilities enabled by providing a global coverage of the SSH.
-
-However due to the scarce and irregular sampling of altimeter constellations, current operational products do not resolve processes at mid-latitudes with horizontal scales smaller than 150 km\cite{ballarottaResolutionsOceanAltimetry2019}.
-These processes linked to the mesoscale and submesoscale dynamics of the ocean surface play an important role in the heat redistribution within the ocean, which has implications for climate monitoring.
-The recent deployment of the novel Ka-band Radar Interferometer (KaRIn) sensor during the SWOT satellite mission\cite{KaRInSWOTCharacteristics} provides opportunities to address this gap.
-This new sensor will provide unprecedented two dimensional images of the ocean surface topography but will also introduce calibration challenges\cite{EmpiricalCrossCalibrationCoherent} due to previously unseen errors.
 
 The estimation of the sea surface height (SSH) given satellite altimetry data enters nicely in the methodological presented above.
 
@@ -189,8 +190,6 @@ The altimetry mapping problem focuses on the spatial and temporal interpolation 
 This manuscript, therefore, aims to explore the application of deep learning to these two observation problems. The first is estimating SSH from noisy SWOT observations, and the second is inferring the complete SSH field from partial measurements which we detail in the following two sections.
 We give an overview of the next chapter the different \textbf{models} and \textbf{calibration procedure} that have been developped for tackling these challenges.
   
-
-
 In order to solve and evaluate solutions to these problems \textbf{Calibration and Evaluation data} are necessary. However, the SSH we aim to estimate is unknown on the target domain.
 Two separate experimental setups are used to adress this issue.
 
@@ -199,7 +198,7 @@ For altimetry mapping for example, some satellite observations may be reserved f
 
 Observing System Simulation Experiments (OSSE)\cite{verrierAssessingImpactMultiple2017} use ocean models as well as simulated observing systems to create an controlled environment where simulated ocean quantities are known. For SWOT calibration, this includes simulating processes of the satellite movement such as roll oscillation that are the source of error signals\cite{EmpiricalCrossCalibrationCoherent}.
 
-This peculiar data context is a critical factor when developing data centric methods like deep learning.
+This peculiar data context is a critical factor when developing data-centric methods like deep learning.
 
 % 
 
@@ -234,19 +233,20 @@ For the mapping and calibration challenges at hand in this thesis, the use of de
 In deep learning, existing architectures used for video inpainting\cite{kimDeepVideoInpainting} and image denoising\cite{tianDeepLearningImage2020} solve tasks that are formally similar to altimetry mapping and calibration.
 The universality of such models can potentially capture processes relating to ocean dynamics and observations that are hard formulate formally and improve on existing state of the art.
 
-The altimetry data however presents some specific characteristics compared to natural images and video.
-The sampling pattern of altimeters is particularly sparse and irregular which may not be adapted for classical CV architectures.
-Furthermore ocean surface dynamics involve processes at different scales and the finer scales (mesoscale, submesoscale) that are of interests in this thesis constitute a small proportion of the whole SSH signal.
-Classical methods in altimetry address this challenge by leveraging theoretical and statistical knowledge of ocean processes and observation data.
-This raises the first question we ask: \textit{How can specific altimetry knowledge be integrated in deep learning methodology?}
+Application of these models to altimetry however introduce some challenges related to the data.
+The altimetry context do not provide access to the SSH state we want to estimate which raises questions as to the calibration and evaluation procedures.
+Indeed at the beginning of my thesis, the 4dVarNet neural mapping scheme was shown to surpass operational products for a usecase in the gulf stream area\cite{fabletENDTOENDPHYSICSINFORMEDREPRESENTATION2021}. However, this results had been calibrated and evaluated in an OSSE setup. 
+This poses the question addressed in this manuscript is: \textit{How can deep learning approaches overcome the lack of true SSH for use on real altimetry?}
+Furthermore, CV architectures have to some extent been iteratively validated and fitted on natural images.
+The transfer to altimetry data and SSH fields and altimetry data is not trivial..
+The sparse and irregular sampling pattern of altimeters  as well as the turbulent nature of the SSH may not be suited for classical CV architectures.
 
-Another peculiar aspect of the altimetry context for using deep learning concerns the available calibration and evaluation data.
-Indeed at the beginning of my thesis, the 4dVarNet neural mapping scheme has shown to surpass operational products for a usecase in the gulf stream area\cite{fabletENDTOENDPHYSICSINFORMEDREPRESENTATION2021}. However, this results had been calibrated and evaluated in an OSSE setup. 
-This poses the second question addressed in this manuscript is: \textit{How can deep learning approaches overcome the lack of true SSH for use on real altimetry?}
+Furthermore, another factor that differentiate altimetry to previously mentioned fields is that existing methods exist for solving the tasks considered. Existing solutions use the available physical knowledge of ocean dynamics and observing systems. To some extent, this paints a less favorable setup for the potential of classical DL methods. Similar theory-rich application domains have motivated the research into hybrid methods that make use of both physical knowledge and learning-based models.
+This relates to another question we ask: \textit{How can specific altimetry knowledge be integrated in deep learning methodology?}
 
 
-These studies demonstrate how applying deep learning to ocean observation sciences such as altimetry is fully dependent on domain expertise for both the data and evaluation contexts.
-The development and evaluation of methods like the 4dVarNet relied heavily on prior efforts to standardized OSSE and OSE usecases in the form of data challenges\cite{ballarottaOceandatachallenges2020a_SSH_mapping_NATL60Material2020,ballarottaOceandatachallenges2021a_SSH_mapping_OSEMaterial2021}. These use-cases provided data access for machine learning practicioners as well as metrics relevant for ocean physicists. 
+These studies demonstrate how applying deep learning to ocean sciences such as altimetry analysis is fully dependent on domain expertise for both the data and evaluation contexts.
+The development and evaluation of methods like the 4dVarNet relied heavily on prior efforts to standardize OSSE and OSE usecases in the form of data challenges\cite{ballarottaOceandatachallenges2020a_SSH_mapping_NATL60Material2020,ballarottaOceandatachallenges2021a_SSH_mapping_OSEMaterial2021}. These use-cases provided data access for machine learning practicioners as well as metrics relevant for ocean physicists. 
 This raises the third question of this research: \textit{What is needed for a wide-spread adoption of deep learning tools in ocean observation sciences?}
 
 
@@ -258,7 +258,7 @@ The following chapters of this thesis are organized as follows:
 
 \textbf{Chapter 2} describes the main assumptions and methods that are formulated in current methods for altimetry mapping and calibration. This chapter aims at describing the existing \textbf{models} and \textbf{calibration algorithm} available in altimetry analysis as well as the related work in deep learning. A more detailed description of the neural network-based 4DVarNet framework and its applications will be presented as the contributions of this thesis make extensive use of this architecture.
 
-\textbf{Chapter 2} propose a deep learning architecture for the calibration of correlated errors in SWOT data.
+\textbf{Chapter 3} propose a deep learning architecture for the calibration of correlated errors in SWOT data.
 From an applicative standpoint, the flexibility of deep learning methodology opens the potential for capturing signals that are tricky to explicitly parameterize.
 From a methodological perspective, this study shows how deep learning architectures can be tailored with assumptions on the instrument and its measurements.
 More specifically, this is done by showing how the spectral specifities of the errors can be leveraged to design a efficient neural calibration scheme.
@@ -266,12 +266,12 @@ This study bypasses the challenges brought by the lack of ground-truthed dataset
 It takes place in a simulated setup with the SSH and error signals are simulated and therefore known.
 
 
-\textbf{Chapter 3} tackles more specifically the data availability problem. It studies how neural mapping schemes can be applied to real data despite the lack of reference dataset.
+\textbf{Chapter 4} tackles more specifically the data availability problem. It studies how neural mapping schemes can be applied to real data despite the lack of reference dataset.
 It looks more specifically at the 4DVarNet framework which has been demonstrated in a simulated setup\cite{fabletENDTOENDPHYSICSINFORMEDREPRESENTATION2021} using simulated SSH for training and evaluation.
 This chapter look at the performance on real data of deep learning models trained on simulated data.
 It shows how the extensive physical knowledge of the ocean dynamics can be leveraged to palliate the lack of ground-truthed dataset in altimetry through the use of numerical simulations for training.
 
-\textbf{Chapter 4} considers the obstacles for better synergies between the ocean altimetry and deep learning community.
+\textbf{Chapter 5} considers the obstacles for better synergies between the ocean altimetry and deep learning community.
 Both fields are well established with accumulated knowledge, conventions, and best practices. 
 As described in this chapter, deep learning brings powerful models and algorithms.
 However the calibration and evaluation data as well as the metrics of an altimetry product can only be sensibly designed by an domain expert. 
@@ -279,7 +279,7 @@ We propose OceanBench, an interface in the form of a software suite of tools.
 Oceanbench aims at empowering domain experts to easily design altimetry problems of interests and qualifying them with relevant metrics. 
 It then provides machine learning practitioners access to the necessary data as well as suited utilities for learning
 
-\textbf{Chapter 5} discusses and concludes on the research presented in this manuscript. We summarize the main objectives and results in previous chapters as well as proposing some future avenues of research.
+\textbf{Chapter 6} discusses and concludes on the research presented in this manuscript. We summarize the main objectives and results in previous chapters as well as proposing some future avenues of research.
 
 
 \addcontentsline{toc}{section}{Bibliography}
