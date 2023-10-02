@@ -20,18 +20,18 @@ The rest of this section details some experimental designs and datasets. It also
 
 % \subsection*{Problem Definition}\label{sec:prob_definition}
 
-% We are dealing with satellite observations, so we are interested in the domain across the Earth's surface. 
-% Let us de the Earth's efindomain by some spatial coordinates, $\mathbf{x} = [\text{Longitude},\text{Latitude}]^\top \in\mathbb{R}^{D_s}$, and temporal coordinates, $t=[\text{Time}]\in\mathbb{R}^+$, where $D_s$ is the dimensionality of the coordinate vector.  
-% We can define some spatial (sub-)domain, $\Omega\subseteq\mathbb{R}^{D_s}$, and a temporal (sub-)domain, $\mathcal{T}\subseteq\mathbb{R}^+$. 
-% This domain could be the entire globe for 10 years or a small region within the North Atlantic for 1 year.
+% we are dealing with satellite observations, so we are interested in the domain across the earth's surface. 
+% let us de the earth's efindomain by some spatial coordinates, $\mathbf{x} = [\text{longitude},\text{latitude}]^\top \in\mathbb{r}^{d_s}$, and temporal coordinates, $t=[\text{time}]\in\mathbb{r}^+$, where $d_s$ is the dimensionality of the coordinate vector.  
+% we can define some spatial (sub-)domain, $\omega\subseteq\mathbb{r}^{d_s}$, and a temporal (sub-)domain, $\mathcal{t}\subseteq\mathbb{r}^+$. 
+% this domain could be the entire globe for 10 years or a small region within the north atlantic for 1 year.
 % \begin{align}  \label{eq:spatiotemporal_coords}
-%     \text{Spatial Coordinates}: && \mathbf{x} &\in \Omega \subseteq \mathbb{R}^{D_s}\\ 
-%     \text{Temporal Coordinates}: && t &\in \mathcal{T} \subseteq \mathbb{R}^+.
+%     \text{spatial coordinates}: && \mathbf{x} &\in \omega \subseteq \mathbb{r}^{d_s}\\ 
+%     \text{temporal coordinates}: && t &\in \mathcal{t} \subseteq \mathbb{r}^+.
 % \end{align}
-% In this case $D_s=2$ because we only have a two coordinates, however we can do some coordinate transformations like spherical to Cartesian. Likewise, we can do some coordinate transformation for the temporal coordinates like cyclic transformations or sinusoidal embeddings~\cite{ATTENTION}. We have two fields of interest from these spatiotemporal coordinates: the state and the observations.
+% in this case $d_s=2$ because we only have a two coordinates, however we can do some coordinate transformations like spherical to cartesian. likewise, we can do some coordinate transformation for the temporal coordinates like cyclic transformations or sinusoidal embeddings~\cite{attention}. we have two fields of interest from these spatiotemporal coordinates: the state and the observations.
 % \begin{align} \label{eq:state_obs}
-%     \text{State}: && \boldsymbol{u}(\mathbf{x},t) &: \Omega\times\mathcal{T}\rightarrow\mathbb{R}^{D_u} \\
-%     \text{Observations}: && \boldsymbol{y}_{obs}(\mathbf{x},t) &: \Omega\times\mathcal{T}\rightarrow\mathbb{R}^{D_{obs}}
+%     \text{state}: && \boldsymbol{u}(\mathbf{x},t) &: \omega\times\mathcal{t}\rightarrow\mathbb{r}^{d_u} \\
+%     \text{observations}: && \boldsymbol{y}_{obs}(\mathbf{x},t) &: \omega\times\mathcal{t}\rightarrow\mathbb{r}^{d_{obs}}
 % \end{align}
 % The state domain, $u\in\mathcal{U}$, is a scalar or vector-valued field of size $D_u$ which is typically the quantity of interest and the observation domain, $y_{obs}\in\mathcal{Y}_{obs}$, is the observable quantity which is also a scalar or vector-valued field of size $D_{obs}$. Now, we make the assumption that we have an operator $\mathcal{H}$ that transforms the field from the state space, $\boldsymbol{u}$, to the observation space, $\boldsymbol{y}_{obs}$.
 % \begin{align} \label{eq:prob_definition}
@@ -507,8 +507,18 @@ We have access to many physical quantities which can be derived from sea surface
 This gives us a way to analyze how effective and trustworthy are our reconstructions. 
 Many machine learning methods are unconstrained so they may provide solutions that are physically inconsistent and visualizing the field is a very easy eye test to assess the validity. 
 In addition to post analysis, one could include some of these derived quantities maybe useful as additional inputs to the system and/or constraints to the loss function. 
-Recall the spatiotemporal coordinates from equation~\ref{eq:spatiotemporal_coords}, 
-we use the same coordinates for the subsequent physical quantities. \textbf{Sea Surface Height} is the deviation of the height of the ocean surface from the geoid of the Earth. We can define it as:
+
+We are interested in the domain across the earth's surface.
+let us define the earth's domain by some spatial coordinates, $\mathbf{x} = [\text{longitude},\text{latitude}]^\top \in\mathbb{r}^{d_s}$, and temporal coordinates, $t=[\text{time}]\in\mathbb{r}^+$, where $d_s$ is the dimensionality of the coordinate vector.
+we can define some spatial (sub-)domain, $\omega\subseteq\mathbb{r}^{d_s}$, and a temporal (sub-)domain, $\mathcal{t}\subseteq\mathbb{r}^+$.
+this domain could be the entire globe for 10 years or a small region within the north atlantic for 1 year.
+\begin{align}  \label{eq:spatiotemporal_coords}
+    \text{spatial coordinates}: && \mathbf{x} &\in \omega \subseteq \mathbb{r}^{d_s}\\
+    \text{temporal coordinates}: && t &\in \mathcal{t} \subseteq \mathbb{r}^+.
+\end{align}
+in this case $d_s=2$ because we only have a two coordinates, however we can do some coordinate transformations like spherical to cartesian. likewise, we can do some coordinate transformation for the temporal coordinates like cyclic transformations or sinusoidal embeddings~\cite{attention}.
+
+\textbf{Sea Surface Height} is the deviation of the height of the ocean surface from the geoid of the Earth. We can define it as:
 \begin{align}
 	\text{Sea Surface Height }[m]:&& \quad
  \eta &= \boldsymbol{\eta}(\mathbf{x},t)&& \quad \Omega\times \mathcal{T}\rightarrow\mathbb{R} \label{eq:ssh}
@@ -585,7 +595,7 @@ Again, as we increase the efficacy of the observations via SWOT and allow for mo
 In addition, we see that the PSD plots for the OSE task look very similar to the OSE challenges. 
 
 Lastly, we used \texttt{OceanBench} to generate a leaderboard of metrics for a diverse set of algorithms where the maps were available online.
-Table~\ref{tb:exp-results-mega} displays all of the key metrics outlined in section~\ref{sec:metrics} including the normalized RMSE and various spectral scores which are appropriate for the challenge.
+Table~\ref{tb:expresults} displays all of the key metrics outlined in section~\ref{sec:metrics} including the normalized RMSE and various spectral scores which are appropriate for the challenge.
 We see that as the complexity of the method increases, the metrics improve. 
 In addition, the methods that involve end-to-end learning perform the best overall, i.e. 4DVarNet.
 
@@ -641,6 +651,46 @@ Each column showcase the reconstructed from the tasks (a) OSSE using only Nadir 
 
 
 
+\begin{table}[H]
+% \caption{This table highlights some of the results for the OSSE experiments outlined in section~\ref{sec:osse} and~\ref{sec:other_tasks}.
+
+% This table highlights the performance statistically in the real and spectral space; the normalized RMSE for the real space and the minimum spatial and temporal scales resolved in the spectral domain. 
+% For more information about the class of models displayed and class of metrics, see section~\ref{sec:ml_ontology} and section~\ref{sec:metrics} respectively.}
+\centering
+\makebox[\textwidth]{
+\begin{tabular}{llcccccc}
+ \toprule
+% Experiment & Configuration & Method & nRMSE & Resolved Scale [km]    \\ \midrule
+% \multirow{2}{*}{Experiment} & \multirow{2}{*}{Algorithm} & \multirow{2}{*}{Algorithm Class} & \multirow{2}{*}{nRMSE} & \multicolumn{2}{c}{Effective Resolution} \\ 
+% &  &   &  & Wavelength [km]  & Period [days]      \\ \midrule
+% \multirow{2}{*}{Experiment} & \multirow{2}{*}{Algorithm} & \multirow{2}{*}{Algorithm Class} & \multirow{2}{*}{nRMSE} & \multicolumn{2}{c}{Effective Resolution} \\ 
+\multirow{2}{*}{Experiment} &  \multirow{2}{*}{Algorithm} &   \multirow{2}{*}{nRMSE Score} &
+\multicolumn{4}{c}{Effective Resolution} \\
+& & & $\lambda_{a}$ [km] & $\lambda_{r}$ [km]   &  $\lambda_{\mathbf{x}}$ [km]  &   $\lambda_{t}$ [days]      \\ \midrule
+OSSE NADIR     &  OI & 0.92 & - & 123 & 174 & 10.8 \\
+OSSE NADIR     &  MIOST &  0.93 & - & 100 & 157 & 10.1 \\
+OSSE NADIR     &  BFNQG & 0.93 & - & 88 & 139 & 10.4 \\
+OSSE NADIR &  4DVarNet &  \textbf{0.94} & - & \textbf{65} & \textbf{117} & \textbf{7.7} \\
+\midrule
+OSSE SWOT     &  OI & 0.92 & - & 106 & 139 & 11.7 \\
+OSSE SWOT     &  MIOST &  0.94 & - & 88 & 131 & 10.1 \\
+OSSE SWOT     &  BFNQG & 0.94 & - & 64 & 118 & 36.5 \\
+OSSE SWOT &  4DVarNet &  \textbf{0.96} & - & \textbf{47} & \textbf{77} & \textbf{5.6} \\
+\midrule
+OSSE SST     &  Musti & 0.95 & - & 46 & 138 & 4.1 \\
+OSSE SST &  4DVarNet &  \textbf{0.96} & - & \textbf{46} & \textbf{87} & \textbf{3.7} \\
+\midrule
+OSE NADIR     &  OI & 0.88 & 151 & - &  - &  -\\
+OSE NADIR     &  MIOST &  0.90 & 135 & - &  - &  -\\
+OSE NADIR     &  BFNQG & 0.88 & 122 & - & - &  -\\
+OSE NADIR &  ConvLSTM &  0.89 & 113 &- &  - &  -\\
+OSE NADIR &  4DVarNet & \textbf{0.91} & \textbf{98} & - &  -  &  -\\
+\bottomrule
+\end{tabular}}
+\caption{This table showcases all of the summary statistics for some methods for each of the data challenges listed in section~\ref{sec:data_challenges}. The summary statistics shown are the normalized RMSE and the effective resolution in the spectral domain. The spectral metrics for the effective resolution that were outlined in section~\ref{sec:metrics} are: i) $\lambda_a$ is the spatial score for the alongtrack PSD score, ii) $\lambda_r$ is the spatial score for the isotropic PSD, iii) $\lambda_x$ is the spatial score for space-time PSD score, and iv) $\lambda_t$ is the temporal score for the space-time PSD score.}
+\label{tb:expresults}
+\end{table}
+
 \subsection*{\texttt{OceanBench} Pipelines}
 
 % \begin{table}[h]
@@ -683,46 +733,6 @@ Figure~\ref{fig:oceanbench_maps} showcases some fields of the most common physic
 % \include{content/appendix/fourdvarnet_maps}
 
 
-\begin{table}[H]
-% \caption{This table highlights some of the results for the OSSE experiments outlined in section~\ref{sec:osse} and~\ref{sec:other_tasks}.
-
-% This table highlights the performance statistically in the real and spectral space; the normalized RMSE for the real space and the minimum spatial and temporal scales resolved in the spectral domain. 
-% For more information about the class of models displayed and class of metrics, see section~\ref{sec:ml_ontology} and section~\ref{sec:metrics} respectively.}
-\label{tb:exp-results-mega}
-\centering
-\makebox[\textwidth]{
-\begin{tabular}{llcccccc}
- \toprule
-% Experiment & Configuration & Method & nRMSE & Resolved Scale [km]    \\ \midrule
-% \multirow{2}{*}{Experiment} & \multirow{2}{*}{Algorithm} & \multirow{2}{*}{Algorithm Class} & \multirow{2}{*}{nRMSE} & \multicolumn{2}{c}{Effective Resolution} \\ 
-% &  &   &  & Wavelength [km]  & Period [days]      \\ \midrule
-% \multirow{2}{*}{Experiment} & \multirow{2}{*}{Algorithm} & \multirow{2}{*}{Algorithm Class} & \multirow{2}{*}{nRMSE} & \multicolumn{2}{c}{Effective Resolution} \\ 
-\multirow{2}{*}{Experiment} &  \multirow{2}{*}{Algorithm} &   \multirow{2}{*}{nRMSE Score} &
-\multicolumn{4}{c}{Effective Resolution} \\
-& & & $\lambda_{a}$ [km] & $\lambda_{r}$ [km]   &  $\lambda_{\mathbf{x}}$ [km]  &   $\lambda_{t}$ [days]      \\ \midrule
-OSSE NADIR     &  OI & 0.92 & - & 123 & 174 & 10.8 \\
-OSSE NADIR     &  MIOST &  0.93 & - & 100 & 157 & 10.1 \\
-OSSE NADIR     &  BFNQG & 0.93 & - & 88 & 139 & 10.4 \\
-OSSE NADIR &  4DVarNet &  \textbf{0.94} & - & \textbf{65} & \textbf{117} & \textbf{7.7} \\
-\midrule
-OSSE SWOT     &  OI & 0.92 & - & 106 & 139 & 11.7 \\
-OSSE SWOT     &  MIOST &  0.94 & - & 88 & 131 & 10.1 \\
-OSSE SWOT     &  BFNQG & 0.94 & - & 64 & 118 & 36.5 \\
-OSSE SWOT &  4DVarNet &  \textbf{0.96} & - & \textbf{47} & \textbf{77} & \textbf{5.6} \\
-\midrule
-OSSE SST     &  Musti & 0.95 & - & 46 & 138 & 4.1 \\
-OSSE SST &  4DVarNet &  \textbf{0.96} & - & \textbf{46} & \textbf{87} & \textbf{3.7} \\
-\midrule
-OSE NADIR     &  OI & 0.88 & 151 & - &  - &  -\\
-OSE NADIR     &  MIOST &  0.90 & 135 & - &  - &  -\\
-OSE NADIR     &  BFNQG & 0.88 & 122 & - & - &  -\\
-OSE NADIR &  ConvLSTM &  0.89 & 113 &- &  - &  -\\
-OSE NADIR &  4DVarNet & \textbf{0.91} & \textbf{98} & - &  -  &  -\\
-\bottomrule
-\end{tabular}}
-\caption{This table showcases all of the summary statistics for some methods for each of the data challenges listed in section~\ref{sec:data_challenges}. The summary statistics shown are the normalized RMSE and the effective resolution in the spectral domain. The spectral metrics for the effective resolution that were outlined in section~\ref{sec:metrics} are: i) $\lambda_a$ is the spatial score for the alongtrack PSD score, ii) $\lambda_r$ is the spatial score for the isotropic PSD, iii) $\lambda_x$ is the spatial score for space-time PSD score, and iv) $\lambda_t$ is the temporal score for the space-time PSD score.}
-\end{table}
-
 
 
 %The \textit{Ocean-Data-Challenge} group has a wide-range of different OSSE and OSE experiments involving SSH interpolation in particular~\cite{DCOSEGULFSSH,DCOSSEGULFSSH}. 
@@ -757,7 +767,7 @@ OSE NADIR &  4DVarNet & \textbf{0.91} & \textbf{98} & - &  -  &  -\\
 
 Regarding the evaluation framework, we include domain-relevant performance metrics beyond the standard ML loss and accuracy functions. They account for the sampling patterns of the evaluation data. Spectral analytics are widely used in geoscience~\cite{BFNQG}, and here, we consider spectral scores computed as the minimum spatial and temporal scales resolved by the reconstruction methods proposed in~\cite{BFNQG}.
 For example, figure~\ref{fig:oceanbench_psd} showcases how \texttt{OceanBench} generated the isotropic power spectrum and score and the space-time power spectrum decomposition and score.
-Table~\ref{tb:oceanbench_results} outlines some standard and domain-specific scores for the experiments outlined in section~\ref{sec:experimental_design}.
+Table~\ref{tb:expresults} outlines some standard and domain-specific scores for the experiments outlined in section~\ref{sec:experimental_design}.
 
 
 % \begin{table}[h]
