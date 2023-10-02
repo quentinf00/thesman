@@ -49,7 +49,7 @@
 % \end{IEEEkeywords}
 
 
-\section{Preface}
+% \section{Preface}
 
 
 \section{Introduction}
@@ -92,19 +92,20 @@ Section \ref{c3sec:conclusion} discusses further our main contributions.
 \noindent
 \begin{figure*}[!t]%
    \centering
-    \subfloat[$f$]{{\includegraphics[width=.49\textwidth]{00_Calib/swath_err_details} }}%
-    \subfloat[$\mathcal{G}_{200km}(f) - \mathcal{G}_{10km}(f)$]{{\includegraphics[width=.49\textwidth]{00_Calib/swath_err_f10_200_details} }}%
+   \makebox[\textwidth]{
+    \subfloat[$f$]{{\includegraphics[width=.7\textwidth,clip,trim=0.5cm 0 2cm 1cm]{00_Calib/swath_err_details} }}%
+    \subfloat[$\mathcal{G}_{200km}(f) - \mathcal{G}_{10km}(f)$]{{\includegraphics[width=.7\textwidth,clip,trim=0.5cm 0 2cm 1cm]{00_Calib/swath_err_f10_200_details} }}}%
     \caption{\textbf{1000km segment of KaRIn observation components in swath geometry:}\textit{(a)} Looking at the three signals we see that the large scale instrument errors (middle) are predominant compared to the SSH (top) and geophysical error (bottom). \textit{(b)} Looking at the along-track scales between 10km and 200km, we note that the SSH is dominant w.r.t the error signals.}%
     \label{c3fig:filtered_swath_uncal_comp}%
 \end{figure*}
 \subsection*{Satellite altimeters}
-In this chapter, we address the cross-calibration of KaRIn observations, meaning that the proposed calibration scheme relies on external calibrated data. More specifically, we consider a constellation of  4 nadir satellite altimeters. We recall that nadir altimeters provide can provide calibrated measurements of the SSH for medium to large scales along 1{\sc d} profiles corresponding to satellites' orbiting paths. Over the last decades the constellation counted typically from 4 to 7 satellites.
+In this chapter, we address the cross-calibration of KaRIn observations, meaning that the proposed calibration scheme relies on external calibrated data. More specifically, we consider a constellation of  4 nadir satellite altimeters. We recall that nadir altimeters can provide calibrated measurements of the SSH for medium to large scales along 1{\sc d} profiles corresponding to satellites' orbiting paths. Over the last decades the constellation counted typically from 4 to 7 satellites.
 
 By contrast, according to the mission's error budget specification \cite{Peral_Esteban-Fernandez_2018} the KaRIn instrument samples a two-dimensional swath of approximately 120km-wide with a 2km$\times$2km pixel resolution everywhere over the ocean.
 
 
 In Figure \ref{c3fig:gridded}, we report simulated altimetry observations for both nadir altimeters and KaRIn along with the reference SSH issued from a numerical simulation dataset (see  the Section \ref{c3sec:case_study} for details). As an illustration of the complexity of calibration problem, the error signals completely occlude the SSH signal in the uncalibrated KaRIn observation.
-Figure \ref{c3fig:filtered_swath_uncal_comp} illustrates further this point in the swath geometry. When focusing to along-track scales between 10km and 200km, the SSH signal becomes the main signal (Fig. \ref{c3fig:filtered_swath_uncal_comp}). This supports
+Figure \ref{c3fig:filtered_swath_uncal_comp} illustrates further this point in the swath geometry. When focusing on along-track scales between 10km and 200km, the SSH signal becomes the main signal (Fig. \ref{c3fig:filtered_swath_uncal_comp}). This supports
 both to consider a scale-space decomposition and to 
 investigate a cross-calibration approach with
 the exploitation of nadir-altimeter-derived altimetry products, which typically resolve horizontal scales above 100 km.
@@ -195,7 +196,8 @@ We first present an overview of the proposed neural architectures (Section \ref{
 \noindent
 \begin{figure*}
     \begin{center}
-	    \includegraphics[width=\textwidth]{00_Calib/CalDiag2.png}
+        \makebox[\textwidth]{
+	    \includegraphics[width=1.3\textwidth]{00_Calib/CalDiag2.png}}
     \end{center}
     \caption{\textbf{Overview of the proposed architecture:} From left to right: The first step interpolates the nadir-based gridded product onto the swath segment. Afterwards, both the nadir-based gridded product and KaRIn observation undergo the scale-space decomposition scheme outlined in \ref{c3subsec:scale_decomp}. The scale components are stacked as channels and processed through the neural network. The blue color of the "Split Conv" indicates that each side of the swath is processed independently by the convolution layer whereas the orange coloring of the "Swath Mix" layer tells that the whole data is processed jointly (more details in \ref{c3subsec:mixing}). The final convolution computes a correction to be added to the gridded product for computing the calibrated KaRIn data}
     \label{c3fig:arch}	

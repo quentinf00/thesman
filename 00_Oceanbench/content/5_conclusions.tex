@@ -1,5 +1,47 @@
-\section{Conclusions} \label{sec:conclusions}
+\section{Discussion} \label{sec:conclusions}
+\subsection*{Framework Limitations}
 
+While we have advertised \texttt{OceanBench} as a unifying framework that provides standardized processing steps that comply with domain-expert standards, we also highlight some potential limitations that could hinder its adoption for the wider community.
+
+\textbf{Data Serving}. We provide a few datasets but we omit some of the original simulations. We found that the original simulations are terabytes/petabytes of data which becomes infeasible for most modest users (even with adequate CPU resources).  
+This is very big problem and if we want to have a bigger impact, we may need to do more close collaborations with specified platforms like the Marine Data Store~\citep{MDSOCEANPHYSICS,MDSBIOGEOCHEMICAL,MDSOCEANPHYSICSENS,MDSINSITU,MDSWAVES,MDSALONGTRACK,MDSSSH} or the Climate Data Store~\citep{CDSREANALYSISSST,CDSOBSSST,CDSOBSOC,CDSOBSSSTENS}. Furthermore, there are many people that will not be able to do a lot of heavy duty research which indirectly favours institutions with adequate resources and marginalizing others. 
+This is also problematic as those communities tend to be the ones who need the most support from the products of such frameworks.
+We hope that leaving this open-source at least ensure that the knowledge is public.
+
+\textbf{Framework Dependence}. The user has to "buy-into" the \texttt{hydra} framework to really take advantage of \texttt{OceanBench}. This adds a layer of abstraction and a new tool to learn. 
+However, we designed the project so that high level usage does not require in-depth knowledge of the framework. 
+In addition, we hope that, despite the complexity of project, users will appreciate the flexibility and extensibility of this framework.
+
+
+\textbf{Lack of Metrics}. We do not provide the most exhaustive list of metrics available with the ocean community. In fact, we also believe that many of these metrics are often poor and do not effectively assess the goodness of our reconstructions. 
+However, we do provide a platform that will hopefully be useful and easy to implement new and improved metrics.
+Furthermore, having a wide range of metrics that are trusted across communities may help to improve the overall assessment of the different model performances~\cite{METRICSAVERAGE}.
+
+\textbf{Limited ML Scope}. 
+The framework does not support nor promote any machine learning methods and we lack any indication of comparing ML training and inference performance. 
+However, we argue that a benchmark framework will allow us to effectively compare whichever ML methods are demonstratively the best which is a necessary preliminary step which offers users more flexibility in the long-run.
+
+\textbf{Broad Oceans Application Scope}. 
+We have targeted a broad ocean-application scope of state estimation.
+However, there may be more urgent applications such as maritime monitoring, object tracking, and general ocean health.
+However, we feel that many downstream applications require high-quality maps.
+In addition, those downstream applications tend to be very complicated and are not always straightforward to apply ML under those instances.
+
+\textbf{Full Pipeline Transparency}. We use a lot of different \texttt{xarray}-specific packages which have different design principles, assumptions and implementations. This may give the users an illusion of simplicity and transparency to real-world use. However, there are many underlying assumptions within each of the packages that may occlude a lot of design decisions.
+Despite this limitation, we believe that being transparent about the processing steps and being consistent with the evaluation procedure will be beneficial for the ML research community.
+
+\textbf{Scalability}. Scaling this to many terabytes or petabytes of data is easily the biggest limitation of the framework. In addition, we have only showcased demonstrations for 2D+T fields which are much less expensive than 3D+T fields.
+
+\textbf{Deployability}. MLOPs has many wheels and it is not easy to integrate into existing systems. We offer no solutions to this. 
+However, we believe that our framework is fully transparent in the assumptions and use cases which will facilitate some adoption into operational systems where they can further modify it for their use cases (see the evolution of \texttt{WeatherBench} and \texttt{ClimateBench}).
+
+\textbf{Visualization Tools}.
+We do not incorporate a high quality visualization tool that allows users to do pre- and post-analysis at a large scale. 
+We do provide some simple visualization steps that are ML-relevant (see the GitHub repo) but it is very limited to ML standards.
+One solution is to interface our pipeline with the source of many ocean datasets, e.g. Climate Data Store~\citep{CDSREANALYSISSST} or Marine Data Store~\citep{MDSOCEANPHYSICS}, then we can offset this task to them where they can offer better quality visualization tools.
+
+
+\subsection*{Conclusion}
 The ocean community faces technological and algorithmic challenges to make the most of available observation and simulation datasets. 
 In this context, recent studies evidence the critical role of ML schemes in reaching breakthroughs in our ability to monitor ocean dynamics for various space-time scales and processes. 
 Nevertheless, domain-specific preprocessing steps and evaluation procedures slow down the uptake of ML toward real-world applications. 

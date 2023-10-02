@@ -16,6 +16,51 @@ The second study delves into how learning-based altimetry methods, once calibrat
 
 The initial two studies shed light on the potential of applying learning-based approaches to ocean science's observational challenges. Yet, they also spotlight the complexities in melding expertise in observation, simulation data, deep learning techniques, and domain-specific evaluation methodologies. This spurred the creation of the specialized toolset, Oceanbench, aiming to narrow the gap between deep learning and ocean science experts. Oceanbench enables ocean scientists to flexibly design evaluation setups using data and metrics. These setups come with the essential tools for deep learning practitioners to access and prepare the data in view of training their models.
 
+\newpage
+\subsection{Limitations}
+
+We have showcased the SSH interpolation edition as a data challenge which could be helpful for real applications. 
+However, in section~\ref{sec:problem_scope} we alluded to the greater task of general ocean state estimation which is more pertinent to the ocean sciences yet we don't address this directly with our data challenges.
+Furthermore, we claim that the data challenges presented will help the ocean community with using ML for SSH interpolation.
+Below, we outline some limitations which address these criticisms.
+
+\textbf{Not the overall objective}. 
+We recognized that we are far away from the actual reanalysis and forecasting goals of full state estimation. 
+However, we argue that that is a rather ambitious challenge which will require a lot of interdisciplinary work across communities. 
+In the meantime while we work towards that goal, operational centers could possibly improve their current products from ML-based techniques would would benefit downstream applications that deal directly with SSH.
+Furthermore, SSH is an important variable in describing the full ocean state.
+So a robust set of techniques that are able to solve the interpolation tasks could (in principal) be used to solve extra tasks.
+
+\textbf{Small Region \& Period}.
+We only feature a small region and period over the Gulfstream which is not representative of the different global regimes. 
+This also does not take into account real things like \textit{data drift} which will inevitable occur in operational settings.
+However, this is a dynamical regime and a well-studied area which does have some importance for specific communities and the results obtained offer some transferability to other dynamical regimes.
+In addition, this area will have good coverage due to the new SWOT mission~\cite{SWOT} which will allow for further validation in the future.
+Lastly, the area is small enough where the beginning stages for ML researchers is not overwhelmed with problems involving scale (even though we eventually want to arrive at global schemes).
+We hope to extend our challenges to more relevant scenarios~\cite{MDSALONGTRACK}.
+
+
+\textbf{Noise Characterization}.
+Real data has noise to content with and we do not account for that within the SSH interpolation experiments.
+The true noise we see in operational settings is structured and this would require more knowledge outside the scope of our teams expertise.
+A more improved challenge would take these considerations into account.
+We leave this as a future challenge for the community and we hope our platform can help facilitate this.
+
+\textbf{Uncertainty Quantitification}.
+We prefaced the problem statement with the idea of data assimilation which is the notion of \textit{state/parameter estimation under uncertain conditions and incomplete information}~\citep{DAGEOSCIENCE}.
+However, we have not addressed any notion of uncertainty at all throughout the paper.
+Uncertainty is difficult to quantify and we don't want to impose too many restrictions until we more sure about the efficacy of ML for easier problems.
+However, to move the problem setting towards a more realistic setting, we can start to introduce metrics and additional requirements from future challenges, e.g. mean and standard deviation estimates or ensemble predictions.
+
+
+\textbf{Operational Constraints}.
+The real use case of SSH interpolation will involve global data and/or high-resolution data. 
+This involves dealing with very high-dimensional spatiotemporal global state-space.
+In practice, the necessity for the scalability of the method is of paramount importance.
+However, there are also areas within the ML research community who are looking into many ways we can scale up physical models~\citep{VEROS,OCEANANIGANS} and machine learn models for geoscience tasks~\citep{SFNO}.
+We anticipate that once a set of solutions are excepted by a community, the scalability will come later.
+
+
 \section*{Future Perspectives}
 \addcontentsline{toc}{section}{Future Perspectives}
 

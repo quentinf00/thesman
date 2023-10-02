@@ -4,12 +4,6 @@
 % \addcontentsline{toc}{chapter}{Modeling and solving altimetry problems}
   \chaptermark{Modeling and solving altimetry problems}
   
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth]{00_LitReview/Methodology.pdf}
-    \caption{\textbf{Solving altimetry problems}. This figure displays the different methodological components in play when addressing an altimetry challenge. The different approaches for each component are detailed and we highlight which ones are physics or deep learning inspired. The specific methods using are detailed below}
-    \label{c2fig:method}
-\end{figure}
 
 This chapter discusses various existing methodologies for modeling and solving tasks related to ocean altimetry. 
 
@@ -17,13 +11,20 @@ This chapter discusses various existing methodologies for modeling and solving t
 
 Our attention is primarily directed towards techniques that are pertinent to the altimetry challenges explored in this study. Most existing methods are geared towards altimetry mapping, as calibration of the Surface Water and Ocean Topography (SWOT) mission is a relatively nascent area with fewer established techniques. Nonetheless, both types of problems aim to estimate the sea surface height $u$ on a domain $\Omega_u$ given observations $y$ on a domain $\Omega_y$.
 
-  We are interested methods $f \in \cal{F}$ such that $f(y) = \hat{u}$ with $\hat{u}$ an estimation of $u$
-  Given calibration data $\cal{D}$  and a procedure $c$ we want to find the best candidate $c(\cal{D})=\hat(f) \in cal{F}$.
-  The methods of interest can be further detailed through the decomposition of $f$  as $f = f_{x\to u} \circ f_{y\to x}$. The decomposition introduces the state characterization  through a choice of quantities $x$ that characterize an SSH field and a prior distribution $p(x)$. This implies the definition of $f_{x\to u}$ that provides the SSH estimate given a state.
+  We are interested methods $f \in \cal{F}$ such that $f(y) = \hat{u}$ with $\hat{u}$ an estimation of $u$.
+   The high level problem can be stated as finding best candidate $\hat(f) \in \mathcal{F}$ using a procedure $c$ that relies on data $\mathcal{D}$. 
+   Solving this problem rely on the specification of $\cal{F}$.
+  The methods of interest can be further detailed through the decomposition of $f$  as $f = f_{x\to u} \circ f_{y\to x}$. The decomposition introduces the choices of quantities $x$ that characterize the state of an SSH field and a prior distribution $p(x)$. This implies the definition of $f_{x\to u}$ that provides the SSH estimate given a state $x$.
   Secondly, the choice of a state estimation procedure $f_{y\to x}$ that will determine the state values best suited given observations $y$
 $f_{x\to u}$
-  Those components fit nicely in the first and second order formulation introduced in the previous chapter as depicted in Figure \ref{}.
+  Those components fit nicely in the first and second order formulation introduced in the previous chapter as depicted in Figure \ref{c2fig:methodhl}.
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth, clip,trim=0 5cm 0 0]{00_LitReview/Method-highlevel.pdf}
+    \caption{\textbf{Methodological formulation}. This figure illustrate the organization of the different components describe in this chapter}
+    \label{c2fig:methodhl}
+\end{figure}
 
   This chapter describes existing approaches for formulating the different components introduced. The characterization of the state $x \tilde p(x)$ is detailed in Section \ref{c2sec:prior} while Section \ref{c2sec:solvers}  depicts existing approaches for formulating $f_{y\to x}$. Sections \ref{c2sec:calib} and \ref{c2sec:eval} focus respectively on the calibration $c$ and evaluation considerations.
   The final section \ref{c2sec:4dvarnet} delves into the specific choices of the 4DVarNet framework, which serves as the backbone for the research presented in this thesis.
@@ -73,7 +74,7 @@ Deep learning also introduces tools for probabilistic and energy-based modeling 
  For example, 4DVarNet employs a neural network (NN) $\phi$ to define the following quantity over the state space $\| x - \phi(x)\|$. Interpreting this as an energy function, a Boltzmann distribution can be defined the state space, yielding the prior distribution
 
   \begin{equation}
- p(\mathbf{x}) = \frac{\exp(-E(\mathbf{x}) / T)}{Z}
+ p(\mathbf{x}) = \frac{\exp(-\frac{E(\mathbf{x})}{T})}{Z}
     \label{eq:boltzmann}
   \end{equation}
  with $Z = \int \exp(-E(\mathbf{x}) / T) \, d\mathbf{x}$ and $T$ the temperature parameter.
@@ -83,6 +84,7 @@ Deep learning also introduces tools for probabilistic and energy-based modeling 
 We summarize in the table below the different approaches.
   \begin{table}
   \centering
+  \makebox[\textwidth]{
 \begin{tabular}{|l|l|l|l|}
 \hline
   Method & State formulation & SSH estimation &  Prior formulation\\
@@ -101,7 +103,7 @@ We summarize in the table below the different approaches.
 
   Neural field & NN parameters & NN inference & None (Uniform) \\
 \hline
-\end{tabular}
+\end{tabular}}
 \caption{\textbf{Comparison of SSH models across various methods}. The columns indicate the type of state representation $x$, the method of obtaining estimated SSH $\hat{u}$, and the prior distribution $p(x)$.}
 \end{table}
 
@@ -112,7 +114,7 @@ We summarize in the table below the different approaches.
 Once all prior assumptions about the SSH field have been made (i.e. the first order \textbf{model}), the methods differ by the choice of \textbf{calibration procedure} $f_y{\to x}$. $f_{y\to x}$ defines how to estimate the state $\hat{x}$ given some observations $y$.
 
 This problem can be framed as an inverse problem by defining an observation operator $H$ that describe the relation from state to observations ($f_{y\to x}$ then becomes the inverse $H$).
-We define the estimated observations as $\hat{y} = H(x)$. For altimetry observations that measure the quantity of interest $u$, the $H$ operator can be decomposed as $H(x) = \f_{x\to u}(x)_{\Omega_y} + \epsilon$ with $\epsilon$ an error term and $\f_{x\to u}(x)_{\Omega_y}$ the estimated SSH for a given state $x$ over the observed domain $\Omega_y$. The field of data assimilation in geoscience propose a variety of methods to solve inverse problems.
+We define the estimated observations as $\hat{y} = H(x)$. For altimetry observations that measure the quantity of interest $u$, the $H$ operator can be decomposed as $H(x) = f_{x\to u}(x)_{\Omega_y} + \epsilon$ with $\epsilon$ an error term and $f_{x\to u}(x)_{\Omega_y}$ the estimated SSH for a given state $x$ over the observed domain $\Omega_y$. The field of data assimilation in geoscience propose a variety of methods to solve inverse problems.
 
 Using a Bayesian inference formulation, the estimate of the posterior state is done by assuming Gaussian distributions for observation errors and prior states. 
 For Optimal Interpolation, this can be mathematically expressed as:
@@ -183,6 +185,14 @@ A widely adopted approach for this calibration is cross-validation. In this tech
 
 For methods incorporating neural architectures, advanced optimization algorithms specific to deep learning are often employed. These algorithms efficiently tune the weights and biases of the neural network, aligning them for better performance in the SSH estimation task. This is particularly advantageous for direct inversion approaches, which depend entirely on the data for calibration and do not require explicit prior models.
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{00_LitReview/Methodology.pdf}
+    \caption{\textbf{Solving altimetry problems}. This figure displays the different methodological components in play when addressing an altimetry challenge. The different approaches for each component are detailed and we highlight which ones are physics or deep learning inspired. The specific methods using are detailed below}
+    \label{c2fig:method}
+\end{figure}
+
+
 \section{Evaluation}
   \label{c2sec:eval}
 So far, we have described the choices made in developing the methods. Yet, a critical choice remains: selecting the criteria to assess the best method for a given problem. To address this, we consider various evaluation data and metrics.
@@ -201,26 +211,63 @@ In closing, a substantial part of assessing an SSH estimation and deciding on pe
 
 \section{A closer look on the 4dVarNet}
   \label{c2sec:4dvarnet}
+
+\subsection*{Method overview}
+The 4dVarNet is a prominent framework frequently employed throughout this thesis which is composed of the following key points.
+The SSH field is characterized by values on a regular spatial and temporal grid $x$. The SSH estimate $\hat{u}$ is then obtained using an interpolation scheme $f_{x \to u}$ between the grid points. The prior on the state space is formulated using a neural network $\phi$ as $\|x - \phi(x)\|_{l2}$.
+The 4dVarNet framework solves the inverse problem using a variational formulation through the minimization of the cost $J(x, y)$ as stated in  Equation \ref{eq:varcost} 
+\begin{equation}
+ J(x, y) = \|f_{x\to u}(x)(\Omega_y) - y(\Omega_y)\|_{l2} + \| x - \phi(x)\|_{l2}
+    \label{eq:varcost}
+  \end{equation}
+
+The minimization procedure consists in an iterative gradient-based method involving a recurrent neural network $\psi$ which is described in Equation \ref{eq:4dinf}.
+
+
+  \begin{equation}
+  \begin{split}
+ f_{y\to x}(y) &= \arg\min_x \left[J(x, y) \right] \\
+ &= x^N = x^{N-1} - \psi( \nabla_x J(x, y) )
+    \label{eq:4dinf}
+    \end{split}
+  \end{equation}
+The calibration of the neural network parameters of $\phi$ and $\psi$ are performed through the end-to-end training scheme on an OSSE dataset $\mathcal{D}$ as put in  Equation \ref{eq:4dtrain}.
+
+  
+  \begin{equation}
+  \begin{split}
+ \hat{f} = \arg\min_f \sum_{(y, u) \in \mathcal{D}} \mathcal{L}(f(y), u)
+ \end{split}
+    \label{eq:4dtrain}
+  \end{equation}
+
+
+\subsection*{Existing work}
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{00_LitReview/Method-4dvarnet.pdf}
-    \caption{\textbf{4dVarNet Method}}
+    \caption{\textbf{4dVarNet Method components}}
     \label{c2fig:method4}
 \end{figure}
-In this section, we delve into the architecture of 4DVarNet, a prominent framework frequently employed throughout this thesis. 
+In this section, we describe in more detail the different variations of the 4DVarNet in existing work. 
 Introduced as a promising approach for mapping altimetry data, 4DVarNet demonstrated robust performance in a study involving simulated SSH based on NATL60 simulation data\cite{fabletENDTOENDPHYSICSINFORMEDREPRESENTATION2021}. Various regions \cite{beauchamp4DVarNetSSHEndtoendLearning2023} and altimetry configurations were considered in these studies, including setups with 4 nadir altimeters both with and without SWOT observations. Earlier versions considered OI-based products as additional observational data for the inversion \cite{fabletENDTOENDPHYSICSINFORMEDREPRESENTATION2021}.
 
 % The representation of the SSH field within the 4DVarNet framework has evolved over time. While earlier studies decomposed SSH into large and small-scale components \cite{beauchampDatadrivenLearningbasedInterpolations2021}, recent implementations used in Chapter 4 represent directly the SSH grid points a single scalar values. In  \cite{fabletENDTOENDPHYSICSINFORMEDREPRESENTATION2021}, latent variables are added to the state to enrich the prior distribution over the state space without being directly constrained by the observations.
 
-The framework employs a neural network, denoted as  $\phi$  or the formulation of the prior cost as $J_{reg}= \|x - \phi(x)\|_{l2}$ using an $l2$ norm.
-Most altimetry studies using the 4dVarNet formulate $\phi$ as a multiscale bilinear blocks \cite{fabletBilinearResidualNeural2018}, A simpler single scale is used in Chapters 4 adn 5. Outside of altimetry, other $\phi$ have been experimented on Lorenz systems including using the true system's dynamics\cite{fabletLearningVariationalData2021}
+The neural network $\phi$ employed for the prior formulation consists in bilinear blocks as introduced in \cite{fabletBilinearResidualNeural2018}. Earlier work \cite{fabletENDTOENDPHYSICSINFORMEDREPRESENTATION2021} used a multiscale architecture while a simpler single scale is used in Chapters 4 and 5. Outside of altimetry, other $\phi$ have been experimented on Lorenz systems including using the true system's dynamics\cite{fabletLearningVariationalData2021}
 
-A Gaussian assumption for the observation errors is commonly adopted, articulated through a quadratic norm in the observation cost $J_{obs}= \|y - \hat{u}(\Omega_y)\|_{l2}$. In a study that incorporated Sea Surface Temperature (SST) observations\cite{fabletMultimodal4DVarNetsReconstruction2023}, convolutional filters were used to formulate the observation operator that relates the state to SST.
+A Gaussian assumption for the observation errors is commonly adopted, articulated through a quadratic norm in the observation cost. In a study that incorporate Sea Surface Temperature (SST) observations $y_{sst} $\cite{fabletMultimodal4DVarNetsReconstruction2023}, convolutional filters $H_{c1}$, $H_{c2}$ are used to formulate an additional observation cost that relates the state to SST $\| H_{c1}(x) - H_{c2}(y_{sst}\|$.
 
 
-State estimation in 4DVarNet is tackled as a minimization problem for a variational cost, which is a combination of the observation and regularization costs. The optimization procedure is inspired by meta-learning approaches and employs a Recurrent Neural Network (RNN) to compute state updates at each iteration based on the gradient of the variational cost\cite{fabletENDTOENDPHYSICSINFORMEDREPRESENTATION2021}. Earlier works used fixed-point algorithms for maximizing observation likelihood, followed by a forward pass using the neural network $\phi$ \cite{beauchampDatadrivenLearningbasedInterpolations2021}. 
+The neural network $\psi$ is inspired by inspired meta-learning studies \cite{andrychowiczLearningLearnGradient} that employ a Long-Short-Term-Memory (LSTM) to compute state updates\cite{fabletENDTOENDPHYSICSINFORMEDREPRESENTATION2021}. Earlier works used fixed-point algorithms for maximizing observation likelihood, followed by a forward pass using the neural network $\phi$ \cite{beauchampDatadrivenLearningbasedInterpolations2021}. 
 
-Apart from the cross validation and exploration of different architectures and configurations, the calibration of the neural network's parameters, both for the solver and the prior, is achieved through the Adam optimization algorithm \cite{kingmaAdamMethodStochastic2017}. The aim is to minimize both the mean squared error in SSH reconstruction and its gradients. To ensure effective weightage in the neural prior, a supplementary term is added to the training loss, constraining the estimated states to have low prior costs.
+Apart from the cross validation and exploration of different architectures and configurations, the training of the neural network's parameters, both for the solver and the prior, is achieved through the Adam optimization algorithm \cite{kingmaAdamMethodStochastic2017}. The aim is to minimize both the mean squared error in SSH reconstruction and its gradients. As stated in Equation \ref{eq:loss}, a supplementary term is added to the training objective $\mathcal{L}$ to ensure effective weightage in the neural prior by constraining the estimated states to have low prior costs.
+\begin{equation}
+    \mathcal{L}(\hat{u}, u) = \alpha_1\| \hat{u} - u \| 
+  + \alpha_2\| \nabla \hat{u} - \nabla u \| 
+ + \alpha_3\| \hat{u} - \phi (\hat{u}) \|
+ \label{eq:loss}
+\end{equation}
 4DVarNet has emerged as a versatile and effective architecture for handling altimetry data, with various advancements and optimizations over time. By combining neural networks with traditional variational techniques, it opens up promising avenues for state-of-the-art state estimation in oceanographic applications.
 
 \addcontentsline{toc}{section}{Bibliography}

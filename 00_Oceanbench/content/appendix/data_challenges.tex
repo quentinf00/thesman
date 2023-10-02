@@ -51,6 +51,7 @@ In addition, the methods that involve end-to-end learning perform the best overa
 \small
 \begin{center}
 \setlength{\tabcolsep}{1pt}
+\makebox[\textwidth]{
 \begin{tabular}{cccc}
 \hspace{3mm} Task OSSE & 
 \hspace{3mm} Task OSSE & 
@@ -84,7 +85,7 @@ Nadir \\
 \includegraphics[trim={13mm 0 0 5mm},clip,width=4.0cm,height=3.4cm]{00_Oceanbench/content/figures/fourdvarnet_figs/ose_gf_strain.png} \\
 % \vspace{-2mm}
 (a) & (b) & (c) & (d)
-\end{tabular}
+\end{tabular}}
 \vspace{-3mm}
 % \caption{Row I - Isotrophic PSD. Row 2 - Isotrophic PSD Score}
 \caption{
@@ -104,13 +105,13 @@ Each column showcase the reconstructed from the tasks (a) OSSE using only Nadir 
 
 
 \begin{table}[ht]
-\caption{This table showcases all of the summary statistics for some methods for each of the data challenges listed in section~\ref{sec:data_challenges} and~\ref{sec:data_challenges_extended}. The summary statistics shown are the normalized RMSE and the effective resolution in the spectral domain. The spectral metrics for the effective resolution that were outlined in section~\ref{sec:metrics} are: i) $\lambda_a$ is the spatial score for the alongtrack PSD score, ii) $\lambda_r$ is the spatial score for the isotropic PSD, iii) $\lambda_x$ is the spatial score for space-time PSD score, and iv) $\lambda_t$ is the temporal score for the space-time PSD score.}
 % \caption{This table highlights some of the results for the OSSE experiments outlined in section~\ref{sec:osse} and~\ref{sec:other_tasks}.
 
 % This table highlights the performance statistically in the real and spectral space; the normalized RMSE for the real space and the minimum spatial and temporal scales resolved in the spectral domain. 
 % For more information about the class of models displayed and class of metrics, see section~\ref{sec:ml_ontology} and section~\ref{sec:metrics} respectively.}
 \label{tb:exp-results-mega}
 \centering
+\makebox[\textwidth]{
 \begin{tabular}{llcccccc}
  \toprule
 % Experiment & Configuration & Method & nRMSE & Resolved Scale [km]    \\ \midrule
@@ -139,7 +140,8 @@ OSE NADIR     &  BFNQG & 0.88 & 122 & - & - &  -\\
 OSE NADIR &  ConvLSTM &  0.89 & 113 &- &  - &  -\\
 OSE NADIR &  4DVarNet & \textbf{0.91} & \textbf{98} & - &  -  &  -\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
+\caption{This table showcases all of the summary statistics for some methods for each of the data challenges listed in section~\ref{sec:data_challenges} and~\ref{sec:data_challenges_extended}. The summary statistics shown are the normalized RMSE and the effective resolution in the spectral domain. The spectral metrics for the effective resolution that were outlined in section~\ref{sec:metrics} are: i) $\lambda_a$ is the spatial score for the alongtrack PSD score, ii) $\lambda_r$ is the spatial score for the isotropic PSD, iii) $\lambda_x$ is the spatial score for space-time PSD score, and iv) $\lambda_t$ is the temporal score for the space-time PSD score.}
 \end{table}
 
 % \subsection*{Simulated Altimetry Tracks} \label{sec:dc_osse_nadir}
@@ -160,123 +162,8 @@ OSE NADIR &  4DVarNet & \textbf{0.91} & \textbf{98} & - &  -  &  -\\
 
 % \subsection*{Real Altimetry Tracks}  \label{sec:dc_ose_nadir}
 
+
+
 \subsection*{Datasets} \label{sec:datasets}
 
-In Table~\ref{tb:datasets-mega}, we showcase all of the available datasets in our\footnote{Available at: \href{https://github.com/quentinf00/oceanbench-data-registry}{OceanBench Data Registry}} for the challenges listed in the above section. The license for the datasets listed in the registry are under the CCA 4.0 International License.
-
-\begin{landscape}
-\small
-\begin{table}[ht]
-\caption{This table gives an extended overview of the datasets provided to complete the data challenges listed in~\ref{sec:data_challenges} and~\ref{sec:data_challenges_extended}. The OSSE SST and SSH are outputs from come from the free run NEMO model~\citep{NEMOAJAYI2020}. The OSSE NADIR and SWOT are pseudo-observations generated from the NEMO simulation. We provide the original simulated satellite tracks as well as a gridded version at the same resolution as the simulation. 
-}
-\label{tb:datasets-mega}
-\centering
-\begin{tabular}{lcclclcc}
- \toprule
-     & OSSE SSH      & \multicolumn{2}{c}{OSSE SSH NADIR}                     & \multicolumn{2}{c}{OSSE SSH SWOT}                      & OSSE SST             & OSE SSH NADIR            \\ \midrule\midrule
-Data Structure & Gridded              & AlongTrack           & \multicolumn{1}{c}{Gridded} & AlongTrack           & \multicolumn{1}{c}{Gridded} & Gridded              & AlongTrack           \\
-     & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} &                             & \multicolumn{1}{l}{} &  \\ \midrule
-Source     & 
-NEMO~\citep{NEMOAJAYI2020} &
-NEMO~\citep{NEMOAJAYI2020} &
-NEMO~\citep{NEMOAJAYI2020} &
-NEMO~\citep{NEMOAJAYI2020} & 
-NEMO~\citep{NEMOAJAYI2020} &
-NEMO~\citep{NEMOAJAYI2020}
-% \multicolumn{3}{c}{NEMO GCM\citep{NEMOAJAYI2020}}  
-& Altimetry~\citep{MDSALONGTRACK} \\
-Region & 
-GulfStream & GulfStream & GulfStream & GulfStream &
-GulfStream & GulfStream & GulfStream
-\\
-Domain Size [$^\circ$] &
-% ($L_x\times L_y$) 
-$10\times 10^\circ$ &
-$10\times 10^\circ$ &
-$10\times 10^\circ$ &
-$10\times 10^\circ$ &
-$10\times 10^\circ$ &
-$10\times 10^\circ$ &
-$10\times 10^\circ$ \\
-Domain Size [km] &
-% ($L_x\times L_y$) 
-$1,100\times 1,100$ &
-$1,100\times 1,100$ &
-$1,100\times 1,100$ &
-$1,100\times 1,100$ &
-$1,100\times 1,100$ &
-$1,100\times 1,100$ &
-$1,100\times 1,100$ \\
-Longitude Extent &
-$[-65^\circ, -55^\circ]$ & 
-$[-65^\circ, -55^\circ]$ & 
-$[-65^\circ, -55^\circ]$ & 
-$[-65^\circ, -55^\circ]$ & 
-$[-65^\circ, -55^\circ]$ &
-$[-65^\circ, -55^\circ]$ &
-$[-65^\circ, -55^\circ]$ \\
-Latitude Extent &
-$[33^\circ, 43^\circ]$ &
-$[33^\circ, 43^\circ]$ &
-$[33^\circ, 43^\circ]$ &
-$[33^\circ, 43^\circ]$ &
-$[33^\circ, 43^\circ]$ &
-$[33^\circ, 43^\circ]$ &
-$[33^\circ, 43^\circ]$ \\
-Resolution [$^\circ$] &
-% ($\Delta_x\times \Delta_y$) 
-$0.05^\circ\times 0.05^\circ$ &
-N/A &
-$0.05^\circ\times 0.05^\circ$ &
-N/A &
-$0.05^\circ\times 0.05^\circ$ &
-$0.05^\circ\times 0.05^\circ$ &
-N/A \\
-Resolution [km] &
-% ($\Delta_x\times \Delta_y$) 
-$5.5\times 5.5$ &
-$6$ &
-$5.5\times 5.5$ &
-$6$ &
-$5.5\times 5.5$ &
-$5.5\times 5.5$ &
-$7$ \\
-Grid Size &
-$200\times 200$ & 
-N/A &
-$200\times 200$ & 
-N/A &
-$200\times 200$ & 
-$200\times 200$ & 
-N/A \\
-Num. Datapoints &
-$\sim$14.6M & 
-$\sim$205K & 
-$\sim$14.6M & 
-$\sim$955K & 
-$\sim$14.6M & 
-$\sim$14.6M & 
-$\sim$1.79M \\ \midrule
-Period Start & 
-2012-10-01 & 2012-10-01 & 2012-10-01 & 2012-10-01 & 
-2012-10-01 & 2012-10-01 & 2016-12-01 \\
-Period End & 
-2013-09-30 & 2013-09-30 & 2013-09-30 & 2013-09-30 & 
-2013-09-30 & 2013-09-30 & 2018-01-31 \\
-Frequency  & 
-Daily & 1 Hz  & Daily & 1 Hz  & Daily & Daily & 1 Hz \\ 
-Period Length & 365 Days & 365 Days & 365 Days &
-365 Days & 365 Days & 365 Days & 427 Days \\
-\midrule
-Evaluation Start & 
-2012-10-22 & 2012-10-22 & 2012-10-22 & 2012-10-22 & 
-2012-10-22 & 2012-10-22 & 2017-01-01 \\
-Evaluation End & 
-2012-12-02 & 2012-12-02 & 2012-12-02 & 2012-12-02 & 
-2012-12-02 & 2012-12-02 & 2017-12-31 \\ 
-Evaluation Length & 45 Days & 45 Days & 45 Days &
-45 Days & 45 Days & 45 Days & 365 Days \\
-\bottomrule
-\end{tabular}
-\end{table}
-\end{landscape}
+In Table~\ref{c5tb:datasetsmega}, we showcase all of the available datasets in our\footnote{Available at: \href{https://github.com/quentinf00/oceanbench-data-registry}{OceanBench Data Registry}} for the challenges listed in the above section. The license for the datasets listed in the registry are under the CCA 4.0 International License.
