@@ -12,68 +12,35 @@ This thesis is part of a broader movement towards developing deep learning metho
 
 The first contribution highlights the successful application of deep learning for bias correction of simulated SWOT observation data. While standard deep learning architectures struggled to differentiate fine SSH signatures from high amplitude bias, we demonstrated that deep learning methods could be tailored to suit the unique characteristics of altimetry data. We employed SWOT mission's error specifications to craft a custom architecture focused on calibrating SWOT's correlated errors. This study is promising, yet the method developed was calibrated and assessed using simulated data, bringing up questions about its applicability to actual SWOT observations.
 
-The second study delves into how learning-based altimetry methods, once calibrated on simulated data, can be applied to real data. We evaluated the 4dVarNet mapping schemes on real altimetry after calibration on simulated data. The findings indicate strong generalization capabilities even with coarse simulations, while more accurate simulations enhance the mapping performance.
+The second study delves into how learning-based altimetry methods, once calibrated on simulated data, can be applied to real data. We evaluated the 4dVarNet mapping schemes on real altimetry after calibration on simulated data. The findings indicate strong generalization capabilities even with coarse simulations, while more accurate simulations enhance the mapping performance. The results introduce interesting avenues in exploring the use of numerical simulation for training models for real-world applications.
 
-The initial two studies shed light on the potential of applying learning-based approaches to ocean science's observational challenges. Yet, they also spotlight the complexities in melding expertise in observation, simulation data, deep learning techniques, and domain-specific evaluation methodologies. This spurred the creation of the specialized toolset, Oceanbench, aiming to narrow the gap between deep learning and ocean science experts. Oceanbench enables ocean scientists to flexibly design evaluation setups using data and metrics. These setups come with the essential tools for deep learning practitioners to access and prepare the data in view of training their models.
+The initial two studies shed light on the potential of applying learning-based approaches to ocean science's observational challenges. Yet, they also spotlight the complexities in melding expertise in observation, simulation data, deep learning techniques, and domain-specific evaluation methodologies. This spurred the creation of the specialized toolset, Oceanbench, aiming to narrow the gap between deep learning and ocean science experts. Oceanbench enables ocean scientists to flexibly design evaluation setups using data and metrics. These setups come with the essential tools for deep learning practitioners to access and prepare the data in view of training their models. The first iteration presented in this manuscript focuses on sea surface height interpolation but has been thought to be extensible to other ocean observation challenges.
 
 \newpage
-\subsection{Limitations}
-
-We have showcased the SSH interpolation edition as a data challenge which could be helpful for real applications. 
-However, in section~\ref{sec:problem_scope} we alluded to the greater task of general ocean state estimation which is more pertinent to the ocean sciences yet we don't address this directly with our data challenges.
-Furthermore, we claim that the data challenges presented will help the ocean community with using ML for SSH interpolation.
-Below, we outline some limitations which address these criticisms.
-
-\textbf{Not the overall objective}. 
-We recognized that we are far away from the actual reanalysis and forecasting goals of full state estimation. 
-However, we argue that that is a rather ambitious challenge which will require a lot of interdisciplinary work across communities. 
-In the meantime while we work towards that goal, operational centers could possibly improve their current products from ML-based techniques would would benefit downstream applications that deal directly with SSH.
-Furthermore, SSH is an important variable in describing the full ocean state.
-So a robust set of techniques that are able to solve the interpolation tasks could (in principal) be used to solve extra tasks.
-
-\textbf{Small Region \& Period}.
-We only feature a small region and period over the Gulfstream which is not representative of the different global regimes. 
-This also does not take into account real things like \textit{data drift} which will inevitable occur in operational settings.
-However, this is a dynamical regime and a well-studied area which does have some importance for specific communities and the results obtained offer some transferability to other dynamical regimes.
-In addition, this area will have good coverage due to the new SWOT mission~\cite{SWOT} which will allow for further validation in the future.
-Lastly, the area is small enough where the beginning stages for ML researchers is not overwhelmed with problems involving scale (even though we eventually want to arrive at global schemes).
-We hope to extend our challenges to more relevant scenarios~\cite{MDSALONGTRACK}.
-
-
-\textbf{Noise Characterization}.
-Real data has noise to content with and we do not account for that within the SSH interpolation experiments.
-The true noise we see in operational settings is structured and this would require more knowledge outside the scope of our teams expertise.
-A more improved challenge would take these considerations into account.
-We leave this as a future challenge for the community and we hope our platform can help facilitate this.
-
-\textbf{Uncertainty Quantitification}.
-We prefaced the problem statement with the idea of data assimilation which is the notion of \textit{state/parameter estimation under uncertain conditions and incomplete information}~\citep{DAGEOSCIENCE}.
-However, we have not addressed any notion of uncertainty at all throughout the paper.
-Uncertainty is difficult to quantify and we don't want to impose too many restrictions until we more sure about the efficacy of ML for easier problems.
-However, to move the problem setting towards a more realistic setting, we can start to introduce metrics and additional requirements from future challenges, e.g. mean and standard deviation estimates or ensemble predictions.
-
-
-\textbf{Operational Constraints}.
-The real use case of SSH interpolation will involve global data and/or high-resolution data. 
-This involves dealing with very high-dimensional spatiotemporal global state-space.
-In practice, the necessity for the scalability of the method is of paramount importance.
-However, there are also areas within the ML research community who are looking into many ways we can scale up physical models~\citep{VEROS,OCEANANIGANS} and machine learn models for geoscience tasks~\citep{SFNO}.
-We anticipate that once a set of solutions are excepted by a community, the scalability will come later.
-
-
-\section*{Future Perspectives}
-\addcontentsline{toc}{section}{Future Perspectives}
+\subsection{Current Limitations and perspectives}
 
 Several avenues can be explored to further extend the work presented in this thesis.
 
-While deep learning methods offer promising results, it's understandable that some ocean scientists may remain cautious, even if these methods demonstrate superior performance to current operational approaches. Their concerns regarding the interpretability of deep learning models and their relative robustness compared to physically descriptive systems are valid points of discussion.
-To address these concerns, I propose two potential paths forward. First, emphasizing the importance of quantifying the uncertainty associated with model estimations. Such uncertainty quantification (UQ) is crucial when addressing ill-posed inverse problems and can play a significant role in bolstering confidence in the results. Second, exploring the realm of physics-informed deep learning, which marries our physical understanding of the ocean with the adaptive nature of deep learning models. There are existing studies that have dabbled in approaches involving dynamical systems, which, while simpler than the ocean, can provide valuable insights.
-
-This thesis predominantly centers on SSH, a surface field that is relatively well-observed in the realm of ocean quantities. Exploring other quantities, observed through different instrument, with different sampling or even not observed directly at all would introduce many more challenges requiring domain-informed problem specifications that deep learning could adress.
-
-Furthermore, the research presented herein pertains to a particular region. Transitioning these findings to functional products would entail considerable scaling challenges. These encompass both scientific aspects, such as dealing with coastlines and varying ocean regimes, and engineering concerns like handling expansive datasets for the training and assessment of the models.
+\textbf{Small Region \& Period}.
+The research presented here pertains to particular region and periods over the Gulfstream which is not representative of the different global regimes. 
+This use-case contains a dynamical regime and a well-studied area which has some importance for specific communities and is small enough to mitigate the problems involving scale. 
+However confirming the robustness of deep learning schemes on the global ocean is a necessary step to validate their potential.
 
 
+\textbf{Operational Constraints}.
+Real altimetry use-cases involve global and/or high-resolution data. 
+This involves dealing with very high-dimensional spatiotemporal global state-space.
+In practice, the necessity for the scalability of the method is of paramount importance.
+ Transitioning the methods demonstrated in this thesis to functional products would entail considerable scaling challenges. These encompass both scientific aspects, such as dealing with coastlines and varying ocean regimes, and engineering concerns like handling large datasets for the training and assessment of the models.
+
+\textbf{Altimetry as an entrypoint}.
+This thesis centers on SSH, a surface field that is relatively well-observed in the realm of ocean quantities. Exploring other quantities, observed through different instrument, with different sampling or even not directly-observed would introduce many more challenges requiring domain-informed problem specifications that deep learning could adress.
+Therefore the work presented here is still far away from actual reanalysis and forecasting goals of full state estimation. 
+Achieving more ambitious estimation challenge will require a lot of interdisciplinary work across communities and we hope the work done with Oceanbench can help to that regard. 
+
+\textbf{Deep learning interpretability}.
+While deep learning methods offer promising results, it's understandable to remain cautious. Concerns regarding the interpretability of deep learning models and their robustness compared to physically descriptive systems are valid points of discussion.
+Two potential paths forward can help address these concerns. First, emphasizing the importance of quantifying the uncertainty associated with model estimations. Such uncertainty quantification (UQ) is crucial when addressing ill-posed inverse problems and can play a significant role in bolstering confidence in the results. Second, exploring the realm of physics-informed deep learning and theory-guided datascience, which marries our physical understanding of the ocean with the adaptive nature of deep learning models. Existing studies have dabbled in approaches involving dynamical systems, which, while usually simpler than the ocean, can provide valuable insights for ocean observation applications.
 
 % We review in this chapter the main contributions that have been described in this manuscript as well as the future perspectives introduced through them.
 
