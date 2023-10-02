@@ -9,13 +9,13 @@ This chapter discusses various existing methodologies for modeling and solving t
 
 
 
-Our attention is primarily directed towards techniques that are pertinent to the altimetry challenges explored in this study. Most existing methods are geared towards altimetry mapping, as calibration of the Surface Water and Ocean Topography (SWOT) mission is a relatively nascent area with fewer established techniques. Nonetheless, both types of problems aim to estimate the sea surface height $u$ on a domain $\Omega_u$ given observations $y$ on a domain $\Omega_y$.
+Our attention is primarily directed towards techniques that are relevant to the altimetry challenges explored in this study. Most existing methods are geared towards altimetry mapping, as calibration of the Surface Water and Ocean Topography (SWOT) mission is a relatively nascent area with fewer established techniques. Nonetheless, both types of problems aim to estimate the sea surface height $u$ on a domain $\Omega_u$ given observations $y$ on a domain $\Omega_y$.
 
-  We are interested methods $f \in \cal{F}$ such that $f(y) = \hat{u}$ with $\hat{u}$ an estimation of $u$.
+  Therefore, the methods of interest $f \in \cal{F}$  are such that $f(y) = \hat{u}$ with $\hat{u}$ an estimation of $u$.
    The high level problem can be stated as finding best candidate $\hat(f) \in \mathcal{F}$ using a procedure $c$ that relies on data $\mathcal{D}$. 
    Solving this problem rely on the specification of $\cal{F}$.
-  The methods of interest can be further detailed through the decomposition of $f$  as $f = f_{x\to u} \circ f_{y\to x}$. The decomposition introduces the choices of quantities $x$ that characterize the state of an SSH field and a prior distribution $p(x)$. This implies the definition of $f_{x\to u}$ that provides the SSH estimate given a state $x$.
-  Secondly, the choice of a state estimation procedure $f_{y\to x}$ that will determine the state values best suited given observations $y$
+  $f$ can be further detailed through the decomposition as $f = f_{x\to u} \circ f_{y\to x}$. The decomposition mainly introduces the choices of intermediate quantities $x$ that characterize the state of an SSH field and a prior distribution $p(x)$. This implies the definition of $f_{x\to u}$ that provides the SSH estimate given a state $x$.
+  Secondly, this decomposition implies the choice of a state estimation procedure $f_{y\to x}$ that will determine the state values best suited given observations $y$
 $f_{x\to u}$
   Those components fit nicely in the first and second order formulation introduced in the previous chapter as depicted in Figure \ref{c2fig:methodhl}.
 
@@ -26,7 +26,7 @@ $f_{x\to u}$
     \label{c2fig:methodhl}
 \end{figure}
 
-  This chapter describes existing approaches for formulating the different components introduced. The characterization of the state $x \tilde p(x)$ is detailed in Section \ref{c2sec:prior} while Section \ref{c2sec:solvers}  depicts existing approaches for formulating $f_{y\to x}$. Sections \ref{c2sec:calib} and \ref{c2sec:eval} focus respectively on the calibration $c$ and evaluation considerations.
+  This chapter describes existing approaches for formulating the different components. Possible characterizations of the state $x \tilde p(x)$ are detailed in Section \ref{c2sec:prior} while Section \ref{c2sec:solvers} depicts existing approaches for formulating $f_{y\to x}$. Sections \ref{c2sec:calib} and \ref{c2sec:eval} focus respectively on the calibration $c$ and evaluation considerations.
   The final section \ref{c2sec:4dvarnet} delves into the specific choices of the 4DVarNet framework, which serves as the backbone for the research presented in this thesis.
 
 
@@ -47,10 +47,10 @@ The choice of state representation defines the quantities $x$ that characterizes
 
 
   Looking at existing methods, the SSH field can be characterized through values sampled on a grid or mesh of the domain. These values can directly represent SSH as represented by methods such as the DUACS optimal interpolation \cite{taburetDUACSDT2018252019} (OI), quasi-geostrophic back and forth nudging (BFN-QG) \cite{guillouMappingAltimetryForthcoming2021}, Kalman filtering in GLORYS12 reanalysis \cite{lelloucheCopernicusGlobal122021} or Dynamical Interpolation \cite{ubelmannDynamicInterpolationSea2015,ballarottaDynamicMappingAlongTrack2020} .
-  Other methods chose more complex description of the SSH values with large scale and small scale components like in the 4DVarNet\cite{beauchamp4DVarNetSSHEndtoendLearning2023} or even projected values on another basis like MIOST\cite{ubelmannReconstructingOceanSurface2021,ubelmannSimultaneousEstimationOcean2022} which uses a wavelet basis.
+  Other methods choose more complex descriptions of the SSH values with large scale and small scale components like in the 4DVarNet\cite{beauchamp4DVarNetSSHEndtoendLearning2023} or even projected values on another basis like MIOST\cite{ubelmannReconstructingOceanSurface2021,ubelmannSimultaneousEstimationOcean2022} which uses a wavelet basis.
   The choices like the mesh, basis or SSH decomposition used is a way to use prior knowledge to dimension the state space. A grid representations of the SSH can be propagated to the whole domain $\Omega_u$ using interpolation schemes which impose additional choices.
 
-  The strong-constraint four dimensional variational data assimilation (s4DVAR)\cite{carrassiDataAssimilationGeosciences2018} consider states that are solutions to differential equations characterizing the system. The state $x$ then takes the form of initial temporal conditions that are propagated in time using a dynamical model numerical integration scheme. Note that parameters of the model and integration scheme can be part of the state and estimated alongside the initial conditions. 
+  The strong-constraint four dimensional variational data assimilation (s4DVAR)\cite{carrassiDataAssimilationGeosciences2018} consider SSH fields that are solutions to differential equations characterizing the system. The state $x$ then takes the form of initial temporal conditions that are propagated in time using a dynamical model numerical integration scheme. Note that parameters of the model and integration scheme can be part of the state and estimated alongside the initial conditions. 
 
   Deep learning has introduced new ways of representing the SSH. Notably, Neural fields\cite{johnsonNeuralFieldsFast2022} consists in describing the SSH with the parameters of a coordinate-based neural network. The neural network can then be used to output the SSH value for any given coordinate of the domain.
 
@@ -259,9 +259,9 @@ The neural network $\phi$ employed for the prior formulation consists in bilinea
 A Gaussian assumption for the observation errors is commonly adopted, articulated through a quadratic norm in the observation cost. In a study that incorporate Sea Surface Temperature (SST) observations $y_{sst} $\cite{fabletMultimodal4DVarNetsReconstruction2023}, convolutional filters $H_{c1}$, $H_{c2}$ are used to formulate an additional observation cost that relates the state to SST $\| H_{c1}(x) - H_{c2}(y_{sst}\|$.
 
 
-The neural network $\psi$ is inspired by inspired meta-learning studies \cite{andrychowiczLearningLearnGradient} that employ a Long-Short-Term-Memory (LSTM) to compute state updates\cite{fabletENDTOENDPHYSICSINFORMEDREPRESENTATION2021}. Earlier works used fixed-point algorithms for maximizing observation likelihood, followed by a forward pass using the neural network $\phi$ \cite{beauchampDatadrivenLearningbasedInterpolations2021}. 
+The neural network $\psi$ is inspired by meta-learning studies \cite{andrychowiczLearningLearnGradient} that employ a Long-Short-Term-Memory (LSTM) to compute state updates\cite{fabletENDTOENDPHYSICSINFORMEDREPRESENTATION2021}. Earlier works used fixed-point algorithms for maximizing observation likelihood, followed by a forward pass using the neural network $\phi$ \cite{beauchampDatadrivenLearningbasedInterpolations2021}. 
 
-Apart from the cross validation and exploration of different architectures and configurations, the training of the neural network's parameters, both for the solver and the prior, is achieved through the Adam optimization algorithm \cite{kingmaAdamMethodStochastic2017}. The aim is to minimize both the mean squared error in SSH reconstruction and its gradients. As stated in Equation \ref{eq:loss}, a supplementary term is added to the training objective $\mathcal{L}$ to ensure effective weightage in the neural prior by constraining the estimated states to have low prior costs.
+Apart from the cross validation and exploration of different architectures and configurations, the training of the neural network's parameters, both for the solver and the prior, is achieved through the Adam optimization algorithm \cite{kingmaAdamMethodStochastic2017}. The aim is to minimize both the mean squared error in SSH reconstruction and its gradients. In order to constrain the estimated states to have low prior costs, a supplementary term is added to ensure effective weightage in the neural prior. This results in the training objective $\mathcal{L}$ described in Equation \ref{eq:loss}.
 \begin{equation}
     \mathcal{L}(\hat{u}, u) = \alpha_1\| \hat{u} - u \| 
   + \alpha_2\| \nabla \hat{u} - \nabla u \| 
